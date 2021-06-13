@@ -31,6 +31,8 @@ export default class Registration extends React.Component {
             .then(res => {
                 if (res.data.error) {
                     this.setState({ error: true });
+                } else if (res.data.status === 200) {
+                    location.replace("/");
                 }
             })
             .catch(error => {
