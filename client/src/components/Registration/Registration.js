@@ -1,7 +1,8 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React from "react";
 import "./styles.css";
 import Error from "../Error/Error";
+import InputField from "../InputField/InputField";
 
 export default class Registration extends React.Component {
     constructor(props) {
@@ -13,58 +14,39 @@ export default class Registration extends React.Component {
             password: "",
             error: false
         };
-
-        this.handleChange = this.handleChange.bind(this);
+        this.handleInput = this.handleInput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(event) {
+    handleInput(target, value) {
         this.setState({
-            [event.target.name]: event.target.value
-        }, () => {
-            if (this.state[event.target.name]) {
-                document.querySelector(`span.${event.target.name}`).classList.add("full");
-            } else {
-                document.querySelector(`span.${event.target.name}`).classList.remove("full");
-            }
+            [target]: value
         });
-
     }
 
     handleSubmit(event) {
         event.preventDefault();
         const { first, last, email, password } = this.state;
-        axios.post("/register", { first, last, email, password })
+        axios.post("/register.json", { first, last, email, password })
             .then(res => {
-                console.log(res.data);
+                if (res.data.error) {
+                    this.setState({ error: true });
+                }
             })
-            .catch((error) => {
-                console.log(error);
-                useState({ error: true });
+            .catch(error => {
+                this.setState({ error: true });
             });
     }
 
     render() {
         return (
             <>
-                <form onSubmit={this.handleSubmit}>
+                <form id="register-form" onSubmit={this.handleSubmit}>
                     <h1>Register</h1>
-                    <div>
-                        <input name="first" type="text" value={this.state.first} onChange={this.handleChange} />
-                        <span className="first empty">First Name</span>
-                    </div>
-                    <div>
-                        <input name="last" type="text" value={this.state.last} onChange={this.handleChange} />
-                        <span className="last empty">Last Name</span>
-                    </div>
-                    <div>
-                        <input name="email" type="email" value={this.state.email} onChange={this.handleChange} />
-                        <span className="email empty">Email Address</span>
-                    </div>
-                    <div>
-                        <input name="password" value={this.state.password} onChange={this.handleChange} />
-                        <span className="password empty">Password</span>
-                    </div>
+                    <InputField name="first" label="First Name" handleInput={this.handleInput} />
+                    <InputField name="last" label="Last Name" handleInput={this.handleInput} />
+                    <InputField name="email" label="Email Address" type="email" handleInput={this.handleInput} />
+                    <InputField name="password" label="Password" type="password" handleInput={this.handleInput} />
                     <Error error={this.state.error} />
                     <button type="submit">Register</button>
                 </form>

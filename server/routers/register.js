@@ -3,7 +3,7 @@ const { addUser } = require("../db/index");
 const express = require("express");
 const router = express.Router();
 
-router.post("/register", (req, res) => {
+router.post("/register.json", (req, res) => {
     const { first, last, email, password } = req.body;
     genHash(password)
         .then(hashedPassword => {
@@ -13,9 +13,15 @@ router.post("/register", (req, res) => {
                     req.session.user = { id, first, last };
                     res.json({ id, status: 200 });
                 })
-                .catch(error => console.log(error));
+                .catch(error => {
+                    console.log(error);
+                    res.json({ error: true, status: 400 });
+                });
         })
-        .catch(error => console.log(error));
+        .catch(error => {
+            console.log(error);
+            res.json({ error: true, status: 400 });
+        });
 });
 
 

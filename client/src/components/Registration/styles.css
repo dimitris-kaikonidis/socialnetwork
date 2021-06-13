@@ -1,4 +1,4 @@
-form {
+#register-form {
     display: flex;
     flex-direction: column;
     width: 200px;
@@ -7,51 +7,19 @@ form {
     border-radius: 5px;
 }
 
-form > h1 {
+#register-form > h1 {
     text-align: center;
     color: white;
 }
 
-form > div {
+#register-form > div {
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin-top: 10px;
 }
 
-span.empty {
-    overflow: hidden;
-    pointer-events: none;
-    position: absolute;
-    width: 100%;
-    padding: 5px;
-    margin: 2px;
-    font-size: 15px;
-    transition: 250ms;
-}
-
-input:focus + span {
-    margin-top: -10px;
-    padding-top: 0px;
-    font-size: 10px;
-    transition: 250ms;
-}
-
-span.full {
-    margin-top: -10px;
-    padding-top: 0px;
-    font-size: 10px;
-    transition: 250ms;
-}
-
-input {
-    padding: 5px;
-    padding-top: 20px;
-    font-size: 15px;
-    border-radius: 5px;
-}
-
-button {
+#register-form > button {
     margin-top: 30px;
     padding: 5px;
     font-size: 20px;

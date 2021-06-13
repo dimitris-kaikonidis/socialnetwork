@@ -1,26 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
+import classNames from "classnames";
 import "./styles.css";
 
 export default class Error extends React.Component {
     constructor(props) {
         super(props);
-        this.toggle = this.toggle.bind(this);
-    }
-
-    componentDidUpdate() {
-        this.toggle();
-    }
-
-    toggle() {
-        if (this.props.error) {
-            document.querySelector(".error-msg").classList.remove("hidden");
-        } else {
-            document.querySelector(".error-msg").classList.add("hidden");
-        }
     }
 
     render() {
-        return <h3 className="error-msg hidden"> Something went wrong :/</h3>;
+        const errorClass = classNames({
+            "error-msg": true,
+            hidden: !this.props.error
+        });
+        return <h3 className={errorClass}> Something went wrong :/</h3>;
     }
 }
 

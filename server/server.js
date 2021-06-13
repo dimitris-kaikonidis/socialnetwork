@@ -22,8 +22,7 @@ app.use(express.static(path.join(__dirname, "..", "client", "public")));
 app.use(register);
 
 app.get("/user/id.json", (req, res) => {
-    const { id } = req.session;
-    res.json({ id });
+    res.json({ id: req.session.user });
 });
 
 app.get("*", (req, res) => res.sendFile(path.join(__dirname, "..", "client", "index.html")));

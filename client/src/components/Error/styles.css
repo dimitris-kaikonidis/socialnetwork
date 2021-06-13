@@ -3,6 +3,6 @@
     color: white;
 }
 
-.hidden {
+.error-msg.hidden {
     visibility: hidden;
 }
