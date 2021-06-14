@@ -1,5 +1,6 @@
 const { genHash } = require("../utilities/bcrypt");
 const { addUser } = require("../db/index");
+const { handleError } = require("../utilities/handleError");
 const express = require("express");
 const router = express.Router();
 
@@ -13,15 +14,9 @@ router.post("/register.json", (req, res) => {
                     req.session.user = { id, first, last };
                     res.json({ id, status: 200 });
                 })
-                .catch(error => {
-                    console.log(error);
-                    res.json({ error: true, status: 400 });
-                });
+                .catch(error => res.json(handleError(error, 400)));
         })
-        .catch(error => {
-            console.log(error);
-            res.json({ error: true, status: 400 });
-        });
+        .catch(error => res.json(handleError(error, 400)));
 });
 
 module.exports = router;
