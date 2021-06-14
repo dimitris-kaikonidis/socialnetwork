@@ -1,16 +1,13 @@
 import axios from "../../utilities/axios";
 import React from "react";
-import { Link } from "react-router-dom";
 import "./styles.css";
 import Error from "../Error/Error";
 import InputField from "../InputField/InputField";
 
-export default class Registration extends React.Component {
+export default class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            first: "",
-            last: "",
             email: "",
             password: "",
             error: false
@@ -27,8 +24,8 @@ export default class Registration extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        const { first, last, email, password } = this.state;
-        axios.post("/register.json", { first, last, email, password })
+        const { email, password } = this.state;
+        axios.post("/login.json", { email, password })
             .then(res => {
                 if (res.data.error) {
                     this.setState({ error: true });
@@ -44,16 +41,13 @@ export default class Registration extends React.Component {
     render() {
         return (
             <>
-                <form id="register-form" onSubmit={this.handleSubmit}>
-                    <h1>Register</h1>
-                    <InputField name="first" label="First Name" handleInput={this.handleInput} />
-                    <InputField name="last" label="Last Name" handleInput={this.handleInput} />
+                <form id="login-form" onSubmit={this.handleSubmit}>
+                    <h1>Login</h1>
                     <InputField name="email" label="Email Address" type="email" handleInput={this.handleInput} />
                     <InputField name="password" label="Password" type="password" handleInput={this.handleInput} />
                     <Error error={this.state.error} />
-                    <button type="submit">Register</button>
+                    <button type="submit">Login</button>
                 </form>
-                <Link to="/login.json">Already have an account? Click here</Link>
             </>
         );
     }

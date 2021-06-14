@@ -1,9 +1,7 @@
 import ReactDOM from "react-dom";
-import axios from "axios";
-
+import axios from "./utilities/axios";
 import Logo from "./components/Logo/Logo";
 import Welcome from "./components/Welcome/Welcome";
-
 
 axios.get("/user/id.json")
     .then(res => {

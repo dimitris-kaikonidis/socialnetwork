@@ -1,4 +1,4 @@
-#register-form {
+#login-form {
     display: flex;
     flex-direction: column;
     width: 200px;
@@ -8,19 +8,19 @@
     border-radius: 5px;
 }
 
-#register-form > h1 {
+#login-form > h1 {
     text-align: center;
     color: white;
 }
 
-#register-form > div {
+#login-form > div {
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin-top: 10px;
 }
 
-#register-form > button {
+#login-form > button {
     margin-top: 30px;
     padding: 5px;
     font-size: 20px;

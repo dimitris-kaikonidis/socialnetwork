@@ -2,6 +2,7 @@ const chalk = require("chalk");
 const compression = require("compression");
 const path = require("path");
 const cookieSession = require("cookie-session");
+const csurf = require("csurf");
 const sessionSecret = require("./secrets.json").SESSION_SECRET;
 const express = require("express");
 
@@ -10,12 +11,18 @@ const register = require("./routers/register");
 
 const app = express();
 
+//Middlewares
 app.use(compression());
 app.use(cookieSession({
     secret: sessionSecret,
     maxAge: 1000 * 60 * 60 * 24 * 30
 }));
 app.use(express.json());
+app.use(csurf());
+app.use((req, res, next) => {
+    res.cookie("token", req.csrfToken());
+    next();
+});
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
 
 //Routes

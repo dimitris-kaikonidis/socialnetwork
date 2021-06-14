@@ -24,6 +24,4 @@ router.post("/register.json", (req, res) => {
         });
 });
 
-
-
 module.exports = router;
