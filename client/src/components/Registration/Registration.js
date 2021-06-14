@@ -1,9 +1,9 @@
 import axios from "../../utilities/axios";
 import React from "react";
 import { Link } from "react-router-dom";
-import "./styles.css";
 import Error from "../Error/Error";
 import InputField from "../InputField/InputField";
+import "./styles.css";
 
 export default class Registration extends React.Component {
     constructor(props) {
@@ -52,8 +52,8 @@ export default class Registration extends React.Component {
                     <InputField name="password" label="Password" type="password" handleInput={this.handleInput} />
                     <Error error={this.state.error} />
                     <button type="submit">Register</button>
+                    <h4>Already have an account? Click <Link to="/login.json">here</Link> </h4>
                 </form>
-                <Link to="/login.json">Already have an account? Click here</Link>
             </>
         );
     }

@@ -1,5 +1,6 @@
 import axios from "../../utilities/axios";
 import React from "react";
+import { Link } from "react-router-dom";
 import "./styles.css";
 import Error from "../Error/Error";
 import InputField from "../InputField/InputField";
@@ -47,6 +48,7 @@ export default class Login extends React.Component {
                     <InputField name="password" label="Password" type="password" handleInput={this.handleInput} />
                     <Error error={this.state.error} />
                     <button type="submit">Login</button>
+                    <h4>Already have an account? Click <Link to="/">here</Link> </h4>
                 </form>
             </>
         );
