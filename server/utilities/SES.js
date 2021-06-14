@@ -1,4 +1,5 @@
 const aws = require("aws-sdk");
+const { myEmail } = require("../secrets.json");
 
 const secrets = process.env.NODE_ENV === "production" ? process.env : require("../secrets.json");
 
@@ -8,10 +9,10 @@ const ses = new aws.SES({
     region: 'eu-central-1'
 });
 
-module.exports = function sendEmail(recipient, subject, message) {
+module.exports.sendEmail = (recipient, subject, message) => {
     ses
         .sendEmail({
-            Source: "dimitris.kaikonidis@gmail.com",
+            Source: myEmail,
             Destination: {
                 ToAddresses: [recipient]
             },

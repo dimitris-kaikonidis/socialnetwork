@@ -36,7 +36,7 @@ export default class PasswordReset extends React.Component {
                 .catch(error => this.setState({ error: true }));
         } else if (this.state.step === 2) {
             axios
-                .post("/password/reset/verify.json", { tempPassword, newPassword })
+                .post("/password/reset/verify.json", { email, tempPassword, newPassword })
                 .then(res => res.data.error ? this.setState({ error: true }) : this.setState({ step: 3 }))
                 .catch(error => this.setState({ error: true }));
         }
