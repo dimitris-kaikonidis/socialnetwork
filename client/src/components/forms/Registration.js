@@ -1,9 +1,10 @@
-import axios from "../../utilities/axios";
 import React from "react";
+import "./styles.css";
+import axios from "../../utilities/axios";
 import { Link } from "react-router-dom";
 import Error from "../Error/Error";
 import InputField from "../InputField/InputField";
-import "./styles.css";
+
 
 export default class Registration extends React.Component {
     constructor(props) {
@@ -28,23 +29,16 @@ export default class Registration extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         const { first, last, email, password } = this.state;
+        console.log("xxx");
         axios.post("/register.json", { first, last, email, password })
-            .then(res => {
-                if (res.data.error) {
-                    this.setState({ error: true });
-                } else if (res.data.status === 200) {
-                    location.replace("/");
-                }
-            })
-            .catch(error => {
-                this.setState({ error: true });
-            });
+            .then(res => res.data.error ? this.setState({ error: true }) : location.replace("/"))
+            .catch(error => this.setState({ error: true }));
     }
 
     render() {
         return (
             <>
-                <form id="register-form" onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit}>
                     <h1>Register</h1>
                     <InputField name="first" label="First Name" handleInput={this.handleInput} />
                     <InputField name="last" label="Last Name" handleInput={this.handleInput} />
@@ -52,7 +46,7 @@ export default class Registration extends React.Component {
                     <InputField name="password" label="Password" type="password" handleInput={this.handleInput} />
                     <Error error={this.state.error} />
                     <button type="submit">Register</button>
-                    <h4>Already have an account? Click <Link to="/login.json">here</Link> </h4>
+                    <h4>Already have an account? Click <Link to="/login.json">here</Link>.</h4>
                 </form>
             </>
         );

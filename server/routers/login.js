@@ -1,6 +1,5 @@
 const { compare } = require("../utilities/bcrypt");
 const { findUser } = require("../db/index");
-const { handleError } = require("../utilities/handleError");
 const express = require("express");
 const router = express.Router();
 
@@ -14,12 +13,18 @@ router.post("/login.json", (req, res) => {
                     else {
                         const { id, first, last } = result.rows[0];
                         req.session.user = { id, first, last };
-                        res.json({ status: 200 });
+                        res.status(200).json({});
                     }
                 })
-                .catch(error => res.json(handleError(error, 400)));
+                .catch(error => {
+                    console.log(error);
+                    res.status(400).json({ error: true });
+                });
         })
-        .catch(error => res.json(handleError(error, 400)));
+        .catch(error => {
+            console.log(error);
+            res.status(400).json({ error: true });
+        });
 });
 
 module.exports = router;

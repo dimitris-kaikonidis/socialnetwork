@@ -9,6 +9,7 @@ const express = require("express");
 //Routers
 const register = require("./routers/register");
 const login = require("./routers/login");
+const reset = require("./routers/reset");
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, "..", "client", "public")));
 //Routes
 app.use(register);
 app.use(login);
+app.use(reset);
 
 app.get("/user/id.json", (req, res) => {
     res.json({ id: req.session.user });
