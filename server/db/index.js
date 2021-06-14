@@ -14,20 +14,31 @@ module.exports.addUser = (first, last, email, hashedPassword) => {
 
 module.exports.findUser = (email) => db.query(`SELECT id, first, last, email, password_hash FROM users WHERE email=$1;`, [email]);
 
-module.exports.setNewPassword = (email, tempPass) => {
+module.exports.findResetCode = (email) => {
+    return db.query(
+        `
+        SELECT code FROM reset_codes 
+        WHERE email = $1 AND CURRENT_TIMESTAMP - created_at < INTERVAL '10 minutes'
+        `, [email]
+    );
+};
+
+module.exports.setResetCode = (email, resetCode) => {
+    return db.query(
+        `
+        INSERT INTO reset_codes (email, code)
+        VALUES ($1, $2)
+        `, [email, resetCode]
+    );
+};
+
+module.exports.setNewPassword = (email, newPassword) => {
     return db.query(
         `
         UPDATE users
         SET password_hash = $2 WHERE email = $1
-        `, [email, tempPass]
+        `, [email, newPassword]
     );
 };
 
-// module.exports.setNewPassword = (email, newPass) => {
-//     return db.query(
-//         `
-//         UPDATE users 
-//         SET password = $2 WHERE email = $1;
-//         `, [email, newPass]
-//     );
-// };
+

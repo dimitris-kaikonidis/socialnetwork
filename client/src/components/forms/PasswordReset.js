@@ -11,7 +11,7 @@ export default class PasswordReset extends React.Component {
         super(props);
         this.state = {
             email: "",
-            tempPassword: "",
+            resetCode: "",
             newPassword: "",
             step: 1,
             error: false
@@ -28,7 +28,7 @@ export default class PasswordReset extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        const { email, tempPassword, newPassword } = this.state;
+        const { email, resetCode, newPassword } = this.state;
         if (this.state.step === 1) {
             axios
                 .post("/password/reset/start.json", { email })
@@ -36,7 +36,7 @@ export default class PasswordReset extends React.Component {
                 .catch(error => this.setState({ error: true }));
         } else if (this.state.step === 2) {
             axios
-                .post("/password/reset/verify.json", { email, tempPassword, newPassword })
+                .post("/password/reset/verify.json", { email, resetCode, newPassword })
                 .then(res => res.data.error ? this.setState({ error: true }) : this.setState({ step: 3 }))
                 .catch(error => this.setState({ error: true }));
         }
@@ -58,8 +58,9 @@ export default class PasswordReset extends React.Component {
                     {this.state.step === 2 &&
                         <>
                             <h1>Set New Password</h1>
-                            <InputField name="tempPassword" label="Temporary Password" handleInput={this.handleInput} />
+                            <InputField name="resetCode" label="Reset Code" handleInput={this.handleInput} />
                             <InputField name="newPassword" label="New Password" handleInput={this.handleInput} />
+                            <Error error={this.state.error} />
                             <button type="submit">Reset</button>
                         </>
                     }
