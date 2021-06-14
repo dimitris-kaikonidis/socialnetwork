@@ -8,6 +8,7 @@ const express = require("express");
 
 //Routers
 const register = require("./routers/register");
+const login = require("./routers/login");
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use(express.static(path.join(__dirname, "..", "client", "public")));
 
 //Routes
 app.use(register);
+app.use(login);
 
 app.get("/user/id.json", (req, res) => {
     res.json({ id: req.session.user });

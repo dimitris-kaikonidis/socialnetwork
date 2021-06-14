@@ -12,3 +12,10 @@ module.exports.addUser = (first, last, email, hashedPassword) => {
         [first, last, email, hashedPassword]
     );
 };
+
+module.exports.findUser = (email) => {
+    return db.query(
+        `
+        SELECT id, first, last, email, password_hash FROM users WHERE email=$1;
+        `, [email]);
+};
