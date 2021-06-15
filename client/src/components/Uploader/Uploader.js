@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "../../utilities/axios";
+import "./styles.css";
 
 export default class Uploader extends React.Component {
     constructor(props) {
@@ -30,7 +31,7 @@ export default class Uploader extends React.Component {
     render() {
         return (
             <div>
-                <button>❌</button>
+                <button onClick={this.props.closeUpload}>❌</button>
                 <input name="file" type="file" accept="image/*" onChange={this.handleFileChange} />
                 <button onClick={this.uploadFile}>Upload</button>
             </div>

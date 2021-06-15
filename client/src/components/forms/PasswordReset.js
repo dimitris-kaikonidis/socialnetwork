@@ -2,8 +2,8 @@ import React from "react";
 import "./styles.css";
 import { Link } from "react-router-dom";
 import axios from "../../utilities/axios";
-import Error from "../Error/Error";
-import InputField from "../InputField/InputField";
+import Error from "../UI/Error/Error";
+import InputField from "../UI/InputField/InputField";
 
 export default class PasswordReset extends React.Component {
     constructor(props) {

@@ -2,7 +2,7 @@ import { HashRouter, Route } from "react-router-dom";
 import Registration from "../forms/Registration";
 import Login from "../forms/Login";
 import PasswordReset from "../forms/PasswordReset";
-import Logo from "../Logo/Logo";
+import Logo from "../UI/Logo/Logo";
 import "./styles.css";
 import React from "react";
 

@@ -6,57 +6,39 @@ const cryptoRandomString = require("crypto-random-string");
 const express = require("express");
 const router = express.Router();
 
-router.post("/password/reset/start.json", (req, res) => {
+router.post("/password/reset/start.json", async (req, res) => {
     const { email } = req.body;
-    findUser(email).then(result => {
-        if (result.rows[0]) {
+    try {
+        const user = await findUser(email);
+        if (user.rows[0]) {
             req.session.email = email;
             const resetCode = cryptoRandomString({ length: 10 });
-            setResetCode(email, resetCode)
-                .then(() => {
-                    sendEmail(myEmail, "Your password has been reset", resetCode);
-                    res.status(200).json({});
-                })
-                .catch(error => {
-                    console.log(error);
-                    res.status(400).json({ error: true });
-                });
+            await setResetCode(email, resetCode);
+            sendEmail(myEmail, "Your password has been reset", resetCode);
+            res.status(200).json({});
         } else throw new Error("User Not Found");
-    })
-        .catch(error => {
-            console.log(error);
-            res.status(400).json({ error: true });
-        });
+
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({ error: true });
+    }
 });
 
-router.post("/password/reset/verify.json", (req, res) => {
+router.post("/password/reset/verify.json", async (req, res) => {
     const { resetCode, newPassword } = req.body;
     const { email } = req.session;
-    findResetCode(email).then(result => {
-        const { code } = result.rows[0];
+    try {
+        const result = await findResetCode(email);
+        const code = result.rows[0];
         if (code === resetCode) {
-            genHash(newPassword)
-                .then(hashedPassword => {
-                    setNewPassword(email, hashedPassword)
-                        .then(() => {
-                            res.status(200).json({});
-                        })
-                        .catch(error => {
-                            console.log(error);
-                            res.status(400).json({ error: true });
-                        });
-                })
-                .catch(error => {
-                    console.log(error);
-                    res.status(400).json({ error: true });
-                });
-
+            const hashedPassword = await genHash(newPassword);
+            await setNewPassword(email, hashedPassword);
+            res.status(200).json({});
         } else throw new Error("Wrong Code");
-    })
-        .catch(error => {
-            console.log(error);
-            res.status(400).json({ error: true });
-        });
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({ error: true });
+    }
 });
 
 module.exports = router;
