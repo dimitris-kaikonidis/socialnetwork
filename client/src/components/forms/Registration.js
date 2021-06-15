@@ -29,8 +29,7 @@ export default class Registration extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         const { first, last, email, password } = this.state;
-        console.log("xxx");
-        axios.post("/register.json", { first, last, email, password })
+        axios.post("/api/register", { first, last, email, password })
             .then(res => res.data.error ? this.setState({ error: true }) : location.replace("/"))
             .catch(error => this.setState({ error: true }));
     }
@@ -46,7 +45,7 @@ export default class Registration extends React.Component {
                     <InputField name="password" label="Password" type="password" handleInput={this.handleInput} />
                     <Error error={this.state.error} />
                     <button type="submit">Register</button>
-                    <h4>Already have an account? Click <Link to="/login.json">here</Link>.</h4>
+                    <h4>Already have an account? Click <Link to="/api/login">here</Link>.</h4>
                 </form>
             </>
         );

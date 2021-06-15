@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "../../utilities/axios";
+import Button from "../UI/Button/Button";
 import "./styles.css";
 
 export default class Uploader extends React.Component {
@@ -24,16 +25,19 @@ export default class Uploader extends React.Component {
         const formData = new FormData();
         formData.append("file", file);
         axios.post("/api/user/profile-picture/upload", formData)
-            .then(res => console.log(res.data))
+            .then(res => {
+                console.log(res.data);
+                this.props.uploadComplete(res.data.user.profile_picture_url);
+            })
             .catch(error => console.log(error));
     }
 
     render() {
         return (
             <div>
-                <button onClick={this.props.closeUpload}>❌</button>
+                <Button name="❌" action={this.props.closeUpload} />
                 <input name="file" type="file" accept="image/*" onChange={this.handleFileChange} />
-                <button onClick={this.uploadFile}>Upload</button>
+                <Button name="Upload" action={this.uploadFile} />
             </div>
         );
     }

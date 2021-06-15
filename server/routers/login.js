@@ -3,7 +3,7 @@ const { findUser } = require("../db/index");
 const express = require("express");
 const router = express.Router();
 
-router.post("/login.json", async (req, res) => {
+router.post("/api/login", async (req, res) => {
     const { email, password } = req.body;
     try {
         const user = await findUser(email);

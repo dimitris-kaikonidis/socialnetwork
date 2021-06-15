@@ -30,12 +30,12 @@ export default class PasswordReset extends React.Component {
         const { email, resetCode, newPassword } = this.state;
         if (this.state.step === 1) {
             axios
-                .post("/password/reset/start.json", { email })
+                .post("/api/password/reset/reset", { email })
                 .then(res => res.data.error ? this.setState({ error: true }) : this.setState({ step: 2 }))
                 .catch(error => this.setState({ error: true }));
         } else if (this.state.step === 2) {
             axios
-                .post("/password/reset/verify.json", { email, resetCode, newPassword })
+                .post("/api/password/reset/verify", { email, resetCode, newPassword })
                 .then(res => res.data.error ? this.setState({ error: true }) : this.setState({ step: 3 }))
                 .catch(error => this.setState({ error: true }));
         }
@@ -66,7 +66,7 @@ export default class PasswordReset extends React.Component {
                     {(this.state.step === 3 && !this.state.error) &&
                         <>
                             <h1>Success</h1>
-                            <h4>Click <Link to="/login.json">here</Link> to login.</h4>
+                            <h4>Click <Link to="/api/login">here</Link> to login.</h4>
                         </>
                     }
                     {(this.state.step === 3 && this.state.error) &&

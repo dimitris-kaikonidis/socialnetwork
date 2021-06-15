@@ -3,7 +3,7 @@ const { addUser } = require("../db/index");
 const express = require("express");
 const router = express.Router();
 
-router.post("/register.json", async (req, res) => {
+router.post("/api/register", async (req, res) => {
     try {
         const { first, last, email, password } = req.body;
         const hashedPassword = await genHash(password);

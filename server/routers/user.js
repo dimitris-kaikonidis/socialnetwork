@@ -31,7 +31,7 @@ router.post("/api/user/profile-picture/upload", uploader.single("file"), async (
             const url = getS3URL(req.file.filename);
             const { id } = req.session.user;
             const updatedUserInfo = await updateUserPhoto(id, url);
-            res.status(200).json({ updatedUserInfo });
+            res.status(200).json({ user: updatedUserInfo.rows[0] });
         } catch (error) {
             console.log(error);
             res.status(400).json({ error: true });

@@ -15,8 +15,8 @@ export default class Welcome extends React.Component {
                 <HashRouter>
                     <>
                         <Route exact path="/" component={Registration} />
-                        <Route path="/login.json" component={Login} />
-                        <Route path="/password/reset.json" component={PasswordReset} />
+                        <Route path="/api/login" component={Login} />
+                        <Route path="/api/password/reset" component={PasswordReset} />
                     </>
                 </HashRouter>
                 <p>123</p>

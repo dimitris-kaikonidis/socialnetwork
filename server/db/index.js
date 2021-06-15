@@ -34,7 +34,7 @@ module.exports.setResetCode = (email, resetCode) => {
     );
 };
 
-module.exports.deleteResetCode = (email) => db.query();
+module.exports.deleteResetCode = (email) => db.query(`DELETE FROM reset_codes WHERE email = $1`, [email]);
 
 module.exports.setNewPassword = (email, newPassword) => {
     return db.query(

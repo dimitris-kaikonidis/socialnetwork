@@ -1,4 +1,4 @@
-const { findUser, findResetCode, setNewPassword, setResetCode } = require("../db/index");
+const { findUser, findResetCode, setNewPassword, setResetCode, deleteResetCode } = require("../db/index");
 const { sendEmail } = require("../utilities/SES");
 const { genHash } = require("../utilities/bcrypt");
 const { myEmail } = require("../secrets.json");
@@ -6,7 +6,7 @@ const cryptoRandomString = require("crypto-random-string");
 const express = require("express");
 const router = express.Router();
 
-router.post("/password/reset/start.json", async (req, res) => {
+router.post("/api/password/reset/reset", async (req, res) => {
     const { email } = req.body;
     try {
         const user = await findUser(email);
@@ -24,15 +24,16 @@ router.post("/password/reset/start.json", async (req, res) => {
     }
 });
 
-router.post("/password/reset/verify.json", async (req, res) => {
+router.post("/api/password/reset/verify", async (req, res) => {
     const { resetCode, newPassword } = req.body;
     const { email } = req.session;
     try {
         const result = await findResetCode(email);
-        const code = result.rows[0];
+        const { code } = result.rows[0];
         if (code === resetCode) {
             const hashedPassword = await genHash(newPassword);
             await setNewPassword(email, hashedPassword);
+            deleteResetCode(email);
             res.status(200).json({});
         } else throw new Error("Wrong Code");
     } catch (error) {
