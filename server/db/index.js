@@ -12,6 +12,8 @@ module.exports.addUser = (first, last, email, hashedPassword) => {
     );
 };
 
+module.exports.getUserInfo = (id) => db.query(`SELECT * FROM users WHERE id = $1`, [id]);
+
 module.exports.findUser = (email) => db.query(`SELECT id, first, last, email, password_hash FROM users WHERE email=$1;`, [email]);
 
 module.exports.findResetCode = (email) => {
@@ -32,12 +34,23 @@ module.exports.setResetCode = (email, resetCode) => {
     );
 };
 
+module.exports.deleteResetCode = (email) => db.query();
+
 module.exports.setNewPassword = (email, newPassword) => {
     return db.query(
         `
         UPDATE users
         SET password_hash = $2 WHERE email = $1
         `, [email, newPassword]
+    );
+};
+
+module.exports.updateUserPhoto = (id, url) => {
+    return db.query(
+        `
+        UPDATE users 
+        SET profile_picture_url = $2 WHERE id = $1 RETURNING *;
+        `, [id, url]
     );
 };
 

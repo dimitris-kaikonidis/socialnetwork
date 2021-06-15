@@ -1,5 +1,6 @@
 const { findUser, findResetCode, setNewPassword, setResetCode } = require("../db/index");
 const { sendEmail } = require("../utilities/SES");
+const { genHash } = require("../utilities/bcrypt");
 const { myEmail } = require("../secrets.json");
 const cryptoRandomString = require("crypto-random-string");
 const express = require("express");
@@ -34,14 +35,22 @@ router.post("/password/reset/verify.json", (req, res) => {
     findResetCode(email).then(result => {
         const { code } = result.rows[0];
         if (code === resetCode) {
-            setNewPassword(email, newPassword)
-                .then(() => {
-                    res.status(200).json({});
+            genHash(newPassword)
+                .then(hashedPassword => {
+                    setNewPassword(email, hashedPassword)
+                        .then(() => {
+                            res.status(200).json({});
+                        })
+                        .catch(error => {
+                            console.log(error);
+                            res.status(400).json({ error: true });
+                        });
                 })
                 .catch(error => {
                     console.log(error);
                     res.status(400).json({ error: true });
                 });
+
         } else throw new Error("Wrong Code");
     })
         .catch(error => {

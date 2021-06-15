@@ -1,5 +1,8 @@
+import React from "react";
 import "./styles.css";
 
-export default function Logo() {
-    return <img src="/assets/logo.png" className="logo" alt="logo" />;
+export default class Logo extends React.Component {
+    render() {
+        return <img src="/assets/logo.png" className="logo" alt="logo" />;
+    }
 }

@@ -5,7 +5,6 @@ import axios from "../../utilities/axios";
 import Error from "../Error/Error";
 import InputField from "../InputField/InputField";
 
-
 export default class PasswordReset extends React.Component {
     constructor(props) {
         super(props);

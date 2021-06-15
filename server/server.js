@@ -10,6 +10,7 @@ const express = require("express");
 const register = require("./routers/register");
 const login = require("./routers/login");
 const reset = require("./routers/reset");
+const user = require("./routers/user");
 
 const app = express();
 
@@ -31,10 +32,12 @@ app.use(express.static(path.join(__dirname, "..", "client", "public")));
 app.use(register);
 app.use(login);
 app.use(reset);
+app.use(user);
 
 app.get("/user/id.json", (req, res) => {
     res.json({ id: req.session.user });
 });
+
 
 app.get("*", (req, res) => res.sendFile(path.join(__dirname, "..", "client", "index.html")));
 
