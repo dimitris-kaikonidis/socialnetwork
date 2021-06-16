@@ -35,6 +35,7 @@ export default class Registration extends React.Component {
     }
 
     render() {
+        const { error } = this.state;
         return (
             <>
                 <form onSubmit={this.handleSubmit}>
@@ -43,7 +44,7 @@ export default class Registration extends React.Component {
                     <InputField name="last" label="Last Name" handleInput={this.handleInput} />
                     <InputField name="email" label="Email Address" type="email" handleInput={this.handleInput} />
                     <InputField name="password" label="Password" type="password" handleInput={this.handleInput} />
-                    <Error error={this.state.error} />
+                    <Error error={error} />
                     <button type="submit">Register</button>
                     <h4>Already have an account? Click <Link to="/api/login">here</Link>.</h4>
                 </form>

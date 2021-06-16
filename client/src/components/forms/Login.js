@@ -32,13 +32,14 @@ export default class Login extends React.Component {
     }
 
     render() {
+        const { error } = this.state;
         return (
             <>
                 <form onSubmit={this.handleSubmit}>
                     <h1>Login</h1>
                     <InputField name="email" label="Email Address" type="email" handleInput={this.handleInput} />
                     <InputField name="password" label="Password" type="password" handleInput={this.handleInput} />
-                    <Error error={this.state.error} />
+                    <Error error={error} />
                     <button type="submit">Login</button>
                     <h4>Don&apos;t have an account? Click <Link to="/">here</Link> </h4>
                     <h4>Forgot your password? Click <Link to="/api/password/reset">here</Link>.</h4>

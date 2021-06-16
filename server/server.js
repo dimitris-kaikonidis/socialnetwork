@@ -12,6 +12,7 @@ const login = require("./routers/login");
 const logout = require("./routers/logout");
 const reset = require("./routers/reset");
 const user = require("./routers/user");
+const bio = require("./routers/bio");
 
 
 const app = express();
@@ -36,6 +37,7 @@ app.use(login);
 app.use(logout);
 app.use(reset);
 app.use(user);
+app.use(bio);
 
 app.get("/user/id.json", (req, res) => {
     res.json({ id: req.session.user });

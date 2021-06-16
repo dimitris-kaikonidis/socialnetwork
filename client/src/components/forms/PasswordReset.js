@@ -42,36 +42,37 @@ export default class PasswordReset extends React.Component {
     }
 
     render() {
+        const { step, error } = this.state;
         return (
             <>
                 <form onSubmit={this.handleSubmit}>
-                    {this.state.step === 1 &&
+                    {step === 1 &&
                         <>
                             <h1>Password Reset</h1>
                             <InputField name="email" label="Email Address" handleInput={this.handleInput} />
-                            <Error error={this.state.error} />
+                            <Error error={error} />
                             <button type="submit">Reset</button>
                             <h4>Click <Link to="/">here</Link> to go back.</h4>
                         </>
                     }
-                    {this.state.step === 2 &&
+                    {step === 2 &&
                         <>
                             <h1>Set New Password</h1>
                             <InputField name="resetCode" label="Reset Code" handleInput={this.handleInput} />
-                            <InputField name="newPassword" label="New Password" handleInput={this.handleInput} />
-                            <Error error={this.state.error} />
+                            <InputField name="newPassword" label="New Password" type="password" handleInput={this.handleInput} />
+                            <Error error={error} />
                             <button type="submit">Reset</button>
                         </>
                     }
-                    {(this.state.step === 3 && !this.state.error) &&
+                    {(step === 3 && !error) &&
                         <>
                             <h1>Success</h1>
                             <h4>Click <Link to="/api/login">here</Link> to login.</h4>
                         </>
                     }
-                    {(this.state.step === 3 && this.state.error) &&
+                    {(step === 3 && error) &&
                         <>
-                            <Error error={this.state.error} />
+                            <Error error={error} />
                             <h4>Click <Link to="/">here</Link> to go back.</h4>
                         </>
                     }

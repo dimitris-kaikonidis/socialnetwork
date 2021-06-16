@@ -3,11 +3,12 @@ import "./styles.css";
 
 export default class Button extends React.Component {
     render() {
+        const { id, name, action, icon, type } = this.props;
         return (
-            <div id={this.props.id} className="button" onClick={this.props.action}>
+            <div id={id} className="button" onClick={action}>
                 {
-                    this.props.icon ? <img src={this.props.icon} />
-                        : <button type={this.props.type}>{this.props.name}</button>
+                    icon ? <img src={icon} />
+                        : <button type={type}>{name}</button>
                 }
             </div>
         );

@@ -18,19 +18,20 @@ export default class InputField extends React.Component {
     }
 
     render() {
+        const { name, type, value, label } = this.props;
         const spanClass = classNames({
             empty: true,
-            full: this.state[this.props.name]
+            full: this.state[name]
         });
         return (
             <div className="input-field">
                 <input
-                    name={this.props.name}
-                    type={this.props.type || "text"}
-                    value={this.props.value}
+                    name={name}
+                    type={type || "text"}
+                    value={value}
                     onChange={this.handleChange}
                 />
-                <span className={spanClass}>{this.props.label}</span>
+                <span className={spanClass}>{label}</span>
             </div>
         );
     }
