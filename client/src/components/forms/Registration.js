@@ -46,7 +46,7 @@ export default class Registration extends React.Component {
                     <InputField name="password" label="Password" type="password" handleInput={this.handleInput} />
                     <Error error={error} />
                     <button type="submit">Register</button>
-                    <h4>Already have an account? Click <Link to="/api/login">here</Link>.</h4>
+                    <h4>Already have an account? Click <Link to="/login">here</Link>.</h4>
                 </form>
             </>
         );

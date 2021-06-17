@@ -1,4 +1,4 @@
-import { HashRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import Registration from "../forms/Registration";
 import Login from "../forms/Login";
 import PasswordReset from "../forms/PasswordReset";
@@ -12,13 +12,13 @@ export default class Welcome extends React.Component {
             <div id="welcome">
                 <h1>BandMate</h1>
                 <Logo />
-                <HashRouter>
+                <BrowserRouter>
                     <>
                         <Route exact path="/" component={Registration} />
-                        <Route path="/api/login" component={Login} />
-                        <Route path="/api/password/reset" component={PasswordReset} />
+                        <Route path="/login" component={Login} />
+                        <Route path="/password/reset" component={PasswordReset} />
                     </>
-                </HashRouter>
+                </BrowserRouter>
                 <p>123</p>
             </div>
         );

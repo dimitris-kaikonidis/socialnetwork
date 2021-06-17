@@ -42,7 +42,7 @@ export default class Login extends React.Component {
                     <Error error={error} />
                     <button type="submit">Login</button>
                     <h4>Don&apos;t have an account? Click <Link to="/">here</Link> </h4>
-                    <h4>Forgot your password? Click <Link to="/api/password/reset">here</Link>.</h4>
+                    <h4>Forgot your password? Click <Link to="/password/reset">here</Link>.</h4>
                 </form>
             </>
         );

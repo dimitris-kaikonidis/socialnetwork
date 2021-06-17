@@ -67,7 +67,7 @@ export default class PasswordReset extends React.Component {
                     {(step === 3 && !error) &&
                         <>
                             <h1>Success</h1>
-                            <h4>Click <Link to="/api/login">here</Link> to login.</h4>
+                            <h4>Click <Link to="/login">here</Link> to login.</h4>
                         </>
                     }
                     {(step === 3 && error) &&

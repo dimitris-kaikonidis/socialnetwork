@@ -1,8 +1,11 @@
 import React from "react";
+import { BrowserRouter, Route } from "react-router-dom";
 import axios from "../../utilities/axios";
-import Profile from "../Profile/Profile";
+import OwnProfile from "../OwnProfile/OwnProfile";
+import OtherProfile from "../OtherProfile/OtherProfile";
 import Loading from "../UI/Loading/Loading";
 import Button from "../UI/Button/Button";
+import Error from "../UI/Error/Error";
 import "./styles.css";
 
 export default class App extends React.Component {
@@ -10,7 +13,7 @@ export default class App extends React.Component {
         super();
         this.state = {
             user: null,
-            error: "",
+            error: false,
         };
         this.logout = this.logout.bind(this);
     }
@@ -38,11 +41,17 @@ export default class App extends React.Component {
                 </div>
             );
         } else {
+
             return (
                 <div>
                     <h1>Welcome, {user.first} !</h1>
                     <Button id="logout" icon="/assets/logout.png" action={this.logout} />
-                    <Profile user={user} />
+                    <BrowserRouter>
+                        <>
+                            <Route path="/" render={() => <OwnProfile user={user} />} />
+                            <Route path="/user/:id" component={OtherProfile} />
+                        </>
+                    </BrowserRouter>
                 </div>
             );
         }

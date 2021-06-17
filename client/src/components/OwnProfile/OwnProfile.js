@@ -1,9 +1,9 @@
 import React from "react";
-import ProfilePicture from "../ProfilePicture/ProfilePicture";
+import ProfilePicture from "../UI/ProfilePicture/ProfilePicture";
 import Bio from "../Bio/Bio";
 import Uploader from "../Uploader/Uploader";
 
-export default class Profile extends React.Component {
+export default class OwnProfile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
