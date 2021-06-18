@@ -1,0 +1,31 @@
+form.validation {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 500px;
+    padding: 30px;
+    background-color: purple;
+    border-radius: 5px;
+}
+
+form.validation > h1 {
+    text-align: center;
+    color: white;
+}
+
+form.validation > button {
+    margin-top: 30px;
+    padding: 5px;
+    font-size: 20px;
+    border-radius: 10px;
+}
+
+form.validation > h4 {
+    color: white;
+    text-align: center;
+}
+
+form.validation > h4 > a {
+    text-decoration: none;
+    color: rgb(109, 148, 233);
+}

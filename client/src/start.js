@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom";
 import axios from "./utilities/axios";
-import App from "./components/App/App";
-import Welcome from "./components/Welcome/Welcome";
+import App from "./containers/App/App";
+import Welcome from "./containers/Welcome/Welcome";
 
 axios.get("/user/id.json")
     .then(res => {

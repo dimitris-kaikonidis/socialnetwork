@@ -16,6 +16,18 @@ module.exports.getUserInfo = (id) => db.query(`SELECT * FROM users WHERE id = $1
 
 module.exports.findUser = (email) => db.query(`SELECT id, first, last, email, password_hash FROM users WHERE email=$1;`, [email]);
 
+module.exports.findUsers = (query) => {
+    return db.query(
+        `
+        SELECT id, first, last, profile_picture_url, CONCAT(first, ' ', last) AS name 
+        FROM users 
+        WHERE CONCAT(first, ' ', last) ILIKE $1 
+        ORDER BY first 
+        LIMIT 5;
+        `, ["%" + query + "%"]
+    );
+};
+
 module.exports.findResetCode = (email) => {
     return db.query(
         `
