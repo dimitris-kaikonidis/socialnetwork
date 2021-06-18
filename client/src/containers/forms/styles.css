@@ -1,11 +1,16 @@
+form.validation * {
+    font-family: "Josefin Sans", sans-serif;
+}
+
 form.validation {
     display: flex;
     flex-direction: column;
     width: 200px;
-    height: 500px;
+    min-height: 500px;
     padding: 30px;
-    background-color: purple;
-    border-radius: 5px;
+    border-radius: 10px;
+    background-color: rgba(131, 27, 25, 0.81);
+    font-family: "Josefin Sans, sans-serif";
 }
 
 form.validation > h1 {
@@ -25,7 +30,11 @@ form.validation > h4 {
     text-align: center;
 }
 
-form.validation > h4 > a {
+form.validation > h4 > p {
+    margin: 0;
+}
+
+form.validation > h4 > p > a {
     text-decoration: none;
     color: rgb(109, 148, 233);
 }

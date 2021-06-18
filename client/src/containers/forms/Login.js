@@ -41,8 +41,14 @@ export default class Login extends React.Component {
                     <InputField name="password" label="Password" type="password" handleInput={this.handleInput} />
                     <Error error={error} />
                     <button type="submit">Login</button>
-                    <h4>Don&apos;t have an account? Click <Link to="/">here</Link> </h4>
-                    <h4>Forgot your password? Click <Link to="/password/reset">here</Link>.</h4>
+                    <h4>
+                        <p>Don&apos;t have an account?</p>
+                        <p>Click <Link to="/">here</Link></p>
+                    </h4>
+                    <h4>
+                        <p>Forgot your password?</p>
+                        <p>Click <Link to="/password/reset">here</Link>.</p>
+                    </h4>
                 </form>
             </>
         );

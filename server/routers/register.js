@@ -6,6 +6,7 @@ const router = express.Router();
 router.post("/api/register", async (req, res) => {
     try {
         const { first, last, email, password } = req.body;
+        if (!first || !last || !email || !password) throw new Error("Invalid inputs");
         const hashedPassword = await genHash(password);
         const dbResult = await addUser(first, last, email, hashedPassword);
         const { id } = dbResult.rows[0];

@@ -12,7 +12,7 @@ export default function NavBar(props) {
     return (
         <nav>
             <Search />
-            <Button id="logout" icon="/assets/logout.png" action={logout} />
+            <Button id="logout" icon="/assets/logout.png" alt="logout" action={logout} />
         </nav>
     );
 }

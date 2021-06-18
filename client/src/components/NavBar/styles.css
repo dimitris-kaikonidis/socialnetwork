@@ -1,5 +1,18 @@
 nav {
     display: flex;
-    justify-content: flex-end;
-    background-color: lightblue;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(41, 9, 8, 0.007);
+    background-color: rgb(73, 18, 18);
+    background-color: rgb(131, 26, 25);
+    padding: 10px 0;
+}
+nav > form.search {
+    margin-left: auto;
+}
+
+nav > div#logout {
+    margin-left: auto;
+    height: 40px;
+    margin-right: 10px;
 }
