@@ -26,6 +26,7 @@ export default class Login extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         const { email, password } = this.state;
+        if (!email || !password) return;
         axios.post("/api/login", { email, password })
             .then(res => res.data.error ? this.setState({ error: true }) : location.replace("/"))
             .catch(error => this.setState({ error: true }));

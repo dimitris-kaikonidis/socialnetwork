@@ -33,11 +33,15 @@ export default class Uploader extends React.Component {
     }
 
     render() {
+        const { file } = this.state;
         return (
-            <div>
-                <Button name="❌" action={this.props.closeUpload} />
-                <input name="file" type="file" accept="image/*" onChange={this.handleFileChange} />
-                <Button name="Upload" action={this.uploadFile} />
+            <div id="uploader">
+                <Button className="close" icon="./assets/close.svg" action={this.props.closeUpload} />
+                <label>
+                    <span>{file ? file.name : "Choose File..."}</span>
+                    <input id="choose-file" name="file" type="file" accept="image/*" onChange={this.handleFileChange} />
+                    <Button id="upload" name="Upload" action={this.uploadFile} />
+                </label>
             </div>
         );
     }

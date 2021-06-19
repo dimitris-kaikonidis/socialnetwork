@@ -1,18 +1,44 @@
 nav {
+    height: 80px;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
-    background-color: rgba(41, 9, 8, 0.007);
+    background-color: rgba(41, 9, 8, 0.904);
     background-color: rgb(73, 18, 18);
-    background-color: rgb(131, 26, 25);
+    background-color: rgba(41, 9, 8, 0.611);
     padding: 10px 0;
 }
-nav > form.search {
-    margin-left: auto;
+
+nav > a {
+    display: flex;
 }
 
-nav > div#logout {
-    margin-left: auto;
+nav a > button {
+    margin-left: 10px;
+}
+
+nav > a > img.profile-pic {
+    width: 70px;
+    height: 70px;
+    margin-left: 10px;
+}
+
+nav > form.search {
+    margin: 0 auto;
+}
+
+nav div.button {
+    margin: 0 10px;
     height: 40px;
-    margin-right: 10px;
+    padding: 10px;
+}
+
+nav div.button:hover {
+    border-radius: 5px;
+    background-color: rgba(211, 211, 211, 0.3);
+}
+
+nav div.button > img {
+    color: white;
+    filter: invert(1);
 }

@@ -3,7 +3,6 @@ import classNames from "classnames";
 import "./styles.css";
 
 export default class Error extends React.Component {
-
     render() {
         const errorClass = classNames({
             "error-msg": true,

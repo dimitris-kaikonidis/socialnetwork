@@ -2,6 +2,7 @@ import React from "react";
 import ProfilePicture from "../../components/ProfilePicture/ProfilePicture";
 import Bio from "../Bio/Bio";
 import Uploader from "../Uploader/Uploader";
+import "./styles.css";
 
 export default class OwnProfile extends React.Component {
     constructor(props) {
@@ -40,7 +41,7 @@ export default class OwnProfile extends React.Component {
     saveHandler(bio) {
         this.setState({
             user: {
-                ...this.user,
+                ...this.state.user,
                 bio
             }
         });
@@ -56,9 +57,8 @@ export default class OwnProfile extends React.Component {
                     openUpload={this.openUpload}
                 />
                 <h1>{first} {last}</h1>
-                <Bio bio={bio} saveHandler={this.saveHandler} />
-                {uploaderVisible &&
-                    <Uploader closeUpload={this.closeUpload} uploadComplete={this.uploadComplete} />}
+                {!uploaderVisible && <Bio bio={bio} saveHandler={this.saveHandler} />}
+                {uploaderVisible && <Uploader closeUpload={this.closeUpload} uploadComplete={this.uploadComplete} />}
             </div>
         );
     }

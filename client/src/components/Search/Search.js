@@ -8,6 +8,7 @@ export default function Search() {
     const [searchQuery, setSearchQuery] = useState("");
     const [searchResults, setSearchResults] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [focus, setFocus] = useState(false);
 
     const handleInput = (searchQuery, value) => {
         setSearchQuery(value);
@@ -16,6 +17,9 @@ export default function Search() {
     const handleSubmit = (event) => {
         event.preventDefault();
     };
+
+    const handleFocus = () => setFocus(true);
+    const handleBlur = () => setFocus(false);
 
     useEffect(() => {
         if (searchQuery) {
@@ -32,14 +36,16 @@ export default function Search() {
     }, [searchQuery]);
 
     return (
-        <form className="search">
+        <form className="search" onBlur={handleBlur}>
             <InputField
                 name="searchQuery"
                 label="Search"
                 handleInput={handleInput}
                 loading={loading}
+                handleBlur={handleBlur}
+                handleFocus={handleFocus}
             />
-            {!searchQuery ? null : <SearchResultsBox searchResults={searchResults} />}
+            {!searchQuery ? null : <SearchResultsBox searchResults={searchResults} focus={focus} />}
         </form >
     );
 }

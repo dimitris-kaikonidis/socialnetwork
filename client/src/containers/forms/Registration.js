@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import Error from "../../components/Error/Error";
 import InputField from "../../components/InputField/InputField";
 
-
 export default class Registration extends React.Component {
     constructor(props) {
         super(props);
@@ -29,9 +28,13 @@ export default class Registration extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         const { first, last, email, password } = this.state;
-        axios.post("/api/register", { first, last, email, password })
-            .then(res => res.data.error ? this.setState({ error: true }) : location.replace("/"))
-            .catch(error => this.setState({ error: true }));
+        if (!first || !last || !email || !password) {
+            return;
+        } else {
+            axios.post("/api/register", { first, last, email, password })
+                .then(res => res.data.error ? this.setState({ error: true }) : location.replace("/"))
+                .catch(error => this.setState({ error: true }));
+        }
     }
 
     render() {

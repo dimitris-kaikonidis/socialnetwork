@@ -1,14 +1,13 @@
 import "./styles.css";
 import ProfilePicture from "../ProfilePicture/ProfilePicture";
-import Loading from "../Loading/Loading";
 import { Link } from "react-router-dom";
 
 export default function SearchResultsBox(props) {
 
-    const { searchResults, requestStatus } = props;
+    const { searchResults, requestStatus, focus } = props;
 
     return (
-        <ul id="search-results">
+        <ul id="search-results" className={focus ? "" : "hidden"}>
             {searchResults.length === 0 && requestStatus ? <p>No user found matching your search.</p> : null}
             {searchResults.map(user => (
                 <li key={user.id}>

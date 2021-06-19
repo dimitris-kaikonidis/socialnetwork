@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "../../utilities/axios";
 import Button from "../../components/Button/Button";
+import "./styles.css";
 
 export default class Bio extends React.Component {
     constructor(props) {
@@ -53,17 +54,17 @@ export default class Bio extends React.Component {
         const { draft, editMode } = this.state;
         if (editMode) {
             return (
-                <div>
-                    <Button name="❌" action={this.closeEdit} />
-                    <textarea value={draft} onChange={this.handleChange}></textarea>
+                <div id="bio-edit">
+                    <Button className="close" icon="./assets/close.svg" action={this.closeEdit} />
+                    <textarea maxLength="150" value={draft} onChange={this.handleChange}></textarea>
                     <Button name="Save" action={this.saveBio} />
                 </div>
             );
         } else {
             return (
-                <div>
-                    <p>{draft}</p>
-                    <Button name={bio ? "Edit" : "Add Bio"} action={this.openEdit} />
+                <div id="bio" >
+                    <p>{bio}</p>
+                    <Button icon="./assets/edit.svg" action={this.openEdit} />
                 </div>
             );
         }

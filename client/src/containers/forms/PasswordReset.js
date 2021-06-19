@@ -28,17 +28,17 @@ export default class PasswordReset extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         const { email, resetCode, newPassword } = this.state;
-        if (this.state.step === 1) {
+        if (this.state.step === 1 && email) {
             axios
                 .post("/api/password/reset/reset", { email })
                 .then(res => res.data.error ? this.setState({ error: true }) : this.setState({ step: 2 }))
                 .catch(error => this.setState({ error: true }));
-        } else if (this.state.step === 2) {
+        } else if (this.state.step === 2 && resetCode && newPassword) {
             axios
                 .post("/api/password/reset/verify", { email, resetCode, newPassword })
                 .then(res => res.data.error ? this.setState({ error: true }) : this.setState({ step: 3 }))
                 .catch(error => this.setState({ error: true }));
-        }
+        } else return;
     }
 
     render() {

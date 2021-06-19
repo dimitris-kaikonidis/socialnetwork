@@ -1,0 +1,11 @@
+div#profile {
+    width: fit-content;
+    padding: 30px;
+    margin: 50px 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(41, 9, 8, 0.404);
+    color: white;
+    border-radius: 10px;
+}

@@ -1,0 +1,53 @@
+div#uploader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(41, 9, 8, 0.611);
+    border-radius: 10px;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+div#uploader > label > span {
+    cursor: pointer;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+div#uploader > label > span:hover {
+    border-radius: 5px;
+    background-color: rgba(211, 211, 211, 0.3);
+}
+
+div#uploader > label > input[type="file"] {
+    display: none;
+}
+
+div#uploader > label > div#upload > button {
+    margin: 5px;
+    border-radius: 5px;
+}
+
+div#uploader > div.close {
+    justify-self: right;
+    align-self: flex-end;
+    display: flex;
+    margin-right: 5px;
+    margin-top: 5px;
+}
+
+div#uploader > div.close > img {
+    filter: invert(1);
+    margin-left: 10px;
+    width: 20px;
+    padding: 5px;
+}
+
+div#uploader > div.close > img:hover {
+    border-radius: 5px;
+    background-color: rgba(29, 28, 28, 0.3);
+}
