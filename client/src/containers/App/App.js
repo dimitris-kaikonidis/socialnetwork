@@ -25,24 +25,17 @@ export default class App extends React.Component {
     render() {
         const { user } = this.state;
         if (!user) {
-            return (
-                <div className="loading">
-                    <Loading />
-                </div>
-            );
+            return <Loading />;
         } else {
             return (
-                <div>
-
-                    <BrowserRouter>
-                        <>
-                            <Route path="/" render={() => <NavBar user={user} />} />
-                            <Route path="/profile" render={() => <OwnProfile user={user} />} />
-                            <Route path="/user/:id" component={OtherProfile} />
-                            <Route path="/search" component={Search} />
-                        </>
-                    </BrowserRouter>
-                </div>
+                <BrowserRouter>
+                    <>
+                        <Route path="/" render={() => <NavBar user={user} />} />
+                        <Route path="/profile" render={() => <OwnProfile user={user} />} />
+                        <Route path="/user/:id" component={OtherProfile} />
+                        <Route path="/search" component={Search} />
+                    </>
+                </BrowserRouter>
             );
         }
     }

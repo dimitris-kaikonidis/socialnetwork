@@ -28,7 +28,7 @@ export default function InputField(props) {
             />
             <span className={spanClass}>
                 {label}
-                {loading ? <Loading /> : ""}
+                {loading ? <Loading type="input" /> : ""}
             </span>
         </div >
     );

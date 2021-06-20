@@ -2,6 +2,7 @@ import React from "react";
 import axios from "../../utilities/axios";
 import ProfilePicture from "../../components/ProfilePicture/ProfilePicture";
 import Loading from "../../components/Loading/Loading";
+import "./styles.css";
 
 export default class OtherProfile extends React.Component {
     constructor(props) {
@@ -31,10 +32,12 @@ export default class OtherProfile extends React.Component {
         }
         else {
             return (
-                <div>
-                    <h1>{first} {last}</h1>
+                <div id="other-profile">
                     <ProfilePicture pictureUrl={profile_picture_url} />
-                    <p>{bio}</p>
+                    <div id="basic-info">
+                        <h1>{first} {last}</h1>
+                        <h3>{bio}</h3>
+                    </div>
                 </div>
             );
         }

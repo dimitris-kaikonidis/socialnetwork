@@ -1,11 +1,14 @@
-div#profile {
-    width: fit-content;
+div#other-profile {
+    width: 80%;
     padding: 30px;
-    margin: 50px 100px;
+    margin: 50px auto;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    background-color: rgba(41, 9, 8, 0.404);
+    background-color: rgba(41, 9, 8, 0.611);
     color: white;
     border-radius: 10px;
+}
+
+div#other-profile > div#basic-info {
+    margin-left: 20px;
 }

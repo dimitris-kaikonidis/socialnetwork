@@ -11,13 +11,15 @@ nav {
 
 nav > a {
     display: flex;
+    width: 60px;
+    height: 60px;
 }
 
 nav a > button {
     margin-left: 10px;
 }
 
-nav > a > img.profile-pic {
+nav > a > div > img.profile-pic {
     width: 70px;
     height: 70px;
     margin-left: 10px;

@@ -1,48 +1,67 @@
-import React from "react";
+import { useState, useEffect, useCallback } from "react";
 import axios from "../../utilities/axios";
 import Button from "../../components/Button/Button";
+import Cropper from "react-easy-crop";
+import getCroppedImg from "../../utilities/cropImage";
+import dataURLtoFile from "../../utilities/upload";
 import "./styles.css";
 
-export default class Uploader extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            file: null,
-            error: false
-        };
-        this.handleFileChange = this.handleFileChange.bind(this);
-        this.uploadFile = this.uploadFile.bind(this);
-    }
+export default function Uploader(props) {
+    const [file, setFile] = useState(null);
+    const [crop, setCrop] = useState({ x: 0, y: 0 });
+    const [zoom, setZoom] = useState(1);
+    const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+    const [error, setError] = useState(false);
 
-    handleFileChange(event) {
-        this.setState({
-            file: event.target.files[0]
-        });
-    }
+    const handleFileChange = event => setFile(event.target.files[0]);
 
-    uploadFile() {
-        const { file } = this.state;
-        const formData = new FormData();
-        formData.append("file", file);
-        axios.post("/api/user/profile-picture/upload", formData)
-            .then(res => {
-                console.log(res.data);
-                this.props.uploadComplete(res.data.user.profile_picture_url);
-            })
-            .catch(error => console.log(error));
-    }
+    const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
+        setCroppedAreaPixels(croppedAreaPixels);
+    }, []);
 
-    render() {
-        const { file } = this.state;
-        return (
-            <div id="uploader">
-                <Button className="close" icon="./assets/close.svg" action={this.props.closeUpload} />
-                <label>
-                    <span>{file ? file.name : "Choose File..."}</span>
-                    <input id="choose-file" name="file" type="file" accept="image/*" onChange={this.handleFileChange} />
-                    <Button id="upload" name="Upload" action={this.uploadFile} />
-                </label>
-            </div>
-        );
-    }
+    const uploadFile = async () => {
+        try {
+            const url = URL.createObjectURL(file);
+            const croppedImage = await getCroppedImg(
+                url,
+                croppedAreaPixels,
+            );
+            const base64ToFile = dataURLtoFile(croppedImage, file.name);
+            const formData = new FormData();
+            formData.append("file", base64ToFile);
+            const res = await axios.post("/api/user/profile-picture/upload", formData);
+            props.uploadComplete(res.data.user.profile_picture_url);
+        } catch (error) {
+            console.log(error);
+            setError(true);
+        }
+    };
+
+    return (
+        <div id="uploader">
+            {file &&
+                <div id="upload-img-container">
+                    <div id="cropper">
+                        <Cropper
+                            image={URL.createObjectURL(file)}
+                            crop={crop}
+                            aspect={1 / 1}
+                            zoom={zoom}
+                            cropShape="round"
+                            onCropChange={setCrop}
+                            onCropComplete={onCropComplete}
+                            onZoomChange={setZoom}
+                            showGrid={false}
+                        />
+                    </div>
+                </div>
+            }
+            <Button className="close" icon="./assets/close.svg" action={props.closeUpload} />
+            <label>
+                <span>{file ? file.name : "Choose File..."}</span>
+                <input id="choose-file" name="file" type="file" accept="image/*" onChange={handleFileChange} />
+                <Button id="upload" name="Upload" action={uploadFile} />
+            </label>
+        </div>
+    );
 }

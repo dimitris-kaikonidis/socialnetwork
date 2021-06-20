@@ -44,7 +44,7 @@
     outline: none;
 }
 
-.input-field > span.full > img {
+.input-field > span.full > img.input {
     margin: 0;
     margin-bottom: 2px;
     padding: 0;

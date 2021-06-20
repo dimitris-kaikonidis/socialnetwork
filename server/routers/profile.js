@@ -23,7 +23,7 @@ router.get("/api/user/profile", async (req, res) => {
 
 router.post("/api/user/profile-picture/upload", uploader.single("file"), async (req, res) => {
     if (!req.file) {
-        res.json({ error: true });
+        res.status(400).json({ error: true });
     } else {
         try {
             await uploadFile(req.file);

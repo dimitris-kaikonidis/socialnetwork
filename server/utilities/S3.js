@@ -24,7 +24,7 @@ module.exports.uploadFile = fileToUpload => {
 module.exports.deleteFile = fileUrl => {
     return s3
         .deleteObject({
-            Bucket: "imageboard-dim",
+            Bucket: "socialnetwork-dim",
             Key: fileUrl
         })
         .promise();
