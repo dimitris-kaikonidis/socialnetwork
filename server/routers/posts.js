@@ -1,4 +1,4 @@
-const { makePost, getAllPosts } = require("../db/index");
+const { makePost, getAllPostsFirst, getAllPostsNext } = require("../db/index");
 const express = require("express");
 const router = express.Router();
 
@@ -10,7 +10,9 @@ router.post("/api/posts/post", async (req, res) => {
 
 router.get("/api/posts/all", async (req, res) => {
     try {
-        const response = await getAllPosts();
+        let response;
+        if (!req.query.next) response = await getAllPostsFirst();
+        else response = await getAllPostsNext(req.query.next);
         const allPosts = response.rows;
         res.status(200).json(allPosts);
     } catch (error) {
