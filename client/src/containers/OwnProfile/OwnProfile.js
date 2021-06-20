@@ -51,7 +51,7 @@ export default class OwnProfile extends React.Component {
         const { first, last, bio, profile_picture_url } = this.state.user;
         const { uploaderVisible } = this.state;
         return (
-            <div id="profile">
+            <div id="profile" className={uploaderVisible ? "modalOn" : ""}>
                 <ProfilePicture
                     pictureUrl={profile_picture_url}
                     openUpload={this.openUpload}

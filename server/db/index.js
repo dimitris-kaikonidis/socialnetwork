@@ -74,4 +74,8 @@ module.exports.setBio = (id, bio) => {
     );
 };
 
+module.exports.makePost = (post, id) => db.query(`INSERT INTO posts (post, user_id) VALUES ($1, $2)`, [post, id]);
+module.exports.deleletePost = (id) => db.query(`DELETE FROM posts WHERE id = $1`, [id]);
+module.exports.getAllPosts = () => db.query(`SELECT * FROM posts;`);
+
 

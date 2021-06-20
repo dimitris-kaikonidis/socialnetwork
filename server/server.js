@@ -14,6 +14,7 @@ const reset = require("./routers/reset");
 const profile = require("./routers/profile");
 const bio = require("./routers/bio");
 const users = require("./routers/users");
+const posts = require("./routers/posts");
 
 
 const app = express();
@@ -40,6 +41,7 @@ app.use(reset);
 app.use(profile);
 app.use(bio);
 app.use(users);
+app.use(posts);
 
 app.get("/user/id.json", (req, res) => {
     res.json({ id: req.session.user });

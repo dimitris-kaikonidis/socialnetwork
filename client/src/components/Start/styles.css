@@ -1,0 +1,5 @@
+#start-page {
+    display: flex;
+    flex-direction: column;
+    margin-top: 120px;
+}

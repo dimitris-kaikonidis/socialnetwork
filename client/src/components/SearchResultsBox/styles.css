@@ -6,8 +6,8 @@
     position: absolute;
     width: 300px;
     top: 65px;
-    background-color: white;
-    border-top: none;
+    background-color: rgba(41, 9, 8, 0.804);
+    border-top: solid 5px white;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
     margin: 0;
@@ -20,18 +20,20 @@
 }
 
 #search-results > li > a {
-    margin: 20px 10px;
-    padding: 0;
+    margin: 10px;
+    padding: 10px;
     display: flex;
     align-items: center;
+    text-decoration: none;
+    color: white;
 }
 
 #search-results > li > a:hover {
-    background-color: lightblue;
+    background-color: rgba(219, 208, 207, 0.404);
     border-radius: 10px;
 }
 
-#search-results > li > a > img {
+#search-results > li > a > div.img-container > img {
     width: 50px;
     height: 50px;
     margin: 0 5px;

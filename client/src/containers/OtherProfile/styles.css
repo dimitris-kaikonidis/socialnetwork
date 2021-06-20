@@ -9,6 +9,17 @@ div#other-profile {
     border-radius: 10px;
 }
 
+div#other-profile > div.img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div#other-profile > div.img-container > img {
+    width: 200px;
+    height: 200px;
+}
+
 div#other-profile > div#basic-info {
     margin-left: 20px;
 }

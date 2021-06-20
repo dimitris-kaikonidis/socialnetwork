@@ -7,7 +7,7 @@ export default function SearchResultsBox(props) {
     const { searchResults, requestStatus, focus } = props;
 
     return (
-        <ul id="search-results" className={focus ? "" : "hidden"}>
+        <ul id="search-results" className={focus ? "" : "hidden"} >
             {searchResults.length === 0 && requestStatus ? <p>No user found matching your search.</p> : null}
             {searchResults.map(user => (
                 <li key={user.id}>

@@ -19,7 +19,7 @@ export default function Search() {
     };
 
     const handleFocus = () => setFocus(true);
-    const handleBlur = () => setFocus(false);
+    const handleBlur = () => setTimeout(() => setFocus(false), 100);
 
     useEffect(() => {
         if (searchQuery) {
