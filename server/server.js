@@ -15,7 +15,7 @@ const profile = require("./routers/profile");
 const bio = require("./routers/bio");
 const users = require("./routers/users");
 const posts = require("./routers/posts");
-
+const friends = require("./routers/friends");
 
 const app = express();
 
@@ -42,6 +42,7 @@ app.use(profile);
 app.use(bio);
 app.use(users);
 app.use(posts);
+app.use(friends);
 
 app.get("/user/id.json", (req, res) => {
     res.json({ id: req.session.user });

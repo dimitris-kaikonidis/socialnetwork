@@ -8,14 +8,14 @@ export default function AllPosts({ user }) {
     const [lastId, setLastId] = useState();
     const [more, setMore] = useState(true);
 
-    useEffect(async () => {
-        const response = await axios.get("/api/posts/all");
-        setPosts(response.data);
+    useEffect(() => {
+        (async () => {
+            const response = await axios.get("/api/posts/all");
+            setPosts(response.data);
+        })();
     }, []);
 
-    useEffect(async () => {
-        setLastId(posts[posts.length - 1].id);
-    }, [posts]);
+    useEffect(() => (async () => setLastId(posts[posts.length - 1].id))(), [posts]);
 
     const getNextPosts = async () => {
         if (more) {

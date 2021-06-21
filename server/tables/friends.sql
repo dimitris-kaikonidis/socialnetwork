@@ -1,0 +1,9 @@
+DROP TABLE IF EXISTS friends;
+
+CREATE TABLE friends(
+    id SERIAL PRIMARY KEY,
+    sender INT NOT NULL,
+    receiver INT NOT NULL,
+    status BOOLEAN,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

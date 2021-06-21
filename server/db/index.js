@@ -79,4 +79,37 @@ module.exports.deleletePost = (id) => db.query(`DELETE FROM posts WHERE id = $1`
 module.exports.getAllPostsFirst = () => db.query(`SELECT * FROM posts ORDER BY created_at DESC LIMIT 5;`);
 module.exports.getAllPostsNext = (lastId) => db.query(`SELECT * FROM posts WHERE id < $1 ORDER BY created_at DESC LIMIT 5;`, [lastId]);
 
+module.exports.checkFriendStatus = (myUserId, OtherUserId) => {
+    return db.query(
+        `
+        SELECT * FROM friends 
+        WHERE (receiver = $2 AND sender = $1) OR (receiver = $1 AND sender = $2);
+        `, [myUserId, OtherUserId]
+    );
+};
 
+module.exports.sendFriendRequest = (myUserId, OtherUserId) => {
+    return db.query(
+        `
+        INSERT INTO friends (sender, receiver, status) VALUES ($1, $2, false)
+        `, [myUserId, OtherUserId]
+    );
+};
+
+module.exports.deleteFriendRequest = (myUserId, OtherUserId) => {
+    return db.query(
+        `
+        DELETE FROM friends
+        WHERE (receiver = $2 AND sender = $1) OR (receiver = $1 AND sender = $2);
+        `, [myUserId, OtherUserId]
+    );
+};
+
+module.exports.acceptFriendRequest = (myUserId, OtherUserId) => {
+    return db.query(
+        `
+        UPDATE friends SET status=true
+        WHERE (receiver = $2 AND sender = $1) OR (receiver = $1 AND sender = $2);
+        `, [myUserId, OtherUserId]
+    );
+};

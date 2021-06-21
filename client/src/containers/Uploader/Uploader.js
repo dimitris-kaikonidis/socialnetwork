@@ -1,6 +1,7 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import axios from "../../utilities/axios";
 import Button from "../../components/Button/Button";
+// import useSnapshot from "../../custom-hooks/useSnapshot";
 import Cropper from "react-easy-crop";
 import getCroppedImg from "../../utilities/cropImage";
 import dataURLtoFile from "../../utilities/upload";
@@ -12,6 +13,7 @@ export default function Uploader(props) {
     const [zoom, setZoom] = useState(1);
     const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
     const [error, setError] = useState(false);
+    // const [canvasRef, takeSnapshot] = useSnapshot(true);
 
     const handleFileChange = event => setFile(event.target.files[0]);
 
@@ -62,6 +64,8 @@ export default function Uploader(props) {
                 <input id="choose-file" name="file" type="file" accept="image/*" onChange={handleFileChange} />
                 <Button id="upload" name="Upload" action={uploadFile} />
             </label>
+            {/* <canvas width={400} height={400} ref={canvasRef} />
+            <button onClick={takeSnapshot}>Take Snapshot</button> */}
         </div>
     );
 }
