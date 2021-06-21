@@ -76,8 +76,24 @@ module.exports.setBio = (id, bio) => {
 
 module.exports.makePost = (post, id) => db.query(`INSERT INTO posts (post, user_id) VALUES ($1, $2)`, [post, id]);
 module.exports.deleletePost = (id) => db.query(`DELETE FROM posts WHERE id = $1`, [id]);
-module.exports.getAllPostsFirst = () => db.query(`SELECT * FROM posts ORDER BY created_at DESC LIMIT 5;`);
-module.exports.getAllPostsNext = (lastId) => db.query(`SELECT * FROM posts WHERE id < $1 ORDER BY created_at DESC LIMIT 5;`, [lastId]);
+module.exports.getAllPostsFirst = () => db.query(
+    `
+    SELECT first, last, user_id, profile_picture_url, post, posts.id FROM users 
+    RIGHT JOIN posts
+    ON (users.id=posts.user_id)
+    ORDER BY posts.created_at DESC LIMIT 5;
+    `
+);
+
+module.exports.getAllPostsNext = (lastId) => db.query(
+    `
+    SELECT first, last, user_id, profile_picture_url, post, posts.id FROM users
+    RIGHT JOIN posts
+    ON (users.id=posts.user_id) 
+    WHERE posts.id < $1 
+    ORDER BY posts.created_at DESC LIMIT 5;
+    `, [lastId]
+);
 
 module.exports.checkFriendStatus = (myUserId, OtherUserId) => {
     return db.query(

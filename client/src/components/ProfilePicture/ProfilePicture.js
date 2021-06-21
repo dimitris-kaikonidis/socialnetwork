@@ -8,7 +8,7 @@ export default class ProfilePicture extends React.Component {
         if (!this.props.pictureUrl) {
             return (
                 <div className="img-container">
-                    <img className="profile-pic" src="/assets/default_profile_pic.svg" alt="default profile picture" onClick={openUpload} />
+                    <img id="default-profile-pic" className="profile-pic" src="/assets/default_profile_pic.svg" alt="default profile picture" onClick={openUpload} />
                 </div>
             );
         } else {

@@ -1,9 +1,10 @@
 import "./styles.css";
 import axios from "../../utilities/axios";
+import ProfilePicture from "../../components/ProfilePicture/ProfilePicture";
 import { useEffect, useState } from "react";
 import { useBottomScrollListener } from "react-bottom-scroll-listener";
 
-export default function AllPosts({ user }) {
+export default function AllPosts() {
     const [posts, setPosts] = useState([]);
     const [lastId, setLastId] = useState();
     const [more, setMore] = useState(true);
@@ -29,13 +30,13 @@ export default function AllPosts({ user }) {
 
     return (
         <ul id="post-list">
-            {posts.map(item =>
-                <li key={item.id}>
+            {posts.map(post =>
+                <li key={post.id}>
                     <div className="user-post">
-                        <img src={user.profile_picture_url} />
-                        <h3>{user.first} {user.last}</h3>
+                        <ProfilePicture pictureUrl={post.profile_picture_url} />
+                        <h3>{post.first} {post.last}</h3>
                     </div>
-                    <p>{item.post}</p>
+                    <p>{post.post}</p>
                 </li>
             )}
         </ul>

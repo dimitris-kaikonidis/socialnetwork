@@ -6,7 +6,7 @@ export default function Start({ user }) {
     return (
         <div id="start-page">
             <MakePost user={user} />
-            <AllPosts user={user} />
+            <AllPosts />
         </div>
     );
 }

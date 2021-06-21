@@ -60,16 +60,16 @@ export default function FriendButton({ targetUserId }) {
 
     switch (status) {
         case NOT_FRIENDS:
-            return <Button name="Add" action={sendFriendRequest} />;
+            return <Button icon="/assets/add_friend.svg" alt="Add" action={sendFriendRequest} className="friend" />;
         case FRIENDS:
-            return <Button name="Remove" action={deleteFriendRequest} />;
+            return <Button icon="/assets/delete_friend.svg" alt="Remove" action={deleteFriendRequest} className="friend" />;
         case FRIEND_REQUEST_MADE_BY_ME:
-            return <Button name="Cancel" action={deleteFriendRequest} />;
+            return <Button icon="/assets/reject_friend.svg" alt="Cancel" action={deleteFriendRequest} className="friend" />;
         case FRIEND_REQUEST_MADE_TO_ME:
             return (
                 <div>
-                    <Button name="Accept" action={acceptFriendRequest} />
-                    <Button name="Refuse" action={deleteFriendRequest} />
+                    <Button icon="/assets/accept_friend.svg" alt="Accept" action={acceptFriendRequest} className="friend" />
+                    <Button icon="/assets/reject_friend.svg" alt="Refuse" action={deleteFriendRequest} className="friend" />
                 </div>
             );
         default:

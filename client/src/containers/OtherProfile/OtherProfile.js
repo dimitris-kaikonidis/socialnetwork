@@ -21,7 +21,9 @@ export default function OtherProfile(props) {
                 props.history.push("/");
             }
         })();
-    }, []);
+    }, [location.pathname]);
+
+    console.log(1);
 
     const { first, last, profile_picture_url, bio } = user || "";
 
@@ -30,13 +32,18 @@ export default function OtherProfile(props) {
     }
     else {
         return (
-            <div id="other-profile">
-                <ProfilePicture pictureUrl={profile_picture_url} />
-                <div id="basic-info">
-                    <h1>{first} {last}</h1>
-                    <h3>{bio}</h3>
+            <div id="other-profile-page">
+                <div id="other-profile">
+                    <ProfilePicture pictureUrl={profile_picture_url} />
+                    <div id="basic-info">
+                        <div>
+                            <h1>{first} {last}</h1>
+                            <FriendButton targetUserId={id} />
+                        </div>
+
+                        <h3>{bio}</h3>
+                    </div>
                 </div>
-                <FriendButton targetUserId={id} />
             </div>
         );
     }
