@@ -6,8 +6,8 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/api/user/profile", async (req, res) => {
-    const { id } = req.session.user;
     try {
+        const { id } = req.session.user;
         const userInfo = await getUserInfo(id);
         if (!userInfo.rows.length) res.json({ error: true });
         else {
@@ -15,10 +15,8 @@ router.get("/api/user/profile", async (req, res) => {
             res.json({ user: userInfo.rows[0] });
         }
     } catch (error) {
-        console.log(error);
         res.status(400).json({ error: true });
     }
-
 });
 
 router.post("/api/user/profile-picture/upload", uploader.single("file"), async (req, res) => {

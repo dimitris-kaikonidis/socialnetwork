@@ -44,9 +44,7 @@ app.use(users);
 app.use(posts);
 app.use(friends);
 
-app.get("/user/id.json", (req, res) => {
-    res.json({ id: req.session.user });
-});
+app.get("/api/start", (req, res) => res.json({ id: req.session.user }));
 
 app.get("*", (req, res) => res.sendFile(path.join(__dirname, "..", "client", "index.html")));
 

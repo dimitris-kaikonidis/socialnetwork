@@ -1,57 +1,50 @@
-import React from "react";
+import { useState } from "react";
 import "./styles.css";
 import axios from "../../utilities/axios";
 import { Link } from "react-router-dom";
 import Error from "../../components/Error/Error";
 import InputField from "../../components/InputField/InputField";
 
-export default class Login extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: "",
-            password: "",
-            error: false
-        };
-        this.handleInput = this.handleInput.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+export default function Login() {
+    const [inputs, setInputs] = useState({ email: null, password: null });
+    const [error, setError] = useState(false);
 
-    handleInput(target, value) {
-        this.setState({
+    const handleInput = (target, value) => {
+        setInputs({
+            ...inputs,
             [target]: value
         });
-    }
+    };
 
-    handleSubmit(event) {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        const { email, password } = this.state;
+        const { email, password } = inputs;
         if (!email || !password) return;
-        axios.post("/api/login", { email, password })
-            .then(res => res.data.error ? this.setState({ error: true }) : location.replace("/"))
-            .catch(error => this.setState({ error: true }));
-    }
+        try {
+            await axios.post("/api/login", { email, password });
+            location.replace("/");
+        } catch (error) {
+            setError(true);
+        }
+    };
 
-    render() {
-        const { error } = this.state;
-        return (
-            <>
-                <form className="validation" onSubmit={this.handleSubmit}>
-                    <h1>Login</h1>
-                    <InputField name="email" label="Email Address" type="email" handleInput={this.handleInput} />
-                    <InputField name="password" label="Password" type="password" handleInput={this.handleInput} />
-                    <Error error={error} />
-                    <button type="submit">Login</button>
-                    <h4>
-                        <p>Don&apos;t have an account?</p>
-                        <p>Click <Link to="/">here</Link></p>
-                    </h4>
-                    <h4>
-                        <p>Forgot your password?</p>
-                        <p>Click <Link to="/password/reset">here</Link>.</p>
-                    </h4>
-                </form>
-            </>
-        );
-    }
+    return (
+        <>
+            <form className="validation" onSubmit={handleSubmit}>
+                <h1>Login</h1>
+                <InputField name="email" label="Email Address" type="email" handleInput={handleInput} />
+                <InputField name="password" label="Password" type="password" handleInput={handleInput} />
+                <Error error={error} />
+                <button type="submit">Login</button>
+                <h4>
+                    <p>Don&apos;t have an account?</p>
+                    <p>Click <Link to="/">here</Link></p>
+                </h4>
+                <h4>
+                    <p>Forgot your password?</p>
+                    <p>Click <Link to="/password/reset">here</Link>.</p>
+                </h4>
+            </form>
+        </>
+    );
 }

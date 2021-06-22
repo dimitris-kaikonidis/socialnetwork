@@ -8,9 +8,9 @@ router.post("/api/register", async (req, res) => {
         const { first, last, email, password } = req.body;
         if (!first || !last || !email || !password) throw new Error("Invalid inputs");
         const hashedPassword = await genHash(password);
-        const dbResult = await addUser(first, last, email, hashedPassword);
-        const { id } = dbResult.rows[0];
-        req.session.user = { id, first, last };
+        const response = await addUser(first, last, email, hashedPassword);
+        const { id } = response.rows[0];
+        req.session.user = { id };
         res.status(200).json({ id });
     } catch (error) {
         console.log(error);

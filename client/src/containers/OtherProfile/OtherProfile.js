@@ -23,8 +23,6 @@ export default function OtherProfile(props) {
         })();
     }, [location.pathname]);
 
-    console.log(1);
-
     const { first, last, profile_picture_url, bio } = user || "";
 
     if (!user) {

@@ -10,9 +10,9 @@ router.post("/api/login", async (req, res) => {
         const pass = await compare(password, user.rows[0].password_hash);
         if (!pass) throw new Error("Wrong password.");
         else {
-            const { id, first, last } = user.rows[0];
-            req.session.user = { id, first, last };
-            res.status(200).json({});
+            const { id } = user.rows[0];
+            req.session.user = { id };
+            res.status(200).json({ id });
         }
     } catch (error) {
         console.log(error);

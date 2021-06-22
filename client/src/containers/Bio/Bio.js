@@ -1,72 +1,43 @@
-import React from "react";
+import { useState } from "react";
 import axios from "../../utilities/axios";
 import Button from "../../components/Button/Button";
 import "./styles.css";
 
-export default class Bio extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            draft: props.bio,
-            editMode: false,
-            error: false
-        };
-        this.handleChange = this.handleChange.bind(this);
-        this.openEdit = this.openEdit.bind(this);
-        this.closeEdit = this.closeEdit.bind(this);
-        this.saveBio = this.saveBio.bind(this);
-    }
+export default function Bio({ bio, saveHandler }) {
+    const [draft, setDraft] = useState(bio);
+    const [editMode, setEditMode] = useState(false);
+    const [error, setError] = useState(false);
 
-    handleChange(event) {
-        this.setState({
-            draft: event.target.value
-        });
-    }
+    const handleChange = (event) => setDraft(event.target.value);
+    const openEdit = () => setEditMode(true);
+    const closeEdit = () => setEditMode(false);
 
-    openEdit() {
-        this.setState({
-            editMode: true
-        });
-    }
-
-    closeEdit() {
-        this.setState({
-            draft: this.props.bio,
-            editMode: false
-        });
-    }
-
-    async saveBio() {
+    const saveBio = async () => {
         try {
-            const response = await axios.post("/api/user/bio/save", { bio: this.state.draft });
-            this.props.saveHandler(response.data.bio);
-            this.closeEdit();
+            const response = await axios.post("/api/user/bio/save", { bio: draft });
+            saveHandler(response.data.bio);
+            closeEdit();
         }
         catch (error) {
-            this.setState({
-                error: true
-            });
+            setError(true);
         }
+    };
+
+    if (editMode) {
+        return (
+            <div id="bio-edit">
+                <Button className="close" icon="./assets/close.svg" action={closeEdit} />
+                <textarea maxLength="150" value={draft} onChange={handleChange}></textarea>
+                <Button name="Save" action={saveBio} />
+            </div>
+        );
+    } else {
+        return (
+            <div id="bio" >
+                <p>{bio}</p>
+                <Button icon="./assets/edit.svg" action={openEdit} />
+            </div>
+        );
     }
 
-    render() {
-        const { bio } = this.props;
-        const { draft, editMode } = this.state;
-        if (editMode) {
-            return (
-                <div id="bio-edit">
-                    <Button className="close" icon="./assets/close.svg" action={this.closeEdit} />
-                    <textarea maxLength="150" value={draft} onChange={this.handleChange}></textarea>
-                    <Button name="Save" action={this.saveBio} />
-                </div>
-            );
-        } else {
-            return (
-                <div id="bio" >
-                    <p>{bio}</p>
-                    <Button icon="./assets/edit.svg" action={this.openEdit} />
-                </div>
-            );
-        }
-    }
 }
