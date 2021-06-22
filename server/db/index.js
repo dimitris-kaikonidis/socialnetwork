@@ -124,8 +124,16 @@ module.exports.deleteFriendRequest = (myUserId, OtherUserId) => {
 module.exports.acceptFriendRequest = (myUserId, OtherUserId) => {
     return db.query(
         `
-        UPDATE friends SET status=true
+        UPDATE friends SET status = true
         WHERE (receiver = $2 AND sender = $1) OR (receiver = $1 AND sender = $2);
         `, [myUserId, OtherUserId]
+    );
+};
+
+module.exports.getReceivedFriendRequests = (myUserId) => {
+    return db.query(
+        `
+        SELECT * FROM friends WHERE (receiver = $1 AND status = false);
+        `, [myUserId]
     );
 };

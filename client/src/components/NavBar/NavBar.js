@@ -1,12 +1,13 @@
 import Search from "../Search/Search";
 import Button from "../Button/Button";
 import ProfilePicture from "../ProfilePicture/ProfilePicture";
+import FriendRequests from "../../containers/FriendRequests/FriendRequests";
 import axios from "../../utilities/axios";
 import "./styles.css";
 import { Link } from "react-router-dom";
 
 export default function NavBar(props) {
-    const { profile_picture_url } = props.user;
+    const { id, profile_picture_url } = props.user;
     const logout = async () => {
         await axios.post("/api/logout");
         window.location.replace("/");
@@ -23,6 +24,7 @@ export default function NavBar(props) {
                 </Link>
             }
             <Search />
+            <FriendRequests id={id} />
             <Button id="logout" icon="/assets/logout.svg" alt="logout" action={logout} />
         </nav>
     );

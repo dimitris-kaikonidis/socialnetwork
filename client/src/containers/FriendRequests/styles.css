@@ -1,0 +1,16 @@
+#friend-requests {
+    margin-right: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+#friend-requests-result {
+    position: absolute;
+    width: 50px;
+    top: 50px;
+    transform: translateX(-100%);
+}
+
+#friend-requests-result > img {
+    width: 100px;
+}
