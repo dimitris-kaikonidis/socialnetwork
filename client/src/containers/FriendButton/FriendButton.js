@@ -68,8 +68,20 @@ export default function FriendButton({ targetUserId }) {
         case FRIEND_REQUEST_MADE_TO_ME:
             return (
                 <div>
-                    <Button icon="/assets/accept_friend.svg" alt="Accept" action={acceptFriendRequest} className="friend" />
-                    <Button icon="/assets/reject_friend.svg" alt="Refuse" action={deleteFriendRequest} className="friend" />
+                    <Button
+                        id="accept-friend"
+                        icon="/assets/accept_friend.svg"
+                        alt="Accept"
+                        action={acceptFriendRequest}
+                        className="friend"
+                    />
+                    <Button
+                        id="reject-friend"
+                        icon="/assets/reject_friend.svg"
+                        alt="Refuse"
+                        action={deleteFriendRequest}
+                        className="friend"
+                    />
                 </div>
             );
         default:
