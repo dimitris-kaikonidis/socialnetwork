@@ -1,10 +1,11 @@
 import { useState, useCallback } from "react";
-import axios from "../../utilities/axios";
+import { useDispatch } from "react-redux";
+import Cropper from "react-easy-crop";
 import Button from "../../components/Button/Button";
 // import useSnapshot from "../../custom-hooks/useSnapshot";
-import Cropper from "react-easy-crop";
 import getCroppedImg from "../../utilities/cropImage";
 import dataURLtoFile from "../../utilities/upload";
+import { editProfilePic } from "../../redux/actions";
 import "./styles.css";
 
 export default function Uploader(props) {
@@ -12,14 +13,12 @@ export default function Uploader(props) {
     const [crop, setCrop] = useState({ x: 0, y: 0 });
     const [zoom, setZoom] = useState(1);
     const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
-    const [error, setError] = useState(false);
     // const [canvasRef, takeSnapshot] = useSnapshot(true);
 
-    const handleFileChange = event => setFile(event.target.files[0]);
+    const dispatch = useDispatch();
 
-    const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
-        setCroppedAreaPixels(croppedAreaPixels);
-    }, []);
+    const handleFileChange = event => setFile(event.target.files[0]);
+    const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => setCroppedAreaPixels(croppedAreaPixels), []);
 
     const uploadFile = async () => {
         try {
@@ -31,11 +30,9 @@ export default function Uploader(props) {
             const base64ToFile = dataURLtoFile(croppedImage, file.name);
             const formData = new FormData();
             formData.append("file", base64ToFile);
-            const res = await axios.post("/api/user/profile-picture/upload", formData);
-            props.uploadComplete(res.data.user.profile_picture_url);
+            dispatch(editProfilePic(formData));
         } catch (error) {
             console.log(error);
-            setError(true);
         }
     };
 

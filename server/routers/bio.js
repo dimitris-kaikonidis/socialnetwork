@@ -4,9 +4,9 @@ const router = express.Router();
 
 router.post("/api/user/bio/save", async (req, res) => {
     const { id } = req.session.user;
-    const { bio } = req.body;
+    const { draft } = req.body;
     try {
-        const result = await setBio(id, bio);
+        const result = await setBio(id, draft);
         res.status(200).json({
             bio: result.rows[0].bio
         });

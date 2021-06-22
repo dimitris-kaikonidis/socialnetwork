@@ -2,17 +2,20 @@ import { useState } from "react";
 import axios from "../../utilities/axios";
 import Button from "../../components/Button/Button";
 import "./styles.css";
+import { useSelector } from "react-redux";
 
-export default function MakePost(props) {
+export default function MakePost() {
     const [post, setPost] = useState("");
-    const { id } = props.user;
+    const id = useSelector(state => state.user && state.user.id);
 
     const handleInput = (event) => setPost(event.target.value);
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            await axios.post("/api/posts/post", { id, post });
-            setPost("");
+            if (post) {
+                await axios.post("/api/posts/post", { id, post });
+                setPost("");
+            }
         } catch (error) {
             console.log(error);
         }

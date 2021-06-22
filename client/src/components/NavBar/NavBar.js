@@ -15,8 +15,8 @@ export default function NavBar(props) {
 
     return (
         <nav>
-            {window.location.pathname === "/profile" ?
-                <Link to="/">
+            {window.location.pathname === "/profile"
+                ? <Link to="/">
                     <Button id="home-button" icon="./assets/home.svg" alt="home" />
                 </Link>
                 : <Link to="/profile">
