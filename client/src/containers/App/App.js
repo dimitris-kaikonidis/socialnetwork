@@ -24,7 +24,7 @@ export default function App() {
         return (
             <BrowserRouter>
                 <>
-                    <Route path="/" render={() => <NavBar user={user} />} />
+                    <Route path="/" component={NavBar} />
                     <Route exact path="/" component={Start} />
                     <Route path="/profile" component={Home} />
                     <Route path="/user/:id" component={OtherProfile} />

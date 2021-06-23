@@ -2,7 +2,7 @@ const { checkFriendStatus,
     sendFriendRequest,
     deleteFriendRequest,
     acceptFriendRequest,
-    getReceivedFriendRequests } = require("../db/index");
+    getFriendRequests } = require("../db/index");
 const express = require("express");
 const router = express.Router();
 
@@ -12,9 +12,8 @@ const FRIEND_REQUEST_MADE_BY_ME = "friend_request_made_by_me";
 const FRIEND_REQUEST_MADE_TO_ME = "friend_request_made_to";
 
 const ACTION_MAKE_REQUEST = "send";
-const ACTION_CANCEL_REQUEST = "cancel";
 const ACTION_ACCEPT_REQUEST = "accept";
-const ACTION_REFUSE_REQUEST = "refuse";
+const ACTION_DELETE_REQUEST = "delete";
 
 router.get("/api/friends/status", async (req, res) => {
     const { id } = req.session.user;
@@ -42,49 +41,47 @@ router.get("/api/friends/status", async (req, res) => {
     }
 });
 
-router.post("/api/friends/add", async (req, res) => {
+router.post("/api/friends/:action", async (req, res) => {
     const { id } = req.session.user;
+    const { action } = req.params;
     const { targetUserId } = req.query;
-    try {
-        await sendFriendRequest(id, targetUserId);
-        res.status(200).json({ status: FRIEND_REQUEST_MADE_BY_ME });
-    } catch (error) {
-        console.log(error);
-    }
-});
-
-router.post("/api/friends/delete", async (req, res) => {
-    const { id } = req.session.user;
-    const { targetUserId } = req.query;
-    try {
-        await deleteFriendRequest(id, targetUserId);
-        res.status(200).json({ status: NOT_FRIENDS });
-    } catch (error) {
-        console.log(error);
-    }
-});
-
-router.post("/api/friends/accept", async (req, res) => {
-    const { id } = req.session.user;
-    const { targetUserId } = req.query;
-    try {
-        await acceptFriendRequest(id, targetUserId);
-        res.status(200).json({ status: FRIENDS });
-    } catch (error) {
-        console.log(error);
+    switch (action) {
+        case ACTION_MAKE_REQUEST:
+            try {
+                await sendFriendRequest(id, targetUserId);
+                res.status(200).json({ status: FRIEND_REQUEST_MADE_BY_ME });
+            } catch (error) {
+                console.log(error);
+            }
+            break;
+        case ACTION_ACCEPT_REQUEST:
+            try {
+                await acceptFriendRequest(id, targetUserId);
+                res.status(200).json({ status: FRIENDS });
+            } catch (error) {
+                console.log(error);
+            }
+            break;
+        case ACTION_DELETE_REQUEST:
+            try {
+                await deleteFriendRequest(id, targetUserId);
+                res.status(200).json({ status: NOT_FRIENDS });
+            } catch (error) {
+                console.log(error);
+            }
+            break;
     }
 });
 
 router.get("/api/friends/requests", async (req, res) => {
     const { id } = req.query;
     try {
-        const response = await getReceivedFriendRequests(id);
+        const response = await getFriendRequests(id);
         const receivedFriendRequests = response.rows;
         res.status(200).json(receivedFriendRequests);
     } catch (error) {
         console.log(error);
     }
-
 });
 
 module.exports = router;

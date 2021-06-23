@@ -24,7 +24,12 @@ export default function (state = {}, action) {
                 }
             };
             break;
-
+        case "GET_FRIEND_REQUESTS":
+            state = {
+                ...state,
+                friendRequests: action.friendRequests
+            };
+            break;
     }
     return state;
 }

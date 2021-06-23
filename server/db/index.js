@@ -80,7 +80,7 @@ module.exports.getAllPostsFirst = () => db.query(
     `
     SELECT first, last, user_id, profile_picture_url, post, posts.id FROM users 
     RIGHT JOIN posts
-    ON (users.id=posts.user_id)
+    ON (users.id = posts.user_id)
     ORDER BY posts.created_at DESC LIMIT 5;
     `
 );
@@ -130,10 +130,16 @@ module.exports.acceptFriendRequest = (myUserId, OtherUserId) => {
     );
 };
 
-module.exports.getReceivedFriendRequests = (myUserId) => {
+module.exports.getFriendRequests = (myUserId) => {
     return db.query(
         `
-        SELECT * FROM friends WHERE (receiver = $1 AND status = false);
+       	SELECT friends.id, sender, receiver, status, users.first, users.last, users.profile_picture_url FROM friends
+		JOIN users
+        ON(sender = $1 AND receiver = users.id) 
+        OR(receiver = $1 AND sender = users.id);
         `, [myUserId]
     );
 };
+// ON(receiver = users.id AND receiver = $1 AND status = false)
+// OR(receiver = users.id AND receiver = $1 AND status = true)
+// OR(receiver = $1 AND receiver = users.id AND status = true);

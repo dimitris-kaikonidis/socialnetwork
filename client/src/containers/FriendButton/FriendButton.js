@@ -9,9 +9,8 @@ const FRIEND_REQUEST_MADE_BY_ME = "friend_request_made_by_me";
 const FRIEND_REQUEST_MADE_TO_ME = "friend_request_made_to";
 
 const ACTION_MAKE_REQUEST = "send";
-const ACTION_CANCEL_REQUEST = "cancel";
 const ACTION_ACCEPT_REQUEST = "accept";
-const ACTION_REFUSE_REQUEST = "refuse";
+const ACTION_DELETE_REQUEST = "delete";
 
 export default function FriendButton({ targetUserId }) {
     const [status, setStatus] = useState(null);
@@ -28,29 +27,9 @@ export default function FriendButton({ targetUserId }) {
         })();
     }, []);
 
-    const sendFriendRequest = async () => {
+    const friendRequestAction = async (action) => {
         try {
-            const response = await axios.post(`/api/friends/add?targetUserId=${targetUserId}`);
-            const { status } = response.data;
-            setStatus(status);
-        } catch (error) {
-            setStatus(null);
-        }
-    };
-
-    const deleteFriendRequest = async () => {
-        try {
-            const response = await axios.post(`/api/friends/delete?targetUserId=${targetUserId}`);
-            const { status } = response.data;
-            setStatus(status);
-        } catch (error) {
-            setStatus(null);
-        }
-    };
-
-    const acceptFriendRequest = async () => {
-        try {
-            const response = await axios.post(`/api/friends/accept?targetUserId=${targetUserId}`);
+            const response = await axios.post(`/api/friends/${action}?targetUserId=${targetUserId}`);
             const { status } = response.data;
             setStatus(status);
         } catch (error) {
@@ -60,26 +39,39 @@ export default function FriendButton({ targetUserId }) {
 
     switch (status) {
         case NOT_FRIENDS:
-            return <Button icon="/assets/add_friend.svg" alt="Add" action={sendFriendRequest} className="friend" />;
+            return <Button
+                icon="/assets/add_friend.svg"
+                alt="Add"
+                action={() => friendRequestAction(ACTION_MAKE_REQUEST)}
+                className="friend"
+            />;
         case FRIENDS:
-            return <Button icon="/assets/delete_friend.svg" alt="Remove" action={deleteFriendRequest} className="friend" />;
+            return <Button
+                icon="/assets/delete_friend.svg"
+                alt="Remove"
+                action={() => friendRequestAction(ACTION_DELETE_REQUEST)}
+                className="friend"
+            />;
         case FRIEND_REQUEST_MADE_BY_ME:
-            return <Button icon="/assets/reject_friend.svg" alt="Cancel" action={deleteFriendRequest} className="friend" />;
+            return <Button
+                icon="/assets/reject_friend.svg"
+                alt="Cancel"
+                action={() => friendRequestAction(ACTION_DELETE_REQUEST)}
+                className="friend"
+            />;
         case FRIEND_REQUEST_MADE_TO_ME:
             return (
                 <div>
                     <Button
-                        id="accept-friend"
                         icon="/assets/accept_friend.svg"
                         alt="Accept"
-                        action={acceptFriendRequest}
+                        action={() => friendRequestAction(ACTION_ACCEPT_REQUEST)}
                         className="friend"
                     />
                     <Button
-                        id="reject-friend"
                         icon="/assets/reject_friend.svg"
                         alt="Refuse"
-                        action={deleteFriendRequest}
+                        action={() => friendRequestAction(ACTION_DELETE_REQUEST)}
                         className="friend"
                     />
                 </div>

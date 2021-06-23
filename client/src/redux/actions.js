@@ -32,3 +32,14 @@ export async function editBio(draft) {
         // setError(true);
     }
 }
+
+export async function getFriendRequests(id) {
+    let friendRequests = [];
+    try {
+        const response = await axios.get(`/api/friends/requests?id=${id}`);
+        friendRequests = [...response.data];
+        return { type: "GET_FRIEND_REQUESTS", friendRequests };
+    } catch (error) {
+        friendRequests = ["Something went wrong :/"];
+    }
+}
