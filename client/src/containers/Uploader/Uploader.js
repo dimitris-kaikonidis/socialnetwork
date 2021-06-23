@@ -1,11 +1,13 @@
 import { useState, useCallback } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { editProfilePic } from "../../redux/actions";
 import Cropper from "react-easy-crop";
-import Button from "../../components/Button/Button";
-// import useSnapshot from "../../custom-hooks/useSnapshot";
 import getCroppedImg from "../../utilities/cropImage";
 import dataURLtoFile from "../../utilities/upload";
-import { editProfilePic } from "../../redux/actions";
+import ProfilePicture from "../../components/ProfilePicture/ProfilePicture";
+import Button from "../../components/Button/Button";
+// import useSnapshot from "../../custom-hooks/useSnapshot";
+
 import "./styles.css";
 
 export default function Uploader(props) {
@@ -14,6 +16,7 @@ export default function Uploader(props) {
     const [zoom, setZoom] = useState(1);
     const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
     // const [canvasRef, takeSnapshot] = useSnapshot(true);
+    const profilePictureUrl = useSelector(state => state.user && state.user.profile_picture_url)
 
     const dispatch = useDispatch();
 
@@ -38,7 +41,7 @@ export default function Uploader(props) {
 
     return (
         <div id="uploader">
-            {file &&
+            {file ?
                 <div id="upload-img-container">
                     <div id="cropper">
                         <Cropper
@@ -54,12 +57,15 @@ export default function Uploader(props) {
                         />
                     </div>
                 </div>
+                :
+                <ProfilePicture pictureUrl={profilePictureUrl} />
             }
-            <Button className="close" icon="./assets/close.svg" action={props.closeUpload} />
+            <Button className="close" icon="/assets/close.svg" action={props.closeUpload} />
             <label>
                 <span>{file ? file.name : "Choose File..."}</span>
-                <input id="choose-file" name="file" type="file" accept="image/*" onChange={handleFileChange} />
+                <input id="choose-file" name="file" type="file" accept="image/*" onInput={handleFileChange} />
                 <Button id="upload" name="Upload" action={uploadFile} />
+                <Button className="cancel" icon="/assets/close.svg" action={() => setFile(null)} />
             </label>
             {/* <canvas width={400} height={400} ref={canvasRef} />
             <button onClick={takeSnapshot}>Take Snapshot</button> */}

@@ -1,4 +1,4 @@
-div#uploader {
+#uploader {
     position: absolute;
     z-index: 100;
     top: 50%;
@@ -9,51 +9,64 @@ div#uploader {
     width: 800px;
     height: 600px;
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
-    justify-content: space-between;
 }
 
-div#uploader > label > span {
+#uploader > .img-container {
+    margin-top: auto;
+    width: 500px;
+    height: 500px;
+}
+
+#uploader > label {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+}
+
+#uploader > label > span {
     cursor: pointer;
-    margin-left: 5px;
-    margin-bottom: 5px;
+    margin-left: 10px;
 }
 
-div#uploader > label > span:hover {
+#uploader > label > span:hover {
     border-radius: 5px;
     background-color: rgba(211, 211, 211, 0.3);
 }
 
-div#uploader > label > input[type="file"] {
+#uploader > label > input[type="file"] {
     display: none;
 }
 
-div#uploader > label > div#upload > button {
+#uploader > label > div#upload > button {
     margin: 5px;
     border-radius: 5px;
 }
 
-div#uploader > div.close {
-    justify-self: right;
-    align-self: flex-end;
+#uploader > .button.close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
     display: flex;
     margin-right: 5px;
     margin-top: 5px;
 }
 
-div#uploader > div.close > img {
+#uploader > .button.close > img {
     filter: invert(1);
     margin-left: 10px;
     width: 20px;
     padding: 5px;
 }
 
-div#uploader > div.close > img:hover {
+#uploader > .button.close > img:hover {
     border-radius: 5px;
     background-color: rgba(29, 28, 28, 0.3);
 }
 
-div#uploader > #upload-img-container {
+#uploader > #upload-img-container {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -62,7 +75,7 @@ div#uploader > #upload-img-container {
     height: 70%;
 }
 
-div#uploader > #upload-img-container > #cropper {
+#uploader > #upload-img-container > #cropper {
     background-color: rgba(0, 0, 0, 0.7);
     position: absolute;
     z-index: 0;

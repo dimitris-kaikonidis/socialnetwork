@@ -76,23 +76,28 @@ module.exports.setBio = (id, bio) => {
 
 module.exports.makePost = (post, id) => db.query(`INSERT INTO posts (post, user_id) VALUES ($1, $2)`, [post, id]);
 module.exports.deleletePost = (id) => db.query(`DELETE FROM posts WHERE id = $1`, [id]);
-module.exports.getAllPostsFirst = () => db.query(
+module.exports.getAllPostsFirst = (id) => db.query(
     `
     SELECT first, last, user_id, profile_picture_url, post, posts.id FROM users 
     RIGHT JOIN posts
     ON (users.id = posts.user_id)
+    LEFT JOIN friends
+    ON (users.id = friends.sender OR users.id = friends.receiver)
+    WHERE ((friends.sender = $1 OR friends.receiver = $1) AND friends.status = TRUE)
     ORDER BY posts.created_at DESC LIMIT 5;
-    `
+    `, [id]
 );
 
-module.exports.getAllPostsNext = (lastId) => db.query(
+module.exports.getAllPostsNext = (id, lastId) => db.query(
     `
     SELECT first, last, user_id, profile_picture_url, post, posts.id FROM users
     RIGHT JOIN posts
-    ON (users.id=posts.user_id) 
-    WHERE posts.id < $1 
+    ON (users.id = posts.user_id)
+    LEFT JOIN friends
+    ON (users.id = friends.sender OR users.id = friends.receiver)
+    WHERE ((friends.sender = $1 OR friends.receiver = $1) AND friends.status = TRUE AND posts.id < $2)
     ORDER BY posts.created_at DESC LIMIT 5;
-    `, [lastId]
+    `, [id, lastId]
 );
 
 module.exports.checkFriendStatus = (myUserId, OtherUserId) => {
@@ -135,11 +140,8 @@ module.exports.getFriendRequests = (myUserId) => {
         `
        	SELECT friends.id, sender, receiver, status, users.first, users.last, users.profile_picture_url FROM friends
 		JOIN users
-        ON(sender = $1 AND receiver = users.id) 
-        OR(receiver = $1 AND sender = users.id);
+        ON(sender = $1 AND receiver = users.id AND status = false) 
+        OR(receiver = $1 AND sender = users.id AND status = false);
         `, [myUserId]
     );
 };
-// ON(receiver = users.id AND receiver = $1 AND status = false)
-// OR(receiver = users.id AND receiver = $1 AND status = true)
-// OR(receiver = $1 AND receiver = users.id AND status = true);

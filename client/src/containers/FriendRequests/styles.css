@@ -4,6 +4,10 @@
     flex-direction: column;
 }
 
+#friend-requests * {
+    color: white;
+}
+
 #friend-requests-result {
     position: absolute;
     transform: translateX(-70%);
@@ -14,6 +18,13 @@
     margin: 0;
     padding: 20px;
     list-style-type: none;
+}
+
+#friend-requests > span {
+    position: absolute;
+    top: 2px;
+    margin-left: 2px;
+    color: red;
 }
 
 #friend-requests-result > div.arrow-up {
@@ -39,7 +50,6 @@
 }
 
 #friend-requests-result > .border > p {
-    color: white;
     padding: 0;
     margin: 0;
     width: 80%;
@@ -49,8 +59,6 @@
 #friend-requests-result > li {
     display: flex;
     justify-content: space-between;
-
-    color: white;
 }
 
 #friend-requests-result > li > div {

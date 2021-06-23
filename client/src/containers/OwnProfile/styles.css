@@ -1,4 +1,4 @@
-div#profile {
+#profile {
     width: 300px;
     height: 500px;
     padding: 30px;
@@ -11,12 +11,39 @@ div#profile {
     border-radius: 10px;
 }
 
-div#profile > div.img-container {
+#profile-pic {
+    position: relative;
+}
+
+#profile-pic > .img-container {
     width: 200px;
     height: 200px;
 }
 
-div#profile.modalOn::before {
+#profile-pic > #edit-profile-pic {
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#profile-pic > #edit-profile-pic.off {
+    z-index: -20;
+}
+
+#profile-pic > #edit-profile-pic > img {
+    width: 30%;
+    height: 30%;
+    filter: invert(1);
+}
+
+#profile.modalOn::before {
     content: "";
     position: fixed;
     z-index: 50;

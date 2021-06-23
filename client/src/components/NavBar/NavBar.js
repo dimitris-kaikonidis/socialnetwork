@@ -1,14 +1,20 @@
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { getFriendRequests } from "../../redux/actions";
+import axios from "../../utilities/axios";
 import Search from "../Search/Search";
 import Button from "../Button/Button";
 import ProfilePicture from "../ProfilePicture/ProfilePicture";
 import FriendRequests from "../../containers/FriendRequests/FriendRequests";
-import axios from "../../utilities/axios";
 import "./styles.css";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 export default function NavBar() {
     const profilePictureUrl = useSelector(state => state.user && state.user.profile_picture_url);
+    const id = useSelector(state => state.user && state.user.id);
+    const dispatch = useDispatch();
+    useEffect(() => dispatch(getFriendRequests(id), []));
+
     const logout = async () => {
         await axios.post("/api/logout");
         window.location.replace("/");

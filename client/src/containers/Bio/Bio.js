@@ -13,26 +13,32 @@ export default function Bio({ bio }) {
         dispatch(editBio(draft));
         closeEdit();
     };
+    const cancelChanges = () => {
+        setDraft(bio);
+        closeEdit();
+    };
 
     const handleChange = (event) => setDraft(event.target.value);
     const openEdit = () => setEditMode(true);
     const closeEdit = () => setEditMode(false);
 
-    if (editMode) {
-        return (
-            <div id="bio-edit">
-                <Button className="close" icon="./assets/close.svg" action={closeEdit} />
-                <textarea maxLength="150" value={draft} onChange={handleChange}></textarea>
-                <Button name="Save" action={saveBio} />
-            </div>
-        );
-    } else {
-        return (
-            <div id="bio" >
-                <p>{bio}</p>
-                <Button icon="./assets/edit.svg" action={openEdit} />
-            </div>
-        );
-    }
-
+    return (
+        <div id="bio">
+            <h4>Short Info</h4>
+            <textarea
+                maxLength="234"
+                className={editMode ? "on" : null}
+                readOnly={!editMode}
+                value={draft}
+                onChange={handleChange}>
+            </textarea>
+            {editMode ?
+                <>
+                    <Button id="save-bio" icon="/assets/save.svg" alt="save" action={saveBio} />
+                    <Button id="cancel-bio" icon="/assets/close.svg" alt="cancel changes" action={cancelChanges} />
+                </>
+                :
+                <Button id="edit-bio" icon="/assets/edit.svg" alt="edit bio" action={openEdit} />}
+        </div>
+    );
 }

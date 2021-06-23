@@ -9,10 +9,11 @@ router.post("/api/posts/post", async (req, res) => {
 });
 
 router.get("/api/posts/all", async (req, res) => {
+    const { id, next } = req.query;
     try {
         let response;
-        if (!req.query.next) response = await getAllPostsFirst();
-        else response = await getAllPostsNext(req.query.next);
+        if (!req.query.next) response = await getAllPostsFirst(id);
+        else response = await getAllPostsNext(id, next);
         const allPosts = response.rows;
         res.status(200).json(allPosts);
     } catch (error) {

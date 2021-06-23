@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getFriendRequests } from "../../redux/actions";
+import { useSelector } from "react-redux";
 import Loading from "../../components/Loading/Loading";
 import Button from "../../components/Button/Button";
 import ProfilePicture from "../../components/ProfilePicture/ProfilePicture";
@@ -9,8 +8,8 @@ import "./styles.css";
 
 export default function FriendRequests() {
     const [visibility, setVisibility] = useState(false);
-    const dispatch = useDispatch();
     const id = useSelector(state => state.user && state.user.id);
+
     const incomingFriendRequests = useSelector(state =>
         state.friendRequests && state.friendRequests.filter(request => request.receiver === id)
     );
@@ -20,12 +19,12 @@ export default function FriendRequests() {
 
     return (
         <div id="friend-requests">
+            <span>{incomingFriendRequests && sentFriendRequests ?
+                incomingFriendRequests.length + sentFriendRequests.length : null
+            }</span>
             <Button
                 icon="/assets/friend_requests.svg"
-                action={() => {
-                    (!incomingFriendRequests || !sentFriendRequests) && dispatch(getFriendRequests(id));
-                    setVisibility(!visibility);
-                }}
+                action={() => setVisibility(!visibility)}
             />
             {visibility
                 ?

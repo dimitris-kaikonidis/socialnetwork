@@ -1,12 +1,12 @@
-ul#post-list {
+#post-list {
     margin: 50px auto;
     list-style-type: none;
     padding: 0;
     width: 600px;
-    background-color: wheat;
+    background-color: rgb(255, 255, 255);
 }
 
-ul#post-list > li {
+#post-list > li {
     margin: 20px;
     margin-bottom: 100px;
     padding: 10px;
@@ -15,14 +15,33 @@ ul#post-list > li {
     border: 5px solid black;
 }
 
-ul#post-list > li > .user-post {
+#post-list > li > .user-post {
+    padding: 0 5px;
+    width: fit-content;
     display: flex;
     align-items: center;
+    text-decoration: none;
+    color: black;
 }
 
-ul#post-list > li > .user-post > .img-container {
+#post-list > li > .user-post:hover {
+    background-color: rgba(219, 208, 207, 0.404);
+    border-radius: 10px;
+}
+
+#post-list > li > .user-post > .img-container {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    margin-right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#post-list > li > .user-post > h3 {
+    margin-left: 15px;
+}
+
+#post-list #default-profile-pic {
+    filter: invert(0);
 }
