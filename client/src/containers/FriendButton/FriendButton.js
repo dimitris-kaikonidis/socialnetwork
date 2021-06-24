@@ -25,7 +25,7 @@ export default function FriendButton({ targetUserId }) {
                 setStatus(null);
             }
         })();
-    }, []);
+    }, [targetUserId]);
 
     const friendRequestAction = async (action) => {
         try {
@@ -61,7 +61,7 @@ export default function FriendButton({ targetUserId }) {
             />;
         case FRIEND_REQUEST_MADE_TO_ME:
             return (
-                <div>
+                <>
                     <Button
                         icon="/assets/accept_friend.svg"
                         alt="Accept"
@@ -74,7 +74,7 @@ export default function FriendButton({ targetUserId }) {
                         action={() => friendRequestAction(ACTION_DELETE_REQUEST)}
                         className="friend"
                     />
-                </div>
+                </>
             );
         default:
             return null;

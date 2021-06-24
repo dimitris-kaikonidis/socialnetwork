@@ -4,7 +4,7 @@ div#other-profile-page {
 }
 
 div#other-profile {
-    width: 60%;
+    width: 50%;
     padding: 30px;
     margin: 50px auto;
     display: flex;
@@ -13,24 +13,39 @@ div#other-profile {
     border-radius: 10px;
 }
 
-div#other-profile > div.img-container {
+div#other-profile div.img-container {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-div#other-profile > div.img-container > img {
     width: 200px;
     height: 200px;
 }
 
 div#other-profile > div#basic-info {
-    margin-left: 20px;
     width: 100%;
 }
 
 div#other-profile > div#basic-info > div {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+}
+
+div#other-profile > div#basic-info h1 {
+    margin-left: 20px;
+}
+
+div#other-profile > div#basic-info h3 {
+    word-wrap: break-word;
+    margin: 20px 300px 20px 5px;
+}
+
+div#basic-info div#friend-request-buttons {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+}
+
+div#basic-info div#friend-request-buttons > .button.friend {
+    width: 40px;
+    height: 40px;
 }
