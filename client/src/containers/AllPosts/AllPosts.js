@@ -36,6 +36,11 @@ export default function AllPosts() {
     return (
         <ul id="post-list">
             {posts
+                .filter(post => {
+                    if (location.pathname === "/profile") {
+                        return id === post.user_id;
+                    } else return post;
+                })
                 .map(post =>
                     <li key={post.id}>
                         <Link to={`/user/${post.user_id}`} className="user-post">
