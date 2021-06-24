@@ -36,7 +36,7 @@ export default function OtherProfile(props) {
                         <div>
                             <ProfilePicture pictureUrl={profile_picture_url} />
                             <h1>{first} {last}</h1>
-                            <div id="friend-request-buttons">
+                            <div className="friend-request-buttons">
                                 <FriendButton targetUserId={id} />
                             </div>
                         </div>

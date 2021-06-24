@@ -45,7 +45,9 @@ export default function FriendRequests() {
                                                 <ProfilePicture pictureUrl={request.profile_picture_url} />
                                                 <p>{request.first} {request.last}</p>
                                             </div>
-                                            <FriendButton targetUserId={request.sender} />
+                                            <div className="friend-request-buttons">
+                                                <FriendButton targetUserId={request.sender} />
+                                            </div>
                                         </li>
                                     )
                                 :
@@ -68,7 +70,9 @@ export default function FriendRequests() {
                                                 <ProfilePicture pictureUrl={request.profile_picture_url} />
                                                 <p>{request.first} {request.last}</p>
                                             </div>
-                                            <FriendButton targetUserId={request.receiver} />
+                                            <div className="friend-request-buttons">
+                                                <FriendButton targetUserId={request.receiver} />
+                                            </div>
                                         </li>
                                     )
                                 :

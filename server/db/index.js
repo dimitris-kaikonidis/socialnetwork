@@ -83,7 +83,7 @@ module.exports.getAllPostsFirst = (id) => db.query(
     ON (users.id = posts.user_id)
     LEFT JOIN friends
     ON (users.id = friends.sender OR users.id = friends.receiver)
-    WHERE ((friends.sender = $1 OR friends.receiver = $1) AND friends.status = TRUE)
+    WHERE (((friends.sender = $1 OR friends.receiver = $1) AND friends.status = TRUE) OR user_id = $1)
     ORDER BY posts.created_at DESC LIMIT 5;
     `, [id]
 );
@@ -95,7 +95,7 @@ module.exports.getAllPostsNext = (id, lastId) => db.query(
     ON (users.id = posts.user_id)
     LEFT JOIN friends
     ON (users.id = friends.sender OR users.id = friends.receiver)
-    WHERE ((friends.sender = $1 OR friends.receiver = $1) AND friends.status = TRUE AND posts.id < $2)
+    WHERE ((((friends.sender = $1 OR friends.receiver = $1) AND friends.status = TRUE) OR user_id = $1) AND posts.id < $2)
     ORDER BY posts.created_at DESC LIMIT 5;
     `, [id, lastId]
 );

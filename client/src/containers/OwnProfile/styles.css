@@ -34,7 +34,7 @@
 }
 
 #profile-pic > #edit-profile-pic.off {
-    z-index: -20;
+    visibility: hidden;
 }
 
 #profile-pic > #edit-profile-pic > img {

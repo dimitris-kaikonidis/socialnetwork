@@ -35,15 +35,16 @@ export default function AllPosts() {
 
     return (
         <ul id="post-list">
-            {posts.map(post =>
-                <li key={post.id}>
-                    <Link to={`/user/${post.user_id}`} className="user-post">
-                        <ProfilePicture pictureUrl={post.profile_picture_url} />
-                        <h3>{post.first} {post.last}</h3>
-                    </Link>
-                    <p>{post.post}</p>
-                </li>
-            )}
+            {posts
+                .map(post =>
+                    <li key={post.id}>
+                        <Link to={`/user/${post.user_id}`} className="user-post">
+                            <ProfilePicture pictureUrl={post.profile_picture_url} />
+                            <h3>{post.first} {post.last}</h3>
+                        </Link>
+                        <p>{post.post}</p>
+                    </li>
+                )}
         </ul>
     );
 }
