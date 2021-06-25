@@ -5,9 +5,11 @@ import { setUser } from "../../redux/actions";
 import Welcome from "../Welcome/Welcome";
 import Start from "../../components/Start/Start";
 import Home from "../../components/Home/Home";
-import OtherProfile from "../OtherProfile/OtherProfile";
 import Loading from "../../components/Loading/Loading";
 import NavBar from "../../components/NavBar/NavBar";
+import ChatBar from "../../components/ChatBar/ChatBar";
+import OtherProfile from "../OtherProfile/OtherProfile";
+import FriendList from "../FriendList/FriendList";
 import "./styles.css";
 
 export default function App() {
@@ -24,7 +26,13 @@ export default function App() {
         return (
             <BrowserRouter>
                 <>
-                    <Route path="/" component={NavBar} />
+                    <Route path="/" render={() =>
+                        <>
+                            <NavBar />
+                            <FriendList />
+                            <ChatBar />
+                        </>
+                    } />
                     <Route exact path="/" component={Start} />
                     <Route path="/profile" component={Home} />
                     <Route path="/user/:id" component={OtherProfile} />

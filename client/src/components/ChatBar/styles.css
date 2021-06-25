@@ -1,0 +1,21 @@
+#chat-bar {
+    margin: 0;
+    position: fixed;
+    bottom: 0;
+    right: 210px;
+    width: 100%;
+    height: 30px;
+    background-color: black;
+    display: flex;
+    justify-content: flex-end;
+    list-style-type: none;
+    align-items: center;
+}
+
+#chat-bar > li {
+    position: relative;
+    width: 200px;
+    border: solid 2px white;
+    color: white;
+    margin: 0 10px;
+}

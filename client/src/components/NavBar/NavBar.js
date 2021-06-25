@@ -11,9 +11,8 @@ import "./styles.css";
 
 export default function NavBar() {
     const profilePictureUrl = useSelector(state => state.user && state.user.profile_picture_url);
-    const id = useSelector(state => state.user && state.user.id);
     const dispatch = useDispatch();
-    useEffect(() => dispatch(getFriendRequests(id), []));
+    useEffect(() => dispatch(getFriendRequests(), []));
 
     const logout = async () => {
         await axios.post("/api/logout");

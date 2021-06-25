@@ -2,7 +2,8 @@ const { checkFriendStatus,
     sendFriendRequest,
     deleteFriendRequest,
     acceptFriendRequest,
-    getFriendRequests } = require("../db/index");
+    getFriendRequests,
+    getFriends } = require("../db/index");
 const express = require("express");
 const router = express.Router();
 
@@ -74,11 +75,22 @@ router.post("/api/friends/:action", async (req, res) => {
 });
 
 router.get("/api/friends/requests", async (req, res) => {
-    const { id } = req.query;
+    const { id } = req.session.user;
     try {
         const response = await getFriendRequests(id);
         const receivedFriendRequests = response.rows;
         res.status(200).json(receivedFriendRequests);
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+router.get("/api/friends/all", async (req, res) => {
+    const { id } = req.session.user;
+    try {
+        const response = await getFriends(id);
+        const friends = response.rows;
+        res.status(200).json(friends);
     } catch (error) {
         console.log(error);
     }

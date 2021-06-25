@@ -29,17 +29,36 @@ export async function editBio(draft) {
         return { type: "EDIT_BIO", bio };
     }
     catch (error) {
-        // setError(true);
+        console.log(error);
     }
 }
 
-export async function getFriendRequests(id) {
+export async function getFriendRequests() {
     let friendRequests = [];
     try {
-        const response = await axios.get(`/api/friends/requests?id=${id}`);
+        const response = await axios.get("/api/friends/requests");
         friendRequests = [...response.data];
-        return { type: "GET_FRIEND_REQUESTS", friendRequests };
     } catch (error) {
         friendRequests = ["Something went wrong :/"];
     }
+    return { type: "GET_FRIEND_REQUESTS", friendRequests };
+}
+
+export async function getFriends() {
+    let friends = [];
+    try {
+        const response = await axios.get("/api/friends/all");
+        friends = [...response.data];
+    } catch (error) {
+        friends = ["Something went wrong :/"];
+    }
+    return { type: "GET_FRIENDS", friends };
+}
+
+export function addChatWindow(targetId) {
+    return { type: "ADD_CHAT_WINDOW", newChatWindow: targetId };
+}
+
+export function closeChatWindow(targetId) {
+    return { type: "CLOSE_CHAT_WINDOW", closeChatWindow: targetId };
 }

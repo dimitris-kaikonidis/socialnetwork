@@ -78,25 +78,25 @@ module.exports.makePost = (post, id) => db.query(`INSERT INTO posts (post, user_
 module.exports.deleletePost = (id) => db.query(`DELETE FROM posts WHERE id = $1`, [id]);
 module.exports.getAllPostsFirst = (id) => db.query(
     `
-    SELECT first, last, user_id, profile_picture_url, post, posts.id FROM users 
+    SELECT DISTINCT ON (posts.id) posts.id, first, last, user_id, profile_picture_url, post, posts.created_at FROM users 
     RIGHT JOIN posts
     ON (users.id = posts.user_id)
     LEFT JOIN friends
     ON (users.id = friends.sender OR users.id = friends.receiver)
-    WHERE (((friends.sender = $1 OR friends.receiver = $1) AND friends.status = TRUE) OR user_id = $1)
-    ORDER BY posts.created_at DESC LIMIT 5;
+    WHERE (friends.sender = $1 OR friends.receiver = $1) AND friends.status = TRUE
+    ORDER BY (posts.id) DESC LIMIT 5;
     `, [id]
 );
 
 module.exports.getAllPostsNext = (id, lastId) => db.query(
     `
-    SELECT first, last, user_id, profile_picture_url, post, posts.id FROM users
+    SELECT DISTINCT ON (posts.id) posts.id, first, last, user_id, profile_picture_url, post, posts.created_at FROM users
     RIGHT JOIN posts
     ON (users.id = posts.user_id)
     LEFT JOIN friends
     ON (users.id = friends.sender OR users.id = friends.receiver)
-    WHERE ((((friends.sender = $1 OR friends.receiver = $1) AND friends.status = TRUE) OR user_id = $1) AND posts.id < $2)
-    ORDER BY posts.created_at DESC LIMIT 5;
+    WHERE ((friends.sender = $1 OR friends.receiver = $1) AND friends.status = TRUE) AND posts.id < $2
+    ORDER BY (posts.id) DESC LIMIT 5;
     `, [id, lastId]
 );
 
@@ -140,8 +140,19 @@ module.exports.getFriendRequests = (myUserId) => {
         `
        	SELECT friends.id, sender, receiver, status, users.first, users.last, users.profile_picture_url FROM friends
 		JOIN users
-        ON(sender = $1 AND receiver = users.id AND status = false) 
-        OR(receiver = $1 AND sender = users.id AND status = false);
+        ON(sender = $1 AND receiver = users.id AND status = FALSE) 
+        OR(receiver = $1 AND sender = users.id AND status = FALSE);
+        `, [myUserId]
+    );
+};
+
+module.exports.getFriends = (myUserId) => {
+    return db.query(
+        `
+        SELECT friends.id, sender, receiver, users.first, users.last, users.profile_picture_url FROM friends
+        JOIN users
+        ON (sender = $1 AND receiver = users.id AND status = TRUE)
+        OR(receiver = $1 AND sender = users.id AND status = TRUE);
         `, [myUserId]
     );
 };
