@@ -21,7 +21,7 @@ const posts = require("./routers/posts");
 const friends = require("./routers/friends");
 
 const app = express();
-const server = require("http").Server(app);
+const server = require("http").createServer(app);
 const io = socketIO(server);
 const cookieSessionMiddleWare = cookieSession({ secret: sessionSecret, maxAge: 1000 * 60 * 60 * 24 * 30 });
 
@@ -59,6 +59,11 @@ io.on("connection", (socket) => {
 
     const { id } = socket.request.session.user;
 
+    const users = {};
+    for (let [id, socket] of io.of("/").sockets) {
+        users[socket.handshake.auth.user_Id] = id;
+    }
+
     socket.on("openChat", async (targetUserId) => {
         const response = await getMessagesFirst(id, targetUserId);
         socket.emit("openChat", response.rows);
@@ -67,6 +72,7 @@ io.on("connection", (socket) => {
     socket.on("chatMessage", async ({ msg, targetUserId }) => {
         const response = await addMessage(id, targetUserId, msg);
         socket.emit("chatMessage", response.rows[0]);
+        socket.to(users[targetUserId]).emit("chatMessage", response.rows[0]);
     });
 
 });

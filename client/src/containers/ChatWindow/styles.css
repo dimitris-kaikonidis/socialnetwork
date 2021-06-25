@@ -20,6 +20,7 @@
     list-style-type: none;
     padding: 0;
     overflow-y: scroll;
+    height: 100%;
 }
 
 .chat-window > ul::-webkit-scrollbar {

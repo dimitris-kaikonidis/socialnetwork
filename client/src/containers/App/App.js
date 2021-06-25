@@ -24,7 +24,7 @@ export default function App({ store }) {
     } else if (user === null) {
         return <Welcome />;
     } else {
-        init(store);
+        init(store, user.id);
         return (
             <BrowserRouter>
                 <>

@@ -2,6 +2,7 @@
     margin-right: 30px;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 #friend-requests * {
@@ -22,7 +23,8 @@
 
 #friend-requests > span {
     position: absolute;
-    top: 2px;
+    top: 0;
+    right: 0;
     margin-left: 2px;
     color: red;
 }
