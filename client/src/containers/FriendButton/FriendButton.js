@@ -1,7 +1,9 @@
-import "./styles.css";
-import Button from "../../components/Button/Button";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "../../utilities/axios";
+import Button from "../../components/Button/Button";
+import "./styles.css";
+import { getFriendRequests } from "../../redux/actions";
 
 const NOT_FRIENDS = "not_friends";
 const FRIENDS = "friends";
@@ -14,6 +16,8 @@ const ACTION_DELETE_REQUEST = "delete";
 
 export default function FriendButton({ targetUserId }) {
     const [status, setStatus] = useState(null);
+    const dispatch = useDispatch();
+    const friendRequests = useSelector(state => state.friendRequests);
 
     useEffect(() => {
         (async () => {
@@ -25,7 +29,9 @@ export default function FriendButton({ targetUserId }) {
                 setStatus(null);
             }
         })();
-    }, [targetUserId]);
+    }, [targetUserId, friendRequests]);
+
+    useEffect(() => dispatch(getFriendRequests()), [status]);
 
     const friendRequestAction = async (action) => {
         try {

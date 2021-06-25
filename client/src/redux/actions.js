@@ -62,3 +62,11 @@ export function addChatWindow(targetId) {
 export function closeChatWindow(targetId) {
     return { type: "CLOSE_CHAT_WINDOW", closeChatWindow: targetId };
 }
+
+export function setMessages(messages) {
+    return { type: "SET_MESSAGES", messages };
+}
+
+export function addMessage(message) {
+    return { type: "ADD_MESSAGE", message };
+}

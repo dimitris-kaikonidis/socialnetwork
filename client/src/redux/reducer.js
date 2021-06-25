@@ -4,7 +4,8 @@ export default function (state = {}, action) {
             state = {
                 ...state,
                 user: action.user,
-                chatWindows: []
+                chatWindows: [],
+                messages: []
             };
             break;
         case "EDIT_PROFILE_PIC":
@@ -46,7 +47,23 @@ export default function (state = {}, action) {
         case "CLOSE_CHAT_WINDOW":
             state = {
                 ...state,
-                chatWindows: state.chatWindows.filter(chat => chat != action.closeChatWindow)
+                chatWindows: state.chatWindows.filter(chat => chat != action.closeChatWindow),
+                messages: state.messages
+                    .filter(message =>
+                        message.sender != action.closeChatWindow && message.receiver != action.closeChatWindow
+                    )
+            };
+            break;
+        case "SET_MESSAGES":
+            state = {
+                ...state,
+                messages: [...state.messages, ...action.messages]
+            };
+            break;
+        case "ADD_MESSAGE":
+            state = {
+                ...state,
+                messages: [...state.messages, action.message]
             };
             break;
     }

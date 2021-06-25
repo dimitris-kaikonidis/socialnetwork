@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../redux/actions";
+import { init } from "../../utilities/socket";
 import Welcome from "../Welcome/Welcome";
 import Start from "../../components/Start/Start";
 import Home from "../../components/Home/Home";
@@ -12,7 +13,7 @@ import OtherProfile from "../OtherProfile/OtherProfile";
 import FriendList from "../FriendList/FriendList";
 import "./styles.css";
 
-export default function App() {
+export default function App({ store }) {
     const dispatch = useDispatch();
     const user = useSelector(state => state.user);
 
@@ -23,6 +24,7 @@ export default function App() {
     } else if (user === null) {
         return <Welcome />;
     } else {
+        init(store);
         return (
             <BrowserRouter>
                 <>

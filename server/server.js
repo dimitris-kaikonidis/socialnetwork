@@ -7,6 +7,8 @@ const sessionSecret = require("./secrets.json").SESSION_SECRET;
 const express = require("express");
 const socketIO = require("socket.io");
 
+const { addMessage, getMessagesFirst } = require("./db/index");
+
 //Routers
 const register = require("./routers/register");
 const login = require("./routers/login");
@@ -19,16 +21,14 @@ const posts = require("./routers/posts");
 const friends = require("./routers/friends");
 
 const app = express();
-const server = require("http").createServer(app);
+const server = require("http").Server(app);
 const io = socketIO(server);
-
-io.on("connection", () => {
-    console.log(`socket is connected`);
-});
+const cookieSessionMiddleWare = cookieSession({ secret: sessionSecret, maxAge: 1000 * 60 * 60 * 24 * 30 });
 
 //Middlewares
 app.use(compression());
-app.use(cookieSession({ secret: sessionSecret, maxAge: 1000 * 60 * 60 * 24 * 30 }));
+app.use(cookieSessionMiddleWare);
+io.use((socket, next) => cookieSessionMiddleWare(socket.request, socket.request.res, next));
 app.use(express.json());
 app.use(csurf());
 app.use((req, res, next) => {
@@ -50,6 +50,26 @@ app.use(friends);
 
 app.get("/api/start", (req, res) => res.json({ id: req.session.user }));
 app.get("*", (req, res) => res.sendFile(path.join(__dirname, "..", "client", "index.html")));
+
+io.on("connection", (socket) => {
+
+    if (!socket.request.session.user) {
+        return socket.disconnect(true);
+    }
+
+    const { id } = socket.request.session.user;
+
+    socket.on("openChat", async (targetUserId) => {
+        const response = await getMessagesFirst(id, targetUserId);
+        socket.emit("openChat", response.rows);
+    });
+
+    socket.on("chatMessage", async ({ msg, targetUserId }) => {
+        const response = await addMessage(id, targetUserId, msg);
+        socket.emit("chatMessage", response.rows[0]);
+    });
+
+});
 
 if (require.main === module) {
     const PORT = process.env.PORT || 3001;

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addChatWindow, getFriends } from "../../redux/actions";
+import { socket } from "../../utilities/socket";
 import ProfilePicture from "../../components/ProfilePicture/ProfilePicture";
 import "./styles.css";
 
@@ -13,9 +14,10 @@ export default function FriendList() {
     useEffect(() => !friends && dispatch(getFriends()), []);
 
     const openChat = (event) => {
-        const targetId = event.currentTarget.getAttribute("target-id");
-        if (chatWindows.includes(parseInt(targetId))) return;
-        dispatch(addChatWindow(parseInt(targetId)));
+        const targetId = parseInt(event.currentTarget.getAttribute("target-id"));
+        if (chatWindows.includes(targetId)) return;
+        dispatch(addChatWindow(targetId));
+        socket.emit("openChat", targetId);
     };
 
     return (

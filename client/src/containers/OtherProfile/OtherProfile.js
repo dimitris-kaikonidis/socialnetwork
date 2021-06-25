@@ -4,11 +4,10 @@ import ProfilePicture from "../../components/ProfilePicture/ProfilePicture";
 import FriendButton from "../FriendButton/FriendButton";
 import Loading from "../../components/Loading/Loading";
 import "./styles.css";
+import { useSelector } from "react-redux";
 
 export default function OtherProfile(props) {
     const [user, setUser] = useState(null);
-    const [error, setError] = useState(false);
-
     const { id } = props.match.params;
 
     useEffect(() => {
@@ -17,7 +16,6 @@ export default function OtherProfile(props) {
                 const response = await axios.get(`/api/users/${id}`);
                 setUser(response.data.user);
             } catch (error) {
-                setError(true);
                 props.history.push("/");
             }
         })();
