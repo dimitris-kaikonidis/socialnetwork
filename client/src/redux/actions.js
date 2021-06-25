@@ -70,3 +70,7 @@ export function setMessages(messages) {
 export function addMessage(message) {
     return { type: "ADD_MESSAGE", message };
 }
+
+export function setFriendStatus(friendsOnline) {
+    return { type: "SET_ONLINE_FRIENDS", friendsOnline };
+}

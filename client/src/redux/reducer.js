@@ -66,6 +66,19 @@ export default function (state = {}, action) {
                 messages: [...state.messages, action.message]
             };
             break;
+        case "SET_ONLINE_FRIENDS":
+            state = {
+                ...state,
+                friends: state.friends.map(friend => {
+                    delete friend.status;
+                    action.friendsOnline.forEach(friendOnline => {
+                        if (friend.user_id == friendOnline) {
+                            friend = { ...friend, status: "online" };
+                        }
+                    });
+                    return friend;
+                })
+            };
     }
     return state;
 }

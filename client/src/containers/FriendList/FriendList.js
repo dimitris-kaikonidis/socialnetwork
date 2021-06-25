@@ -7,7 +7,6 @@ import "./styles.css";
 
 export default function FriendList() {
     const dispatch = useDispatch();
-    const myId = useSelector(state => state.user && state.user.id);
     const friends = useSelector(state => state.friends);
     const chatWindows = useSelector(state => state.chatWindows);
 
@@ -23,9 +22,14 @@ export default function FriendList() {
     return (
         <ul id="friend-list">
             {friends && friends.map(friend =>
-                <li key={friend.id} onClick={openChat} target-id={myId === friend.sender ? friend.receiver : friend.sender} >
+                <li key={friend.id} onClick={openChat} target-id={friend.user_id} >
                     <ProfilePicture pictureUrl={friend.profile_picture_url} />
                     <p>{friend.first} {friend.last}</p>
+                    <img
+                        className="online-status"
+                        src={friend.status ? "/assets/online.svg" : "/assets/offline.svg"}
+                        alt={friend.status ? "online" : "offline"}
+                    />
                 </li>
             )}
             <span>Friends Online: {friends ? friends.length : 0}</span>

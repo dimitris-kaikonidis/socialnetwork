@@ -149,10 +149,15 @@ module.exports.getFriendRequests = (myUserId) => {
 module.exports.getFriends = (myUserId) => {
     return db.query(
         `
-        SELECT friends.id, sender, receiver, users.first, users.last, users.profile_picture_url FROM friends
+        SELECT friends.id, users.first, users.last, users.profile_picture_url,
+        CASE 
+            WHEN receiver = $1 THEN sender
+            WHEN sender = $1 THEN receiver
+        END AS user_id
+        FROM friends
         JOIN users
         ON (sender = $1 AND receiver = users.id AND status = TRUE)
-        OR(receiver = $1 AND sender = users.id AND status = TRUE);
+        OR (receiver = $1 AND sender = users.id AND status = TRUE);
         `, [myUserId]
     );
 };

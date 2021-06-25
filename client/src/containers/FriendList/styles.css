@@ -45,6 +45,13 @@
     filter: invert(0);
 }
 
+#friend-list > li > .online-status {
+    margin-left: 5px;
+    width: 10px;
+    height: 10px;
+    filter: invert(0.8);
+}
+
 #friend-list > span {
     position: fixed;
     bottom: 0;
