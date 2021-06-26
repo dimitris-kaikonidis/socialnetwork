@@ -4,7 +4,7 @@
     bottom: 0;
     right: 210px;
     width: 100%;
-    height: 30px;
+    height: 0px;
     background-color: black;
     display: flex;
     justify-content: flex-end;
@@ -14,8 +14,7 @@
 
 #chat-bar > li {
     position: relative;
-    width: 200px;
-    border: solid 2px white;
+    width: 240px;
     color: white;
     margin: 0 10px;
 }

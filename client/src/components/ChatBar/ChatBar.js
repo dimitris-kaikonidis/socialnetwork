@@ -12,15 +12,7 @@ export default function ChatBar() {
                 friends
                     .filter(friend => friend.chatWindow)
                     .sort((a, b) => b.order - a.order)
-                    .map(friend =>
-                        <li key={friend.id}>
-                            <ChatWindow
-                                first={friend.first}
-                                last={friend.last}
-                                chatWindowId={friend.user_id}
-                            />
-                        </li>
-                    )
+                    .map(friend => <li key={friend.id}><ChatWindow friend={friend} /></li>)
             }
         </ul>
     );
