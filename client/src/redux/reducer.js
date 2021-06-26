@@ -66,10 +66,7 @@ export default function (state = {}, action) {
             state.messages[action.messages.chatWindowId] = action.messages.messages;
             break;
         case "ADD_MESSAGE":
-            state = {
-                ...state,
-                messages: [...state.messages, action.message]
-            };
+            state.messages[action.message.chatWindowId] = [...state.messages[action.message.chatWindowId], action.message.newMessage];
             break;
         case "SET_ONLINE_FRIENDS":
             state = {

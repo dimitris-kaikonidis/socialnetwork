@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-import { addMessage, setMessages, setFriendStatus } from "../redux/actions";
+import { addMessage, setFriendStatus } from "../redux/actions";
 
 export let socket;
 

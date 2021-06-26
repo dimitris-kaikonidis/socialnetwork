@@ -24,10 +24,16 @@ export default function MakePost() {
     return (
         <form id="post-container">
             <div>
-                <h2>What&apos;s on your mind?</h2>
+                {/* <h2>What&apos;s on your mind?</h2> */}
                 <Button id="post-button" name="Post" action={handleSubmit} />
             </div>
-            <textarea onChange={handleInput} value={post}></textarea>
+            <textarea
+                maxLength="500"
+                onChange={handleInput}
+                value={post}
+                placeholder="What's on your mind?"
+            >
+            </textarea>
         </form>
     );
 }

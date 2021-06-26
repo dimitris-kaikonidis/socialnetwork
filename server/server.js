@@ -6,8 +6,9 @@ const csurf = require("csurf");
 const sessionSecret = require("./secrets.json").SESSION_SECRET;
 const express = require("express");
 const socketIO = require("socket.io");
+const redis = require("./db/redis");
 
-const { addMessage, getMessagesFirst, getFriends } = require("./db/index");
+const { addMessage } = require("./db/index");
 
 //Routers
 const register = require("./routers/register");
@@ -66,23 +67,19 @@ io.on("connection", async (socket) => {
         users[socket.handshake.auth.user_Id] = id;
     }
 
+    redis.set(id, socket.id);
+
     const usersOnline = Object.keys(users);
 
     io.emit("usersOnline", usersOnline);
 
-
-
-    socket.on("disconnect", () => {
-
-        io.emit("usersOnline", usersOnline.filter(user => user != id));
-    });
-
     socket.on("chatMessage", async ({ msg, targetUserId }) => {
         const response = await addMessage(id, targetUserId, msg);
-        socket.emit("chatMessage", response.rows[0]);
-        socket.to(users[targetUserId]).emit("chatMessage", response.rows[0]);
+        socket.emit("chatMessage", { chatWindowId: targetUserId, newMessage: response.rows[0] });
+        socket.to(await redis.get(targetUserId)).emit("chatMessage", { chatWindowId: id, newMessage: response.rows[0] });
     });
 
+    socket.on("disconnect", () => io.emit("usersOnline", usersOnline.filter(user => user != id)));
 });
 
 if (require.main === module) {

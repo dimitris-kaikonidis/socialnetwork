@@ -30,6 +30,7 @@ export default function ChatWindow({ first, last, chatWindowId }) {
     const handleEnter = (event) => {
         if (event.key === "Enter") {
             event.preventDefault();
+            if (!event.target.value) return;
             socket.emit("chatMessage", { msg: event.target.value, targetUserId: chatWindowId });
             event.target.value = "";
         }
@@ -42,7 +43,6 @@ export default function ChatWindow({ first, last, chatWindowId }) {
                 {messages && messages.length
                     ?
                     messages
-                        .reverse()
                         .map(msg =>
                             <li key={msg.id} className={msg.sender == userId ? "right" : "left"}>
                                 <p>{msg.msg}</p>

@@ -8,7 +8,7 @@ router.get("/api/messages", async (req, res) => {
     const { targetId } = req.query;
     try {
         const response = await getMessagesFirst(id, targetId);
-        res.status(200).json(response.rows);
+        res.status(200).json(response.rows.reverse());
     } catch (error) {
         console.log(error);
         res.status(400).json([]);

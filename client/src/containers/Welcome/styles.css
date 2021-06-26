@@ -29,6 +29,7 @@
 #main-welcome > p {
     margin: auto;
     transform: rotate(-20deg);
+    font-family: "Pacifico";
     font-size: 120px;
     color: black;
     text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #0fa,
