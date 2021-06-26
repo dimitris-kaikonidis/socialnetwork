@@ -4,7 +4,7 @@ export default function (state = {}, action) {
             state = {
                 ...state,
                 user: action.user,
-                messages: [],
+                messages: {},
                 chatIds: []
             };
             break;
@@ -63,10 +63,7 @@ export default function (state = {}, action) {
             };
             break;
         case "SET_MESSAGES":
-            state = {
-                ...state,
-                messages: [...state.messages, ...action.messages]
-            };
+            state.messages[action.messages.chatWindowId] = action.messages.messages;
             break;
         case "ADD_MESSAGE":
             state = {

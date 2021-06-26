@@ -1,6 +1,7 @@
+import axios from "axios";
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { closeChatWindow } from "../../redux/actions";
+import { closeChatWindow, setMessages } from "../../redux/actions";
 import { socket } from "../../utilities/socket";
 import "./styles.css";
 
@@ -10,13 +11,18 @@ export default function ChatWindow({ first, last, chatWindowId }) {
     const chatRef = useRef();
     const userId = useSelector(state => state.user && state.user.id);
     const messages = useSelector(state =>
-        state.messages
-            .filter(msg =>
-                msg.sender == userId && msg.receiver == chatWindowId
-                ||
-                msg.sender == chatWindowId && msg.receiver == userId
-            )
-    );
+        (state.messages && state.messages[chatWindowId]) && state.messages[chatWindowId]);
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const response = await axios.get(`/api/messages?targetId=${chatWindowId}`);
+                dispatch(setMessages({ chatWindowId, messages: response.data }));
+            } catch (error) {
+                console.log(error);
+            }
+        })();
+    }, []);
 
     useEffect(() => chatRef.current.scrollTop = chatRef.current.scrollHeight, [messages]);
 
@@ -33,13 +39,15 @@ export default function ChatWindow({ first, last, chatWindowId }) {
         <div className="chat-window">
             <h4 onClick={closeWindow}>{first} {last}</h4>
             <ul ref={chatRef}>
-                {messages.length
+                {messages && messages.length
                     ?
-                    messages.map(msg =>
-                        <li key={msg.id} className={msg.sender == userId ? "right" : "left"}>
-                            <p>{msg.msg}</p>
-                        </li>
-                    )
+                    messages
+                        .reverse()
+                        .map(msg =>
+                            <li key={msg.id} className={msg.sender == userId ? "right" : "left"}>
+                                <p>{msg.msg}</p>
+                            </li>
+                        )
                     :
                     null
                 }

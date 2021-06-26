@@ -175,7 +175,7 @@ module.exports.getMessagesFirst = (myId, targetUserId) => {
         `
         SELECT * FROM messages 
         WHERE (sender = $1 AND receiver = $2) OR (receiver = $1 AND sender = $2)
-        ORDER BY created_at LIMIT 20;
+        ORDER BY created_at DESC LIMIT 20;
         `, [myId, targetUserId]
     );
 };

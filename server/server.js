@@ -19,7 +19,7 @@ const bio = require("./routers/bio");
 const users = require("./routers/users");
 const posts = require("./routers/posts");
 const friends = require("./routers/friends");
-const { get } = require("./routers/register");
+const messages = require("./routers/messages");
 
 const app = express();
 const server = require("http").createServer(app);
@@ -48,6 +48,7 @@ app.use(bio);
 app.use(users);
 app.use(posts);
 app.use(friends);
+app.use(messages);
 
 app.get("/api/start", (req, res) => res.json({ id: req.session.user }));
 app.get("*", (req, res) => res.sendFile(path.join(__dirname, "..", "client", "index.html")));
@@ -74,20 +75,6 @@ io.on("connection", async (socket) => {
     socket.on("disconnect", () => {
 
         io.emit("usersOnline", usersOnline.filter(user => user != id));
-    });
-
-    // console.log(id);
-    // const response = await getFriends(id);
-    // const friendsId = response.rows.map(friend => friend.user_id);
-    // console.log(friendsId);
-    // friendsId.forEach(friendId => {
-    // if (friendId in users) console.log('wtf');
-    //socket.to(users[friendId]).emit("userOnline", id);
-    //});
-
-    socket.on("openChat", async (targetUserId) => {
-        const response = await getMessagesFirst(id, targetUserId);
-        socket.emit("openChat", response.rows);
     });
 
     socket.on("chatMessage", async ({ msg, targetUserId }) => {

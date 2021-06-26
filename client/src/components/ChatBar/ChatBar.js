@@ -3,7 +3,7 @@ import ChatWindow from "../../containers/ChatWindow/ChatWindow";
 import "./styles.css";
 
 export default function ChatBar() {
-    // const chats = useSelector(state => state.chatIds);
+    const chats = useSelector(state => state.chatIds);
     const friends = useSelector(state => state.friends);
 
     return (

@@ -24,9 +24,9 @@ export default function Bio({ bio }) {
 
     return (
         <div id="bio">
-            <h4>Short Info</h4>
+            <h4>About me</h4>
             <textarea
-                maxLength="234"
+                maxLength="222"
                 className={editMode ? "on" : null}
                 readOnly={!editMode}
                 value={draft}

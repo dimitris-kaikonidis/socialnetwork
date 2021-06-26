@@ -30,7 +30,7 @@ export default function FriendList() {
                     />
                 </li>
             )}
-            <span>Friends Online: {friends ? friends.length : 0}</span>
+            <span>Friends Online: {friends && friends.filter(friend => friend.status).length}</span>
         </ul>
     );
 }
