@@ -11,8 +11,11 @@ export default function ChatWindow({ first, last, chatWindowId }) {
     const userId = useSelector(state => state.user && state.user.id);
     const messages = useSelector(state =>
         state.messages
-            .filter(msg => msg.sender == userId && msg.receiver == chatWindowId
-                || msg.sender == chatWindowId && msg.receiver == userId)
+            .filter(msg =>
+                msg.sender == userId && msg.receiver == chatWindowId
+                ||
+                msg.sender == chatWindowId && msg.receiver == userId
+            )
     );
 
     useEffect(() => chatRef.current.scrollTop = chatRef.current.scrollHeight, [messages]);

@@ -4,8 +4,8 @@ export default function (state = {}, action) {
             state = {
                 ...state,
                 user: action.user,
-                chatWindows: [],
-                messages: []
+                messages: [],
+                chatIds: []
             };
             break;
         case "EDIT_PROFILE_PIC":
@@ -39,19 +39,27 @@ export default function (state = {}, action) {
             };
             break;
         case "ADD_CHAT_WINDOW":
+            state.friends.forEach((friend, index) => {
+                if (friend.user_id == action.targetId) {
+                    state.friends[index].chatWindow = true;
+                    state.friends[index].order = new Date();
+                }
+            });
             state = {
                 ...state,
-                chatWindows: [...state.chatWindows.filter(chat => chat != action.newChatWindow), action.newChatWindow]
+                chatIds: [...state.chatIds, action.targetId]
             };
             break;
         case "CLOSE_CHAT_WINDOW":
+            state.friends.forEach((friend, index) => {
+                if (friend.user_id == action.targetId) {
+                    state.friends[index].chatWindow = false;
+                    delete state.friends[index].order;
+                }
+            });
             state = {
                 ...state,
-                chatWindows: state.chatWindows.filter(chat => chat != action.closeChatWindow),
-                messages: state.messages
-                    .filter(message =>
-                        message.sender != action.closeChatWindow && message.receiver != action.closeChatWindow
-                    )
+                chatIds: state.chatIds.filter(chatId => chatId != action.targetId)
             };
             break;
         case "SET_MESSAGES":

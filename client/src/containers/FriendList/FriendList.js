@@ -8,13 +8,11 @@ import "./styles.css";
 export default function FriendList() {
     const dispatch = useDispatch();
     const friends = useSelector(state => state.friends);
-    const chatWindows = useSelector(state => state.chatWindows);
 
     useEffect(() => !friends && dispatch(getFriends()), []);
 
     const openChat = (event) => {
         const targetId = parseInt(event.currentTarget.getAttribute("target-id"));
-        if (chatWindows.includes(targetId)) return;
         dispatch(addChatWindow(targetId));
         socket.emit("openChat", targetId);
     };

@@ -56,11 +56,11 @@ export async function getFriends() {
 }
 
 export function addChatWindow(targetId) {
-    return { type: "ADD_CHAT_WINDOW", newChatWindow: targetId };
+    return { type: "ADD_CHAT_WINDOW", targetId };
 }
 
 export function closeChatWindow(targetId) {
-    return { type: "CLOSE_CHAT_WINDOW", closeChatWindow: targetId };
+    return { type: "CLOSE_CHAT_WINDOW", targetId };
 }
 
 export function setMessages(messages) {
