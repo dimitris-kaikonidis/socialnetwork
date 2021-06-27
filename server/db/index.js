@@ -74,11 +74,26 @@ module.exports.setBio = (id, bio) => {
     );
 };
 
-module.exports.makePost = (post, id) => db.query(`INSERT INTO posts (post, user_id) VALUES ($1, $2)`, [post, id]);
+module.exports.makePost = (post, id) =>
+    db.query(
+        `
+        WITH inserted AS (
+            INSERT INTO posts (post, user_id) VALUES ($1, $2)
+            RETURNING *
+        )
+        SELECT inserted.*, users.first, users.last, users.profile_picture_url
+        FROM inserted, users
+        WHERE users.id = $2;   
+        `, [post, id]
+    );
+
 module.exports.deleletePost = (id) => db.query(`DELETE FROM posts WHERE id = $1`, [id]);
+
 module.exports.getAllPostsFirst = (id) => db.query(
     `
-    SELECT DISTINCT ON (posts.id) posts.id, first, last, user_id, profile_picture_url, post, posts.created_at FROM users 
+    SELECT DISTINCT ON (posts.id) posts.id, first, last, posts.user_id, profile_picture_url, post, likes, posts.created_at,
+    (SELECT COUNT(*) AS comment_count FROM comments WHERE user_id = $1)
+    FROM users 
     RIGHT JOIN posts
     ON (users.id = posts.user_id)
     LEFT JOIN friends
@@ -90,7 +105,9 @@ module.exports.getAllPostsFirst = (id) => db.query(
 
 module.exports.getAllPostsNext = (id, lastId) => db.query(
     `
-    SELECT DISTINCT ON (posts.id) posts.id, first, last, user_id, profile_picture_url, post, posts.created_at FROM users
+    SELECT DISTINCT ON (posts.id) posts.id, first, last, posts.user_id, profile_picture_url, post, likes, posts.created_at,
+    (SELECT COUNT(*) FROM comments WHERE user_id = $1)
+    FROM users
     RIGHT JOIN posts
     ON (users.id = posts.user_id)
     LEFT JOIN friends
@@ -98,6 +115,28 @@ module.exports.getAllPostsNext = (id, lastId) => db.query(
     WHERE ((friends.sender = $1 OR friends.receiver = $1) AND friends.status = TRUE) AND posts.id < $2
     ORDER BY (posts.id) DESC LIMIT 5;
     `, [id, lastId]
+);
+
+module.exports.getComments = (postId) => db.query(
+    `
+    SELECT comments.id, first, last, comments.user_id, profile_picture_url, comment, comments.created_at FROM users
+    LEFT JOIN comments
+    ON (users.id = comments.user_id)
+    WHERE post_id = $1
+    ORDER BY (comments.id) LIMIT 20;
+    `, [postId]
+);
+
+module.exports.postComment = (id, postId, comment) => db.query(
+    `
+    WITH commented AS (
+        INSERT INTO comments(user_id, post_id, comment) VALUES($1, $2, $3)
+        RETURNING *
+    )
+    SELECT commented.*, users.first, users.last, users.profile_picture_url
+    FROM commented, users
+    WHERE users.id = $1;
+    `, [id, postId, comment]
 );
 
 module.exports.checkFriendStatus = (myUserId, OtherUserId) => {
@@ -162,13 +201,8 @@ module.exports.getFriends = (myUserId) => {
     );
 };
 
-module.exports.addMessage = (sender, receiver, msg) => {
-    return db.query(
-        `
-        INSERT INTO messages(sender, receiver, msg) VALUES($1, $2, $3) RETURNING *;
-        `, [sender, receiver, msg]
-    );
-};
+module.exports.addMessage = (sender, receiver, msg) =>
+    db.query(`INSERT INTO messages(sender, receiver, msg) VALUES($1, $2, $3) RETURNING *;`, [sender, receiver, msg]);
 
 module.exports.getMessagesFirst = (myId, targetUserId) => {
     return db.query(
@@ -179,3 +213,5 @@ module.exports.getMessagesFirst = (myId, targetUserId) => {
         `, [myId, targetUserId]
     );
 };
+
+module.exports.addLike = (myId, postId) => db.query(`UPDATE posts SET likes = likes || $1 WHERE id = $2;`, [[myId], postId]);

@@ -1,9 +1,9 @@
-DROP TABLE IF EXISTS posts;
+DROP TABLE IF EXISTS comments;
 
-CREATE TABLE posts(
+CREATE TABLE comments(
     id SERIAL PRIMARY KEY,
-    post TEXT NOT NULL,
-    likes INT[],
+    comment TEXT NOT NULL,
     user_id INT NOT NULL REFERENCES users(id),
+    post_id INT NOT NULL REFERENCES posts(id),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

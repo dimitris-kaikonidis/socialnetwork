@@ -1,0 +1,15 @@
+#post-list {
+    margin: 50px auto;
+    list-style-type: none;
+    padding: 0;
+    width: 600px;
+}
+
+#post-list > li {
+    margin: 5px;
+    margin-bottom: 100px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+}

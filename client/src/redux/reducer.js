@@ -5,7 +5,8 @@ export default function (state = {}, action) {
                 ...state,
                 user: action.user,
                 messages: {},
-                chatIds: []
+                chatIds: [],
+                posts: []
             };
             break;
         case "EDIT_PROFILE_PIC":
@@ -36,6 +37,20 @@ export default function (state = {}, action) {
             state = {
                 ...state,
                 friends: action.friends
+            };
+            break;
+        case "GET_POSTS":
+            state = {
+                ...state,
+                posts: [...state.posts, ...action.posts],
+                morePosts: action.more
+            };
+            break;
+
+        case "ADD_POST":
+            state = {
+                ...state,
+                posts: [action.post, ...state.posts]
             };
             break;
         case "ADD_CHAT_WINDOW":

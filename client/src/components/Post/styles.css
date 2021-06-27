@@ -1,0 +1,78 @@
+.post > .user-info {
+    padding: 7px;
+    margin: 8px;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+}
+
+.post > .user-info:hover {
+    background-color: rgba(219, 208, 207, 0.404);
+    border-radius: 10px;
+}
+
+.post > .user-info > .img-container {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.post > .user-info > .post-info {
+    margin-left: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.post > .user-info > .post-info > h4 {
+    margin: 0;
+}
+
+.post > .user-info > .post-info > .created_at {
+    margin: 0;
+    font-size: 10px;
+}
+
+.post > p {
+    margin-left: 15px;
+}
+
+.post > .interactions {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1px;
+    margin-left: 15px;
+    border-top: 1px solid rgb(233, 233, 233);
+}
+
+.post > .interactions .button {
+    margin-left: 5px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.post > .interactions .button:hover {
+    background-color: rgba(219, 208, 207, 0.404);
+    border-radius: 5px;
+}
+
+.post > .interactions > div {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.post > .interactions > div p {
+    margin: 0;
+    margin-top: 5px;
+}
+
+#default-profile-pic {
+    filter: invert(0);
+}

@@ -12,7 +12,7 @@ body {
 
 body {
     height: 100vh;
-    background: url("./assets/brick.jpg");
+    background-color: rgb(235, 235, 235);
     overflow: initial;
 }
 

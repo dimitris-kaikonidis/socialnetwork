@@ -21,6 +21,7 @@ const users = require("./routers/users");
 const posts = require("./routers/posts");
 const friends = require("./routers/friends");
 const messages = require("./routers/messages");
+const comments = require("./routers/comments");
 
 const app = express();
 const server = require("http").createServer(app);
@@ -50,6 +51,7 @@ app.use(users);
 app.use(posts);
 app.use(friends);
 app.use(messages);
+app.use(comments);
 
 app.get("/api/start", (req, res) => res.json({ id: req.session.user }));
 app.get("*", (req, res) => res.sendFile(path.join(__dirname, "..", "client", "index.html")));

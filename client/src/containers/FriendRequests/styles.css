@@ -23,10 +23,14 @@
 
 #friend-requests > span {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 5px;
+    right: 5px;
     margin-left: 2px;
     color: red;
+}
+
+#friend-requests > span.zero {
+    opacity: 0;
 }
 
 #friend-requests-result > div.arrow-up {

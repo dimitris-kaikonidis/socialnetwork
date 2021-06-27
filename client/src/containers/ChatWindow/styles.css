@@ -27,6 +27,11 @@
     padding: 5px 5px 0 5px;
 }
 
+.chat-window > .user-info > .img-container {
+    width: 20px;
+    height: 20px;
+}
+
 .chat-window > .user-info > .img-container > img {
     filter: invert(0) !important;
 }

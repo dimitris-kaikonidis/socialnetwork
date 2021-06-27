@@ -19,9 +19,15 @@ export default function FriendRequests() {
 
     return (
         <div id="friend-requests">
-            <span>{incomingFriendRequests && sentFriendRequests ?
-                incomingFriendRequests.length + sentFriendRequests.length : null
-            }</span>
+            <span className={
+                (incomingFriendRequests && sentFriendRequests) &&
+                    (incomingFriendRequests.length || sentFriendRequests.length) ? "" : "zero"
+            }
+            >
+                {incomingFriendRequests && sentFriendRequests ?
+                    incomingFriendRequests.length + sentFriendRequests.length : null
+                }
+            </span>
             <Button
                 icon="/assets/friend_requests.svg"
                 action={() => setVisibility(!visibility)}

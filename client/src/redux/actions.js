@@ -55,6 +55,30 @@ export async function getFriends() {
     return { type: "GET_FRIENDS", friends };
 }
 
+export async function getPosts(id, lastPostId) {
+    let posts = [];
+    let more = true;
+    try {
+        let response;
+        if (!lastPostId) {
+            response = await axios.get(`/api/posts/all?id=${id}`);
+        } else {
+            response = await axios.get(`/api/posts/all?id=${id}&next=${lastPostId}`);
+            if (response.data.length < 5) {
+                more = false;
+            }
+        }
+        posts = [...response.data];
+    } catch (error) {
+        posts = [];
+    }
+    return { type: "GET_POSTS", posts, more };
+}
+
+export async function addPost(post) {
+    return { type: "ADD_POST", post };
+}
+
 export function addChatWindow(targetId) {
     return { type: "ADD_CHAT_WINDOW", targetId };
 }
@@ -74,3 +98,5 @@ export function addMessage(message) {
 export function setFriendStatus(friendsOnline) {
     return { type: "SET_ONLINE_FRIENDS", friendsOnline };
 }
+
+

@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addPost } from "../../redux/actions";
 import axios from "../../utilities/axios";
 import Button from "../../components/Button/Button";
 import "./styles.css";
-import { useSelector } from "react-redux";
 
 export default function MakePost() {
+    const dispatch = useDispatch();
     const [post, setPost] = useState("");
     const id = useSelector(state => state.user && state.user.id);
 
@@ -13,7 +15,8 @@ export default function MakePost() {
         event.preventDefault();
         try {
             if (post) {
-                await axios.post("/api/posts/post", { id, post });
+                const response = await axios.post("/api/posts/post", { id, post });
+                dispatch(addPost(response.data));
                 setPost("");
             }
         } catch (error) {
@@ -24,7 +27,6 @@ export default function MakePost() {
     return (
         <form id="post-container">
             <div>
-                {/* <h2>What&apos;s on your mind?</h2> */}
                 <Button id="post-button" name="Post" action={handleSubmit} />
             </div>
             <textarea

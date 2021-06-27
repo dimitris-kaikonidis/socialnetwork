@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../../redux/actions";
+import { setUser, getPosts, getFriendRequests } from "../../redux/actions";
 import { init } from "../../utilities/socket";
 import Welcome from "../Welcome/Welcome";
 import Start from "../../components/Start/Start";
@@ -17,7 +17,12 @@ export default function App({ store }) {
     const dispatch = useDispatch();
     const user = useSelector(state => state.user);
 
-    useEffect(() => !user && dispatch(setUser()), []);
+    useEffect(() => {
+        !user && dispatch(setUser());
+        dispatch(getFriendRequests(), []);
+    }, []);
+    useEffect(() => user && dispatch(getPosts(user.id)), [user]);
+
 
     if (user === undefined) {
         return <Loading />;
