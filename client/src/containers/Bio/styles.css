@@ -36,6 +36,7 @@
     bottom: 5px;
     right: 5px;
     display: flex;
+    filter: invert(1);
 }
 
 #bio > #save-bio.button {

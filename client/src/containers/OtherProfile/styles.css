@@ -4,6 +4,7 @@ div#other-profile-page {
 }
 
 div#other-profile {
+    background-color: rgb(235, 235, 235);
     width: 50%;
     padding: 30px;
     margin: 50px auto;

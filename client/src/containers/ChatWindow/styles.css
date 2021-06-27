@@ -10,10 +10,12 @@
     justify-content: center;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    -webkit-box-shadow: rgb(0, 0, 0) -10px 0px 13px -7px,
-        rgb(0, 0, 0) 10px 0px 13px -7px, 0px -5px 15px 7px rgba(0, 0, 0, 0.33);
-    box-shadow: rgb(0, 0, 0) -10px 0px 13px -7px,
-        rgb(0, 0, 0) 10px 0px 13px -7px, 0px -5px 15px 7px rgba(0, 0, 0, 0.33);
+    -webkit-box-shadow: rgb(0, 0, 0) -10px 0px 13px -10px,
+        rgb(0, 0, 0) 10px 0px 13px -10px,
+        0px -5px 13px -10px rgba(0, 0, 0, 0.33);
+    box-shadow: rgb(0, 0, 0) -10px 0px 13px -10px,
+        rgb(0, 0, 0) 10px 0px 13px -10px,
+        0px -5px 13px -10px rgba(0, 0, 0, 0.33);
 }
 
 .chat-window > .user-info {
@@ -73,12 +75,14 @@
 }
 
 .chat-window > ul > li > p {
-    background-color: rgb(247, 247, 247);
+    background-color: rgb(230, 228, 228);
     color: black;
+    max-width: 50%;
     padding: 5px 20px;
     margin: 5px;
     border-radius: 5px;
     width: fit-content;
+    word-wrap: break-word;
 }
 
 .chat-window > textarea {

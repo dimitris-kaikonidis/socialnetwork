@@ -92,7 +92,7 @@ module.exports.deleletePost = (id) => db.query(`DELETE FROM posts WHERE id = $1`
 module.exports.getAllPostsFirst = (id) => db.query(
     `
     SELECT DISTINCT ON (posts.id) posts.id, first, last, posts.user_id, profile_picture_url, post, likes, posts.created_at,
-    (SELECT COUNT(*) AS comment_count FROM comments WHERE user_id = $1)
+    (SELECT COUNT(*) AS comment_count FROM comments WHERE post_id = posts.id)
     FROM users 
     RIGHT JOIN posts
     ON (users.id = posts.user_id)
@@ -106,7 +106,7 @@ module.exports.getAllPostsFirst = (id) => db.query(
 module.exports.getAllPostsNext = (id, lastId) => db.query(
     `
     SELECT DISTINCT ON (posts.id) posts.id, first, last, posts.user_id, profile_picture_url, post, likes, posts.created_at,
-    (SELECT COUNT(*) FROM comments WHERE user_id = $1)
+    (SELECT COUNT(*) AS comment_count FROM comments WHERE post_id = posts.id)
     FROM users
     RIGHT JOIN posts
     ON (users.id = posts.user_id)

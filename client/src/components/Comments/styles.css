@@ -1,4 +1,5 @@
 .comment-section {
+    background-color: rgb(235, 235, 235);
     margin-top: 20px;
     display: flex;
     flex-direction: column;
@@ -23,20 +24,29 @@
     background-color: rgb(130, 0, 0);
     display: flex;
     justify-content: center;
+    align-items: center;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
+    padding: 10px;
 }
 
 .comment-section textarea {
+    background-color: rgb(235, 235, 235);
     box-sizing: border-box;
     resize: none;
     width: 50%;
     outline: none;
-    margin: auto;
-    margin-top: 20px;
-    margin-bottom: 10px;
     border: none;
     box-shadow: black 0 0 15px -5px;
+}
+
+.comment-section textarea::-webkit-scrollbar {
+    width: 2px;
+}
+
+.comment-section > .comment-input > .post-comment-button {
+    transform: rotate(45deg);
+    filter: invert(1);
 }
 
 .comment-section .user-info {

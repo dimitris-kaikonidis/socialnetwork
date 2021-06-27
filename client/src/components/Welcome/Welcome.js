@@ -1,8 +1,8 @@
 import { BrowserRouter, Route } from "react-router-dom";
-import Registration from "../forms/Registration";
-import Login from "../forms/Login";
-import PasswordReset from "../forms/PasswordReset";
-import Logo from "../../components/Logo/Logo";
+import Registration from "../../containers/forms/Registration";
+import Login from "../../containers/forms/Login";
+import PasswordReset from "../../containers/forms/PasswordReset";
+import Logo from "../Logo/Logo";
 import "./styles.css";
 
 export default function Welcome() {

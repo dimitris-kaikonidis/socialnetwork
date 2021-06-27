@@ -1,4 +1,9 @@
+#profile * {
+    color: white;
+}
+
 #profile {
+    background-color: rgb(12, 62, 170);
     width: 300px;
     height: 430px;
     padding: 30px;
@@ -7,9 +12,9 @@
     flex-direction: column;
     align-items: center;
     border-radius: 10px;
-    -webkit-box-shadow: 0px 0px 46px -15px rgba(0, 0, 0, 0.8);
-    -moz-box-shadow: 0px 0px 46px -15px rgba(0, 0, 0, 0.8);
-    box-shadow: 0px 0px 46px -15px rgba(0, 0, 0, 0.8);
+    -webkit-box-shadow: 0px 0px 46px 0px rgba(0, 0, 0, 0.8);
+    -moz-box-shadow: 0px 0px 46px 0px rgba(0, 0, 0, 0.8);
+    box-shadow: 0px 0px 46px 0px rgba(0, 0, 0, 0.8);
 }
 
 #profile-pic {

@@ -20,7 +20,10 @@ export default function Uploader(props) {
 
     const dispatch = useDispatch();
 
-    const handleFileChange = event => setFile(event.target.files[0]);
+    const handleFileChange = event => {
+        if (file) return;
+        setFile(event.target.files[0]);
+    };
     const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => setCroppedAreaPixels(croppedAreaPixels), []);
 
     const uploadFile = async () => {
@@ -61,12 +64,16 @@ export default function Uploader(props) {
                 <ProfilePicture pictureUrl={profilePictureUrl} />
             }
             <Button className="close" icon="/assets/close.svg" action={props.closeUpload} />
-            <label>
-                <span>{file ? file.name : "Choose File..."}</span>
-                <input id="choose-file" name="file" type="file" accept="image/*" onInput={handleFileChange} />
-                <Button id="upload" name="Upload" action={uploadFile} />
-                <Button className="cancel" icon="/assets/close.svg" action={() => setFile(null)} />
-            </label>
+            <div>
+                <label>
+                    <span>{file ? file.name : "Choose File..."}</span>
+                    <input id="choose-file" name="file" type="file" accept="image/*" onInput={handleFileChange} />
+                    <Button id="upload" name="Upload" action={uploadFile} />
+                </label>
+                {file &&
+                    <Button className="cancel" icon="/assets/close.svg" action={() => setFile(null)} />
+                }
+            </div>
             {/* <canvas width={400} height={400} ref={canvasRef} />
             <button onClick={takeSnapshot}>Take Snapshot</button> */}
         </div>

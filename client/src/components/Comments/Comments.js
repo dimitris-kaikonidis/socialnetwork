@@ -18,12 +18,19 @@ export default function Comments({ postId, visibility }) {
     }, []);
 
     const handleChange = (event) => setComment(event.target.value);
+    const handleEnter = (event) => {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            handleSubmit(event);
+        }
+    };
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
             if (comment) {
                 const response = await axios.post("/api/comments/post", { postId, comment });
                 setComments([response.data, ...comments]);
+                setComment("");
             }
         } catch (error) {
             console.log(error);
@@ -58,9 +65,10 @@ export default function Comments({ postId, visibility }) {
                         name="comment"
                         value={comment}
                         onChange={handleChange}
+                        onKeyDown={handleEnter}
                     >
                     </textarea>
-                    <Button id="post-comment-button" icon="/assets/send.svg" action={handleSubmit} />
+                    <Button className="post-comment-button" icon="/assets/send.svg" alt="send" action={handleSubmit} />
                 </div>
             </div>
         );

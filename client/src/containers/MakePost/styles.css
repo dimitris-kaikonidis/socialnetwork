@@ -1,6 +1,5 @@
 form#post-container {
     width: 600px;
-    /* height: 100px; */
     height: fit-content;
     position: relative;
     margin: 50px auto;
@@ -10,11 +9,10 @@ form#post-container > div {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 2px;
-    background-color: rgb(130, 0, 0);
+    background-color: rgba(132, 16, 13, 0.95);
     width: 100%;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 form#post-container > div > h2 {
@@ -23,25 +21,36 @@ form#post-container > div > h2 {
 }
 
 form#post-container > div > #post-button {
+    display: flex;
+    align-items: center;
+    margin: 5px;
     margin-left: auto;
+    font-size: 30px;
 }
 
 form#post-container > div > #post-button > button {
-    border-radius: 10px;
+    border-radius: 5px;
     font-size: 18px;
 }
 
 form#post-container > textarea {
+    background-color: rgb(235, 235, 235);
+    box-sizing: border-box;
     width: 100%;
     min-height: 50px;
     resize: none;
     overflow-y: visible;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
     outline: none;
     border: none;
+    font-size: 16px;
 }
 
-/* form#post-container > textarea::-webkit-scrollbar {
-    width: 0;
-} */
+form#post-container > textarea::placeholder {
+    color: rgb(99, 99, 99);
+}
+
+form#post-container > textarea::-webkit-scrollbar {
+    width: 5px;
+}

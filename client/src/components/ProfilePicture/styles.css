@@ -10,7 +10,3 @@
     object-fit: cover;
     border-radius: 100%;
 }
-
-#default-profile-pic {
-    filter: invert(1);
-}

@@ -1,12 +1,12 @@
 import OwnProfile from "../../containers/OwnProfile/OwnProfile";
-import Start from "../Start/Start";
+import PostsContainer from "../PostsContainer/PostsContainer";
 import "./styles.css";
 
 export default function Home() {
     return (
         <div id="home">
             <OwnProfile />
-            <Start />
+            <PostsContainer />
         </div>
     );
 }
