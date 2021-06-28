@@ -12,7 +12,9 @@ module.exports.addUser = (first, last, email, hashedPassword) => {
     );
 };
 
-module.exports.getUserInfo = (id) => db.query(`SELECT * FROM users WHERE id = $1`, [id]);
+module.exports.addSkills = (id) => db.query(`INSERT INTO music_skills(user_id) VALUES($1)`, [id]);
+
+module.exports.getUserInfo = (id) => db.query(`SELECT * FROM users WHERE id = $1;`, [id]);
 
 module.exports.findUser = (email) => db.query(`SELECT id, first, last, email, password_hash FROM users WHERE email=$1;`, [email]);
 
@@ -215,3 +217,31 @@ module.exports.getMessagesFirst = (myId, targetUserId) => {
 };
 
 module.exports.addLike = (myId, postId) => db.query(`UPDATE posts SET likes = likes || $1 WHERE id = $2;`, [[myId], postId]);
+
+module.exports.getSkills = (id) => db.query(`SELECT * FROM music_skills WHERE user_id = $1;`, [id]);
+
+module.exports.updateSkills = (id, data) => {
+    const { vocals = false, guitar = false, bass = false, drums = false, keyboards = false } = data;
+    return db.query(
+        `
+        UPDATE music_skills
+        SET
+        vocals = $2,
+        guitar = $3,
+        bass = $4,
+        drums = $5,
+        keyboards = $6
+        WHERE user_id = $1 RETURNING * ;
+        `, [id, vocals, guitar, bass, drums, keyboards]);
+};
+
+module.exports.getRecommended = (skills) => {
+    const whereStatement = skills.map(skill => `${skill} <> TRUE`).join(" OR ");
+    return db.query(
+        `
+        SELECT users.id, first, last, profile_picture_url, guitar, bass, keyboards, drums, vocals FROM users 
+        LEFT JOIN music_skills ON (users.id = music_skills.user_id) 
+        WHERE ${whereStatement};
+        `
+    );
+};

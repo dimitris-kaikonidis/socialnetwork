@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import ProfilePicture from "../../components/ProfilePicture/ProfilePicture";
 import Bio from "../Bio/Bio";
 import Uploader from "../Uploader/Uploader";
+import ProfilePicture from "../../components/ProfilePicture/ProfilePicture";
+import MusicSkillsBadges from "../../components/MusicSkillsBadges/MusicSkillsBadges";
 import "./styles.css";
 
 export default function OwnProfile() {
     const user = useSelector(state => state.user);
+    const skills = useSelector(state => state.skills);
     const [uploaderButtonVisibility, setUploaderButtonVisibility] = useState(false);
     const [uploaderVisible, setUploaderVisible] = useState(false);
 
@@ -29,6 +31,7 @@ export default function OwnProfile() {
             </div>
             <h1>{first} {last}</h1>
             <Bio bio={bio} />
+            <MusicSkillsBadges skills={skills} />
             {uploaderVisible && <Uploader closeUpload={closeUpload} />}
         </div>
     );

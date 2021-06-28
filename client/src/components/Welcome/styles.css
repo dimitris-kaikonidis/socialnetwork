@@ -33,11 +33,12 @@
 
 #main-welcome > p {
     margin: auto;
+    padding: 40px;
+    border-radius: 100%;
+    border: solid 15px white;
     transform: rotate(-20deg);
     font-family: "Pacifico";
     font-size: 120px;
-    color: rgb(0, 0, 0);
-    text-shadow: 0 0 7px rgb(255, 255, 255), 0 0 10px rgb(88, 88, 88),
-        0 0 21px #fff, 0 0 42px rgb(4, 0, 255), 0 0 82px rgb(7, 7, 7),
-        0 0 92px rgb(0, 0, 0), 0 0 102px rgb(0, 0, 0), 0 0 151px rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0.95);
 }

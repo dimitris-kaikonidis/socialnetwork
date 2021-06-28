@@ -6,7 +6,8 @@ export default function (state = {}, action) {
                 user: action.user,
                 messages: {},
                 chatIds: [],
-                posts: []
+                posts: [],
+                skills: {}
             };
             break;
         case "EDIT_PROFILE_PIC":
@@ -96,6 +97,19 @@ export default function (state = {}, action) {
                     return friend;
                 })
             };
+            break;
+        case "SET_SKILLS":
+            state = {
+                ...state,
+                skills: action.skills
+            };
+            break;
+        case "UPDATE_SKILLS":
+            state = {
+                ...state,
+                skills: action.skills
+            };
+            break;
     }
     return state;
 }

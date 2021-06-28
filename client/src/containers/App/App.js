@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser, getPosts, getFriendRequests } from "../../redux/actions";
+import { setUser, getPosts, getFriendRequests, setSkills } from "../../redux/actions";
 import { init } from "../../utilities/socket";
 import Welcome from "../../components/Welcome/Welcome";
 import Start from "../../components/Start/Start";
@@ -20,8 +20,9 @@ export default function App({ store }) {
     useEffect(() => !user && dispatch(setUser()), []);
     useEffect(() => {
         if (user) {
-            dispatch(getPosts(user.id))
+            dispatch(getPosts(user.id));
             dispatch(getFriendRequests());
+            dispatch(setSkills(user.id));
         }
     }, [user]);
 

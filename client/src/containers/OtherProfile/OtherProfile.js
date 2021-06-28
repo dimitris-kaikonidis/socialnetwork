@@ -1,20 +1,25 @@
 import { useState, useEffect } from "react";
 import axios from "../../utilities/axios";
-import ProfilePicture from "../../components/ProfilePicture/ProfilePicture";
+import AllPosts from "../AllPosts/AllPosts";
 import FriendButton from "../FriendButton/FriendButton";
+import MusicSkillsBadges from "../../components/MusicSkillsBadges/MusicSkillsBadges";
+import ProfilePicture from "../../components/ProfilePicture/ProfilePicture";
+
 import Loading from "../../components/Loading/Loading";
 import "./styles.css";
-import { useSelector } from "react-redux";
 
 export default function OtherProfile(props) {
     const [user, setUser] = useState(null);
+    const [skills, setSkills] = useState({});
     const { id } = props.match.params;
 
     useEffect(() => {
         (async () => {
             try {
-                const response = await axios.get(`/api/users/${id}`);
-                setUser(response.data.user);
+                const response1 = await axios.get(`/api/users/${id}`);
+                setUser(response1.data.user);
+                const response2 = await axios.get(`/api/user/skills?id=${id}`);
+                setSkills(response2.data);
             } catch (error) {
                 props.history.push("/");
             }
@@ -33,7 +38,10 @@ export default function OtherProfile(props) {
                     <div id="basic-info">
                         <div>
                             <ProfilePicture pictureUrl={profile_picture_url} />
-                            <h1>{first} {last}</h1>
+                            <div>
+                                <h1>{first} {last}</h1>
+                                <MusicSkillsBadges skills={skills} />
+                            </div>
                             <div className="friend-request-buttons">
                                 <FriendButton targetUserId={id} />
                             </div>
@@ -41,6 +49,7 @@ export default function OtherProfile(props) {
                         <h3>{bio}</h3>
                     </div>
                 </div>
+                <AllPosts targetUserId={id} />
             </div>
         );
     }

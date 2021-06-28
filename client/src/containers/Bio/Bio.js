@@ -4,7 +4,7 @@ import { editBio } from "../../redux/actions";
 import Button from "../../components/Button/Button";
 import "./styles.css";
 
-export default function Bio({ bio }) {
+export default function Bio({ bio = "" }) {
     const [draft, setDraft] = useState(bio);
     const [editMode, setEditMode] = useState(false);
 

@@ -1,4 +1,4 @@
-const { makePost, getAllPostsFirst, getAllPostsNext, addLike } = require("../db/index");
+const { makePost, getAllPostsFirst, getAllPostsNext, addLike, getOtherUserPosts } = require("../db/index");
 const express = require("express");
 const router = express.Router();
 

@@ -1,0 +1,58 @@
+.slide-container {
+    background-color: rgb(235, 235, 235);
+    width: 300px;
+    height: 470px;
+    padding: 30px;
+    margin: 50px 100px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 0px 46px -15px rgb(0 0 0 / 80%);
+    -moz-box-shadow: 0px 0px 46px -15px rgba(0, 0, 0, 0.8);
+    box-shadow: 0px 0px 46px -15px rgb(0 0 0 / 80%);
+}
+
+.slick-slider {
+    height: 100%;
+    width: 100%;
+}
+
+.slick-slide img {
+    margin: auto;
+}
+
+.slick-list {
+    height: 100%;
+}
+
+.recommended-user > a {
+    text-decoration: none;
+    color: black;
+}
+
+.recommended-user > a > div {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.recommended-user > a > div > div {
+    display: flex;
+    justify-content: center;
+}
+
+.recommended-user h1 {
+    margin: 0;
+}
+
+.recommended-user .music-skills-badges {
+    margin-top: 0;
+    height: 100%;
+    width: unset;
+}
+
+.recommended-user .music-skills-badges > img {
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+}

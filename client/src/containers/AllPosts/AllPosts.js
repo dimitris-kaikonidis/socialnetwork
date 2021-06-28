@@ -5,7 +5,7 @@ import { useBottomScrollListener } from "react-bottom-scroll-listener";
 import Post from "../../components/Post/Post";
 import "./styles.css";
 
-export default function AllPosts() {
+export default function AllPosts({ targetUserId }) {
     const dispatch = useDispatch();
     const id = useSelector(state => state.user && state.user.id);
     const posts = useSelector(state => state.posts);
@@ -23,6 +23,8 @@ export default function AllPosts() {
                 .filter(post => {
                     if (location.pathname === "/profile") {
                         return id === post.user_id;
+                    } else if (location.pathname.startsWith("/user")) {
+                        return targetUserId == post.user_id;
                     } else return post;
                 })
                 .map(post => <li className="post" key={post.id}><Post postProps={post} /></li>)

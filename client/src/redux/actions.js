@@ -75,7 +75,7 @@ export async function getPosts(id, lastPostId) {
     return { type: "GET_POSTS", posts, more };
 }
 
-export async function addPost(post) {
+export function addPost(post) {
     return { type: "ADD_POST", post };
 }
 
@@ -98,5 +98,27 @@ export function addMessage(message) {
 export function setFriendStatus(friendsOnline) {
     return { type: "SET_ONLINE_FRIENDS", friendsOnline };
 }
+
+export async function setSkills(id) {
+    let skills;
+    try {
+        const response = await axios.get(`/api/user/skills?id=${id}`);
+        skills = response.data;
+    } catch (error) {
+        skills = {};
+    }
+    return { type: "SET_SKILLS", skills };
+}
+
+export async function updateSkills(id, skills) {
+    try {
+        const response = await axios.post(`/api/user/skills/update?id=${id}`, { skills });
+        skills = response.data;
+    } catch (error) {
+        return;
+    }
+    return { type: "UPDATE_SKILLS", skills };
+}
+
 
 

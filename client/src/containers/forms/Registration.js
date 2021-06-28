@@ -1,9 +1,9 @@
 import { useState } from "react";
-import "./styles.css";
-import axios from "../../utilities/axios";
 import { Link } from "react-router-dom";
+import axios from "../../utilities/axios";
 import Error from "../../components/Error/Error";
 import InputField from "../../components/InputField/InputField";
+import "./styles.css";
 
 export default function Registration() {
     const [inputs, setInputs] = useState({

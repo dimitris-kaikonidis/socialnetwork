@@ -1,6 +1,7 @@
 div#other-profile-page {
     margin-top: 120px;
     display: flex;
+    flex-direction: column;
 }
 
 div#other-profile {

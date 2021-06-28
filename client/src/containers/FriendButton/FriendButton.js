@@ -83,6 +83,11 @@ export default function FriendButton({ targetUserId }) {
                 </>
             );
         default:
-            return null;
+            return <Button
+                icon="/assets/add_friend.svg"
+                alt="Add"
+                action={() => friendRequestAction(ACTION_MAKE_REQUEST)}
+                className="friend"
+            />;
     }
 }

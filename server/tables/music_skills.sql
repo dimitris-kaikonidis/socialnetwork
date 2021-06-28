@@ -1,0 +1,11 @@
+DROP TABLE IF EXISTS music_skills;
+
+CREATE TABLE music_skills(
+    id SERIAL PRIMARY KEY,
+    guitar BOOLEAN DEFAULT FALSE,
+    bass BOOLEAN DEFAULT FALSE,
+    drums BOOLEAN DEFAULT FALSE,
+    vocals BOOLEAN DEFAULT FALSE,
+    keyboards BOOLEAN DEFAULT FALSE,
+    user_id INT NOT NULL REFERENCES users(id)
+);

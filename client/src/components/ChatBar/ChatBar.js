@@ -8,11 +8,13 @@ export default function ChatBar() {
 
     return (
         <ul id="chat-bar" >
-            {friends && friends.length &&
+            {friends && friends.length
+                ?
                 friends
                     .filter(friend => friend.chatWindow)
                     .sort((a, b) => b.order - a.order)
                     .map(friend => <li key={friend.id}><ChatWindow friend={friend} /></li>)
+                : null
             }
         </ul>
     );
