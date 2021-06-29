@@ -56,3 +56,9 @@
     height: 30px;
     margin: 5px;
 }
+
+.slide-container .ads img {
+    height: 300px;
+    width: 290px;
+    margin: 10px;
+}

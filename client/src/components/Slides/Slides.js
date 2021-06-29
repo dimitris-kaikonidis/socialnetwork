@@ -68,6 +68,11 @@ export default function Slides() {
                     })
                     : null
                 }
+                <li key="ad" className="ads">
+                    <a href="https://reverb.com/" target="_blank" rel="noreferrer noopener">
+                        <ProfilePicture pictureUrl={"https://i.ytimg.com/vi/igMHq7uTPCM/maxresdefault.jpg"} />
+                    </a>
+                </li>
             </Slider>
         </div>
     );
