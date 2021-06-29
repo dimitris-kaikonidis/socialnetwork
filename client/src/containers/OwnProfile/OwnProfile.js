@@ -29,9 +29,14 @@ export default function OwnProfile() {
                     <img src={"/assets/edit_profile_pic.svg"} alt="edit profile picture" />
                 </div>
             </div>
-            <h1>{first} {last}</h1>
-            <Bio bio={bio} />
-            <MusicSkillsBadges skills={skills} />
+            <div id="profile-info" >
+                <h1>{first} {last}</h1>
+                <Bio bio={bio} />
+                <div className="plays">
+                    <h4>Plays: </h4>
+                    <MusicSkillsBadges skills={skills} />
+                </div>
+            </div>
             {uploaderVisible && <Uploader closeUpload={closeUpload} />}
         </div>
     );

@@ -5,7 +5,7 @@
 #profile {
     background-color: rgb(235, 235, 235);
     width: 300px;
-    height: 470px;
+    height: 430px;
     padding: 30px;
     margin: 50px 100px;
     display: flex;
@@ -19,16 +19,18 @@
 
 #profile-pic {
     position: relative;
+    width: 200px;
+    height: 200px;
 }
 
 #profile-pic > .img-container {
-    width: 200px;
-    height: 200px;
+    width: 100%;
+    height: 100%;
 }
 
 #profile-pic > #edit-profile-pic {
-    width: 200px;
-    height: 200px;
+    width: 100%;
+    height: 100%;
     border-radius: 100%;
     background-color: rgba(0, 0, 0, 0.7);
     position: absolute;
@@ -58,4 +60,61 @@
     width: 100%;
     height: 100%;
     background-color: #000000c9;
+}
+
+#profile #profile-info {
+    width: 50%;
+}
+
+#profile .plays {
+    display: flex;
+    align-items: center;
+}
+
+#profile .plays > h4 {
+    margin: 0;
+}
+
+#profile > .plays > .music-skills-badges {
+    align-self: flex-start;
+}
+
+@media only screen and (max-width: 1165px) {
+    #profile {
+        flex-direction: row;
+        width: 60%;
+        height: 200px;
+    }
+
+    #profile #bio > div {
+        justify-content: flex-start;
+    }
+}
+
+@media only screen and (max-width: 660px) {
+    #profile {
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 585px) {
+    #profile {
+        width: 85%;
+    }
+}
+
+@media only screen and (max-width: 465px) {
+    #profile-pic {
+        width: 150px;
+        height: 150px;
+    }
+
+    #profile-info {
+        width: 80%;
+        height: 90%;
+    }
+
+    #profile-info h1 {
+        margin: 0;
+    }
 }

@@ -5,6 +5,7 @@ form.validation * {
 form.validation {
     display: flex;
     flex-direction: column;
+    align-items: center;
     width: 200px;
     min-height: 500px;
     padding: 30px;
@@ -18,11 +19,16 @@ form.validation > h1 {
     color: white;
 }
 
+form.validation > .input-field {
+    width: 90%;
+}
+
 form.validation > button {
+    width: 65%;
     margin-top: 30px;
     padding: 5px;
     font-size: 20px;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 form.validation > h4 {
@@ -37,4 +43,26 @@ form.validation > h4 > p {
 form.validation > h4 > p > a {
     text-decoration: none;
     color: rgb(109, 148, 233);
+}
+
+@media only screen and (max-width: 920px) {
+    form.validation {
+        width: 60%;
+    }
+
+    form.validation > .input-field {
+        width: 60%;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    form.validation > .input-field {
+        width: 70%;
+    }
+}
+
+@media only screen and (max-width: 440px) {
+    form.validation > .input-field {
+        width: 80%;
+    }
 }

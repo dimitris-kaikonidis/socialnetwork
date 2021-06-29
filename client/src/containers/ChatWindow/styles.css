@@ -1,5 +1,6 @@
 .chat-window {
     position: absolute;
+    z-index: 0;
     top: -400px;
     width: 240px;
     height: 400px;

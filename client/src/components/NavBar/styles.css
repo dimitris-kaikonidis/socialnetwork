@@ -54,3 +54,22 @@ nav div.button > img {
 nav #logout {
     margin-right: 10px;
 }
+
+@media only screen and (max-width: 700px) {
+    nav .music-skills,
+    #friend-requests {
+        margin-right: 10px;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    nav .music-skills,
+    #friend-requests,
+    #logout {
+        margin: 0;
+    }
+
+    nav > a {
+        margin: 0;
+    }
+}

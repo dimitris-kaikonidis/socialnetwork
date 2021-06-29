@@ -4,8 +4,8 @@
 
 #search-results {
     position: absolute;
-    width: 300px;
-    top: 50px;
+    width: 100%;
+    top: 40px;
     background-color: rgba(132, 16, 13, 0.95);
     border-top: solid 5px white;
     border-bottom-right-radius: 5px;

@@ -2,23 +2,34 @@
     position: relative;
     border-radius: 5px;
     width: 100%;
-    height: 150px;
+    height: 100px;
     display: flex;
     flex-direction: column;
 }
 
-#bio > h4 {
+#bio > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#bio > div > h4 {
     margin: 0;
+    margin-right: 10px;
     padding: 0;
 }
 
 #bio > textarea {
+    text-align: center;
+    padding: 15px 0;
     resize: none;
-    height: 80px;
     margin: 0;
     background-color: inherit;
     border: none;
     outline: none;
+    overflow: hidden;
+    word-wrap: break-word;
+    font-size: 15px;
 }
 
 #bio > textarea.on {
@@ -31,17 +42,18 @@
     width: 10px;
 }
 
-#bio > .button {
-    position: absolute;
-    bottom: 5px;
-    right: 5px;
+#bio > div > .button {
+    width: 24px;
+    height: 24px;
     display: flex;
+    margin-right: 5px;
 }
 
 #bio > #save-bio.button {
-    position: absolute;
-    bottom: 5px;
-    right: 35px;
+    display: flex;
+}
+
+#bio > #cancel-bio.button {
     display: flex;
 }
 

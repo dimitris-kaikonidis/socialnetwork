@@ -1,9 +1,8 @@
 .music-skills-badges {
     display: flex;
     justify-content: flex-start;
-    margin-top: auto;
-    margin-right: auto;
-    height: 30px;
+    margin-left: 10px;
+    height: 50px;
     width: 150px;
 }
 

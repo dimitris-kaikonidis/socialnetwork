@@ -24,21 +24,23 @@ export default function Bio({ bio = "" }) {
 
     return (
         <div id="bio">
-            <h4>About me</h4>
+            <div>
+                <h4>About me</h4>
+                {editMode ?
+                    <>
+                        <Button id="save-bio" icon="/assets/save.svg" alt="save" action={saveBio} />
+                        <Button id="cancel-bio" icon="/assets/close.svg" alt="cancel changes" action={cancelChanges} />
+                    </>
+                    :
+                    <Button id="edit-bio" icon="/assets/edit.svg" alt="edit bio" action={openEdit} />}
+            </div>
             <textarea
-                maxLength="222"
+                maxLength="92"
                 className={editMode ? "on" : null}
                 readOnly={!editMode}
                 value={draft}
                 onChange={handleChange}>
             </textarea>
-            {editMode ?
-                <>
-                    <Button id="save-bio" icon="/assets/save.svg" alt="save" action={saveBio} />
-                    <Button id="cancel-bio" icon="/assets/close.svg" alt="cancel changes" action={cancelChanges} />
-                </>
-                :
-                <Button id="edit-bio" icon="/assets/edit.svg" alt="edit bio" action={openEdit} />}
         </div>
     );
 }

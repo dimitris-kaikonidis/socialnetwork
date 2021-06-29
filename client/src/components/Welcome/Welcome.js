@@ -13,7 +13,9 @@ export default function Welcome() {
                 <Logo />
             </div>
             <div id="main-welcome">
-                <p>Let&apos;s Jam</p>
+                <div id="motto">
+                    <p>Let&apos;s Jam</p>
+                </div>
                 <BrowserRouter>
                     <>
                         <Route exact path="/" component={Registration} />

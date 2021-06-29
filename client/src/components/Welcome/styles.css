@@ -1,5 +1,7 @@
 #welcome {
     height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 #welcome > div.header {
@@ -31,14 +33,51 @@
     align-items: center;
 }
 
-#main-welcome > p {
+#main-welcome > #motto {
     margin: auto;
-    padding: 40px;
+}
+
+#main-welcome > #motto > p {
+    line-height: 100%;
+    margin: 0;
+    padding: 80px;
     border-radius: 100%;
     border: solid 15px white;
     transform: rotate(-20deg);
     font-family: "Pacifico";
-    font-size: 120px;
+    font-size: 7vw;
     color: rgb(255, 255, 255);
     background-color: rgba(0, 0, 0, 0.95);
+    -webkit-box-shadow: 0px 0px 46px -15px rgba(0, 0, 0, 0.8);
+    -moz-box-shadow: 0px 0px 46px -15px rgba(0, 0, 0, 0.8);
+    box-shadow: 0px 0px 46px -15px rgba(0, 0, 0, 0.8);
+}
+
+@media only screen and (max-width: 1000px) {
+}
+
+@media only screen and (max-width: 920px) {
+    #main-welcome {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #main-welcome > #motto {
+        margin: 0;
+        margin-bottom: 100px;
+    }
+}
+
+@media only screen and (max-width: 850px) {
+    #main-welcome > #motto > p {
+        font-size: 10vw;
+        padding: 60px;
+    }
+}
+
+@media only screen and (max-width: 565px) {
+    #main-welcome > #motto > p {
+        font-size: 12vw;
+        padding: 40px;
+    }
 }

@@ -1,6 +1,6 @@
-// const spicedPG = require('spiced-pg');
+const spicedPG = require('spiced-pg');
 
-// const db = spicedPG(process.env.DATABASE_URL || "postgres:dim107:postgres@localhost:5432/socialnetwork");
+const db = spicedPG(process.env.DATABASE_URL || "postgres:dim107:postgres@localhost:5432/socialnetwork");
 
 const { Pool } = require("pg");
 // const params = {
@@ -11,12 +11,12 @@ const { Pool } = require("pg");
 //     port: 5432
 // };
 
-const db = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-        rejectUnauthorized: false
-    }
-});
+// const db = new Pool({
+//     connectionString: process.env.DATABASE_URL,
+//     ssl: {
+//         rejectUnauthorized: false
+//     }
+// });
 
 module.exports.addUser = (first, last, email, hashedPassword) => {
     return db.query(

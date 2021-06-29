@@ -39,8 +39,8 @@ export default function Slides() {
 
     const settings = {
         dots: true,
-        infinite: true,
-        autoplay: true,
+        // infinite: true,
+        // autoplay: true,
         autoplaySpeed: 5000
     };
 

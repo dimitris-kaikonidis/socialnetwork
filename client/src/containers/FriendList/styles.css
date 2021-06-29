@@ -59,3 +59,27 @@
     width: 100%;
     border-top: solid black 2px;
 }
+
+.friends-list-vis {
+    height: 50px;
+    width: 30px;
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-100%);
+    display: flex;
+}
+
+.friends-list-vis:hover {
+    border-radius: 5px;
+    background-color: rgba(211, 211, 211, 0.3);
+}
+
+.friends-list-vis > img {
+    height: 100%;
+    width: 100%;
+}
+
+#close-friends.friends-list-vis {
+    right: 210px;
+}
