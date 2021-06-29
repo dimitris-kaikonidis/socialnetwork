@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateLikes } from "../../redux/actions";
 import dateFn from "date-fns/format";
 import axios from "../../utilities/axios";
 import ProfilePicture from "../../components/ProfilePicture/ProfilePicture";
@@ -9,6 +10,7 @@ import Comments from "../Comments/Comments";
 import "./styles.css";
 
 export default function Post({ postProps }) {
+    const dispatch = useDispatch();
     const currentUserId = useSelector(state => state.user && state.user.id);
     const { id, user_id, first, last, profile_picture_url, post, likes, comment_count, created_at } = postProps;
     const [likeNum, setLikeNum] = useState(likes.length);
@@ -17,7 +19,8 @@ export default function Post({ postProps }) {
     const like = async () => {
         if (likes.indexOf(currentUserId) == -1)
             try {
-                await axios.post(`/api/posts/like?postId=${id}`);
+                const response = await axios.post(`/api/posts/like?postId=${id}`);
+                dispatch(updateLikes(id, response.data));
                 setLikeNum(likeNum + 1);
             } catch (error) {
                 console.log(error);

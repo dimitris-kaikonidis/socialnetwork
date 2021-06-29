@@ -110,6 +110,15 @@ export default function (state = {}, action) {
                 skills: action.skills
             };
             break;
+        case "UPDATE_LIKES":
+            state = {
+                ...state,
+                posts: state.posts.map(post => {
+                    if (post.id === action.id) return { ...post, likes: action.likes };
+                    else return post;
+                })
+            };
+            break;
     }
     return state;
 }

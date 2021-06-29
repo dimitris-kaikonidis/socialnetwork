@@ -235,7 +235,10 @@ module.exports.getMessagesFirst = (myId, targetUserId) => {
     );
 };
 
-module.exports.addLike = (myId, postId) => db.query(`UPDATE posts SET likes = likes || $1 WHERE id = $2;`, [[myId], postId]);
+module.exports.addLike = (myId, postId) => db.query(
+    `
+    UPDATE posts SET likes = likes || $1 WHERE id = $2 RETURNING *;
+    `, [[myId], postId]);
 
 module.exports.getSkills = (id) => db.query(`SELECT * FROM music_skills WHERE user_id = $1;`, [id]);
 

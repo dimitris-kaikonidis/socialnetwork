@@ -120,5 +120,9 @@ export async function updateSkills(id, skills) {
     return { type: "UPDATE_SKILLS", skills };
 }
 
+export function updateLikes(id, likes) {
+    return { type: "UPDATE_LIKES", id, likes };
+}
+
 
 

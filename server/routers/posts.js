@@ -1,4 +1,4 @@
-const { makePost, getAllPostsFirst, getAllPostsNext, addLike, getOtherUserPosts } = require("../db/index");
+const { makePost, getAllPostsFirst, getAllPostsNext, addLike } = require("../db/index");
 const express = require("express");
 const router = express.Router();
 
@@ -41,8 +41,8 @@ router.post("/api/posts/like", async (req, res) => {
     const { id } = req.session.user;
     const { postId } = req.query;
     try {
-        await addLike(id, postId);
-        res.status(200).json();
+        const response = await addLike(id, postId);
+        res.status(200).json(response.rows[0].likes);
     } catch (error) {
         console.log(error);
         res.status(400).json();
