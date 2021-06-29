@@ -3,13 +3,13 @@
 // const db = spicedPG(process.env.DATABASE_URL || "postgres:dim107:postgres@localhost:5432/socialnetwork");
 
 const { Pool } = require("pg");
-const params = {
-    user: "dim107",
-    host: "localhost",
-    database: "socialnetwork",
-    password: "postgres",
-    port: 5432
-};
+// const params = {
+//     user: "dim107",
+//     host: "localhost",
+//     database: "socialnetwork",
+//     password: "postgres",
+//     port: 5432
+// };
 
 const db = new Pool({
     connectionString: process.env.DATABASE_URL,
@@ -116,7 +116,7 @@ module.exports.getAllPostsFirst = (id) => db.query(
     ON (users.id = posts.user_id)
     LEFT JOIN friends
     ON (users.id = friends.sender OR users.id = friends.receiver)
-    WHERE (friends.sender = $1 OR friends.receiver = $1) AND friends.status = TRUE
+    WHERE ((friends.sender = $1 OR friends.receiver = $1) AND friends.status = TRUE) OR posts.user_id = $1
     ORDER BY (posts.id) DESC LIMIT 5;
     `, [id]
 );
@@ -130,7 +130,9 @@ module.exports.getAllPostsNext = (id, lastId) => db.query(
     ON (users.id = posts.user_id)
     LEFT JOIN friends
     ON (users.id = friends.sender OR users.id = friends.receiver)
-    WHERE ((friends.sender = $1 OR friends.receiver = $1) AND friends.status = TRUE) AND posts.id < $2
+    WHERE 
+    (((friends.sender = $1 OR friends.receiver = $1) AND friends.status = TRUE) OR posts.user_id = $1)
+    AND posts.id < $2
     ORDER BY (posts.id) DESC LIMIT 5;
     `, [id, lastId]
 );
@@ -191,6 +193,7 @@ module.exports.acceptFriendRequest = (myUserId, OtherUserId) => {
         `, [myUserId, OtherUserId]
     );
 };
+
 
 module.exports.getFriendRequests = (myUserId) => {
     return db.query(
