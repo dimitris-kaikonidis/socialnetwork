@@ -6,11 +6,17 @@ const { Pool } = require("pg");
 const params = {
     user: "dim107",
     host: "localhost",
-    database: "petition",
+    database: "socialnetwork",
     password: "postgres",
     port: 5432
 };
-const db = new Pool(process.env.DATABASE_URL || params);
+
+const db = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
+});
 
 module.exports.addUser = (first, last, email, hashedPassword) => {
     return db.query(
