@@ -1,7 +1,7 @@
 const { findUser, findResetCode, setNewPassword, setResetCode, deleteResetCode } = require("../db/index");
 const { sendEmail } = require("../utilities/SES");
 const { genHash } = require("../utilities/bcrypt");
-const { myEmail } = require("../secrets.json");
+const myEmail = process.env.myEmail || require("../secrets.json").myEmail;
 const cryptoRandomString = require("crypto-random-string");
 const express = require("express");
 const router = express.Router();

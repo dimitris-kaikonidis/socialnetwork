@@ -1,5 +1,5 @@
 const aws = require("aws-sdk");
-const { myEmail } = require("../secrets.json");
+const myEmail = process.env.myEmail || require("../secrets.json").myEmail;
 
 const secrets = process.env.NODE_ENV === "production" ? process.env : require("../secrets.json");
 
