@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import Loading from "../../components/Loading/Loading";
 import Button from "../../components/Button/Button";
@@ -8,7 +8,9 @@ import "./styles.css";
 
 export default function FriendRequests() {
     const [visibility, setVisibility] = useState(false);
+    const [justBlurred, setJustBlurred] = useState(false);
     const id = useSelector(state => state.user && state.user.id);
+    const reqRef = useRef();
 
     const incomingFriendRequests = useSelector(state =>
         state.friendRequests && state.friendRequests.filter(request => request.receiver === id)
@@ -17,8 +19,26 @@ export default function FriendRequests() {
         state.friendRequests && state.friendRequests.filter(request => request.receiver !== id)
     );
 
+    useEffect(() => {
+        if (reqRef.current && visibility) {
+            reqRef.current.focus();
+        }
+    }, [visibility]);
+
+    const toggleVisibility = () => {
+        if (justBlurred) {
+            setJustBlurred(false);
+            return;
+        }
+        setVisibility(true);
+    };
+    const handleBlur = () => {
+        setVisibility(false);
+        setJustBlurred(true);
+    };
+
     return (
-        <div id="friend-requests">
+        <div id="friend-requests" onBlur={handleBlur}>
             <span className={
                 (incomingFriendRequests && sentFriendRequests) &&
                     (incomingFriendRequests.length || sentFriendRequests.length) ? "" : "zero"
@@ -30,11 +50,11 @@ export default function FriendRequests() {
             </span>
             <Button
                 icon="/assets/friend_requests.svg"
-                action={() => setVisibility(!visibility)}
+                action={toggleVisibility}
             />
             {visibility
                 ?
-                <ul id="friend-requests-result">
+                <ul id="friend-requests-result" tabIndex="1" ref={reqRef}>
                     <div className="arrow-up"></div>
                     <div className="border">
                         <div></div>

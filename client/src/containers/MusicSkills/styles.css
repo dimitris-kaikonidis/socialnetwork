@@ -16,6 +16,7 @@
     margin: 0;
     padding: 20px;
     list-style-type: none;
+    outline: none;
 }
 
 #skills-list > .arrow-up {

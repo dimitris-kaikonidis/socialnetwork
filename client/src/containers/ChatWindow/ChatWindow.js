@@ -6,7 +6,6 @@ import { socket } from "../../utilities/socket";
 import ProfilePicture from "../../components/ProfilePicture/ProfilePicture";
 import "./styles.css";
 
-
 export default function ChatWindow({ friend }) {
     const { first, last, profile_picture_url, user_id } = friend;
     const dispatch = useDispatch();

@@ -50,6 +50,9 @@
     margin-left: 5px;
     width: 10px;
     height: 10px;
+}
+
+#friend-list > li > .online-status.off {
     filter: invert(0.8);
 }
 

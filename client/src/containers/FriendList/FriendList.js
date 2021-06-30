@@ -30,7 +30,7 @@ export default function FriendList() {
                         <ProfilePicture pictureUrl={friend.profile_picture_url} />
                         <p>{friend.first} {friend.last}</p>
                         <img
-                            className="online-status"
+                            className={friend.status ? "online-status" : "online-status off"}
                             src={friend.status ? "/assets/online.svg" : "/assets/offline.svg"}
                             alt={friend.status ? "online" : "offline"}
                         />

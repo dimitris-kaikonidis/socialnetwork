@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateSkills } from "../../redux/actions";
 import Button from "../../components/Button/Button";
@@ -10,30 +10,40 @@ export default function MusicSkills() {
     const skills = useSelector(state => state.skills);
     const [tempSkills, setTempSkills] = useState({});
     const [visibility, setVisibility] = useState(false);
+    const [justBlurred, setJustBlurred] = useState(false);
+    const skillsRef = useRef();
 
     useEffect(() => setTempSkills(skills), [skills]);
 
-    const toggleVisibility = () => {
-        setVisibility(!visibility);
-    };
+    useEffect(() => {
+        if (skillsRef.current && visibility) {
+            skillsRef.current.focus();
+        }
+    }, [visibility]);
 
-    const handleChange = (event) => {
-        setTempSkills({
-            ...tempSkills,
-            [event.target.name]: !tempSkills[event.target.name]
-        });
-    };
-
+    const handleChange = (event) => setTempSkills({ ...tempSkills, [event.target.name]: !tempSkills[event.target.name] });
     const saveChanges = () => {
         dispatch(updateSkills(id, tempSkills));
         toggleVisibility(false);
     };
 
+    const toggleVisibility = () => {
+        if (justBlurred) {
+            setJustBlurred(false);
+            return;
+        }
+        setVisibility(true);
+    };
+    const handleBlur = () => {
+        setVisibility(false);
+        setJustBlurred(true);
+    };
+
     return (
-        <div className="music-skills">
+        <div className="music-skills" onBlur={handleBlur} >
             <Button icon="/assets/music_skills.svg" alt="music skills" action={toggleVisibility} />
             {visibility &&
-                <ul id="skills-list">
+                <ul id="skills-list" tabIndex="0" ref={skillsRef}>
                     <div className="arrow-up"></div>
                     <h4>Your Skills</h4>
                     <li className="skill" >

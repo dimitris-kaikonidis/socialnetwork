@@ -11,8 +11,6 @@ export default function Search() {
     const [focus, setFocus] = useState(false);
 
     const handleInput = (searchQuery, value) => setSearchQuery(value);
-    const handleSubmit = (event) => event.preventDefault();
-
     const handleFocus = () => setFocus(true);
     const handleBlur = () => setTimeout(() => setFocus(false), 100);
 

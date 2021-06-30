@@ -19,6 +19,7 @@
     margin: 0;
     padding: 20px;
     list-style-type: none;
+    outline: none;
 }
 
 #friend-requests > span {
