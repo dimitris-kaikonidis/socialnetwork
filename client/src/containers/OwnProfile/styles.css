@@ -63,7 +63,8 @@
 }
 
 #profile #profile-info {
-    width: 55%;
+    margin-left: 20px;
+    width: 100%;
 }
 
 #profile .plays {
@@ -84,6 +85,11 @@
         flex-direction: row;
         width: 60%;
         height: 200px;
+    }
+
+    #profile #profile-info {
+        margin-left: 20px;
+        width: 55%;
     }
 
     #profile #bio > div {
