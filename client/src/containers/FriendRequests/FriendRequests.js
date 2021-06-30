@@ -33,6 +33,7 @@ export default function FriendRequests() {
         setVisibility(true);
     };
     const handleBlur = () => {
+        if (reqRef.current.contains(event.relatedTarget)) return;
         setVisibility(false);
         setJustBlurred(true);
     };

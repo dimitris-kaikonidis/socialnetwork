@@ -27,7 +27,6 @@ export default function Slides() {
             (async () => {
                 try {
                     const response = await axios.get(`/api/recommended?skills=${queryStr}`);
-                    console.log(response.data);
                     setRecommended(response.data);
                 } catch (error) {
                     console.log(error);

@@ -24,7 +24,7 @@ export default function MusicSkills() {
     const handleChange = (event) => setTempSkills({ ...tempSkills, [event.target.name]: !tempSkills[event.target.name] });
     const saveChanges = () => {
         dispatch(updateSkills(id, tempSkills));
-        toggleVisibility(false);
+        setVisibility(false);
     };
 
     const toggleVisibility = () => {
@@ -34,16 +34,17 @@ export default function MusicSkills() {
         }
         setVisibility(true);
     };
-    const handleBlur = () => {
+    const handleBlur = (event) => {
+        if (skillsRef.current.contains(event.relatedTarget)) return;
         setVisibility(false);
         setJustBlurred(true);
     };
 
     return (
-        <div className="music-skills" onBlur={handleBlur} >
+        <div className="music-skills">
             <Button icon="/assets/music_skills.svg" alt="music skills" action={toggleVisibility} />
             {visibility &&
-                <ul id="skills-list" tabIndex="0" ref={skillsRef}>
+                <ul id="skills-list" tabIndex="0" ref={skillsRef} onBlur={handleBlur}>
                     <div className="arrow-up"></div>
                     <h4>Your Skills</h4>
                     <li className="skill" >
