@@ -4,22 +4,22 @@
 
 ####Functionalities:
 
-*Create account
-*Upload Picture
-*Crop Picture
-*Reset Password and sending reset code to email using AWS SES
-*Likes & Comments
-*Recommendations based on user skills
-*Friends
-*Chat
+* Create account
+* Upload Picture
+* Crop Picture
+* Reset Password and sending reset code to email using AWS SES
+* Likes & Comments
+* Recommendations based on user skills
+* Friends
+* Chat
 
 ####Tech Stack:
 
-*React
-*Redux
-*Node.js
-*Express
-*PostgreSQL
-*Redis
-*Socket.io
-*AWS
+* React
+* Redux
+* Node.js
+* Express
+* PostgreSQL
+* Redis
+* Socket.io
+* AWS
