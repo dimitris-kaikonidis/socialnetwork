@@ -2,7 +2,7 @@
 
 #### Check out on heroku https://bandm8s.herokuapp.com/
 
-####Functionalities:
+#### Functionalities:
 
 * Create account
 * Upload Picture
@@ -13,7 +13,7 @@
 * Friends
 * Chat
 
-####Tech Stack:
+#### Tech Stack:
 
 * React
 * Redux
